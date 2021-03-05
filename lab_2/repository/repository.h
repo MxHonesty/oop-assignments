@@ -6,9 +6,7 @@
 #define LAB_2_REPOSITORY_H
 
 #include "../domain/payment.h"
-
-/** Numarul de elemente initiale dintr-un repository. */
-const int NUMAR_ELEMENTE_INITIALE = 10;
+#include <stdlib.h>
 
 /**
  * Structura care este responsabila pentru stocarea paymenturilor.
@@ -45,7 +43,7 @@ void destroy_repository_payment(repository_payment repo_de_dealocat);
  *
  * TODO: De adaugat mecanism de redimensionare array dinamic cand se depaseste marimea data.
  */
-void add_payment(repository_payment repo, payment de_copiat);
+void add_payment(repository_payment* repo, payment de_copiat);
 
 /**
  * Cauta si returneaza un pointer la paymentul identificat prin id-ul dat.
@@ -63,5 +61,12 @@ payment* search_payment(repository_payment repo, int id_cautat);
  * @param new_payment - noul payment de aduagat.
  */
 void update_payment(repository_payment repo, int id_updatat, payment new_payment);
+
+/**
+ * Elimina elementul cu id dat din repository.
+ * @param repo - repository din care dorim sa stergem
+ * @param id_removed - id-ul elementului pe care dorim sa il stergem.
+ */
+void remove_payment(repository_payment* repo, int id_removed);
 
 #endif //LAB_2_REPOSITORY_H

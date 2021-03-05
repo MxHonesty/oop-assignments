@@ -1,6 +1,8 @@
-#include <stdio.h>
+#include "./tests/test_repository.h"
+
 
 int main() {
-    printf("Hello, World!\n");
+
+    run_all_repository_tests();
     return 0;
 }
