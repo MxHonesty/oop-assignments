@@ -69,4 +69,12 @@ void update_payment(repository_payment repo, int id_updatat, payment new_payment
  */
 void remove_payment(repository_payment* repo, int id_removed);
 
+/**
+ * Determina daca paymentul dat se afla in repository.
+ * @param repo - in care dorim sa executam cautarea
+ * @param payment_de_cautat - elementul pe care il cautam
+ * @return 1 daca elementul este gasit, 0 altfel.
+ */
+int is_payment_included(repository_payment repo, payment payment_de_cautat);
+
 #endif //LAB_2_REPOSITORY_H

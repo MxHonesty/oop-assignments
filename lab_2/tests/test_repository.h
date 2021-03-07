@@ -9,7 +9,4 @@
 
 void run_all_repository_tests();
 
-void test_repository();
-
-
 #endif //LAB_2_TEST_REPOSITORY_H

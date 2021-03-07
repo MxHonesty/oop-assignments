@@ -58,3 +58,11 @@ void remove_payment(repository_payment* repo, int id_removed) {
         repo->maxim_curent--;
     }
 }
+
+int is_payment_included(repository_payment repo, payment payment_de_cautat) {
+    for(int i=0; i<repo.maxim_curent; i++){
+        if(payment_equals(repo.payments[i], payment_de_cautat))
+            return 1;
+    }
+    return 0;
+}

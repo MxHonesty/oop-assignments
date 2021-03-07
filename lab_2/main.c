@@ -1,8 +1,9 @@
-#include "./tests/test_repository.h"
-
+#include "./tests/tests.h"
+#include "./ui/ui.h"
 
 int main() {
+    run_all_tests();
 
-    run_all_repository_tests();
+    run();  // Main loop ui function.
     return 0;
 }
