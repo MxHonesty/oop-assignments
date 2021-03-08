@@ -37,5 +37,11 @@ int citire_int(const char* text);
  */
 int* citire_payment();
 
+/**
+ * Citeste un sir de caractere care reprezinta tipul. Acesta este convertit in int-ul corespunzator.
+ * @return Returneaza tipul daca sirul citit este coret, returneaza -1 daca nu este un sir valid.
+ */
+int citire_tip();
+
 
 #endif //LAB_2_UI_H

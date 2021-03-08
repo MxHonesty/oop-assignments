@@ -40,8 +40,7 @@ void destroy_repository_payment(repository_payment repo_de_dealocat);
  * <h2>!!! se aduaga o copie a paymentului NU O REFERINTA !!!</h2>
  * @param repo - repository-ul in care dorim sa adaugam.
  * @param de_adaugat - paymentul pe care dorim sa il adaugam.
- *
- * TODO: De adaugat mecanism de redimensionare array dinamic cand se depaseste marimea data.
+ * Daca prin adaugare se trece de marimea curenta a array-ului, se aloca unul nou de lungime dubla.
  */
 void add_payment(repository_payment* repo, payment de_copiat);
 
@@ -76,5 +75,13 @@ void remove_payment(repository_payment* repo, int id_removed);
  * @return 1 daca elementul este gasit, 0 altfel.
  */
 int is_payment_included(repository_payment repo, payment payment_de_cautat);
+
+/**
+ * Functia aloca un array dublu celui anterior si copiaza elementele in el.
+ * @param repo - repository-ul dorit
+ * @return <li>Returneaza 0 daca realocarea a fost efectuata cu succes.</li>
+ * <li>Returneaza 1 pentru erori de alocare.</li>
+ */
+int redimensionare_repository(repository_payment* repo);
 
 #endif //LAB_2_REPOSITORY_H

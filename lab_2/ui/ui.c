@@ -4,6 +4,7 @@
 
 #include "ui.h"
 #include <stdio.h>
+#include <string.h>
 
 void run() {
     service_payments service;
@@ -122,8 +123,8 @@ int *citire_payment() {
     }
     fflush(stdin);
 
-    tip = citire_int("tip: ");
-    if(tip <= 0){
+    tip = citire_tip("tip: ");
+    if(tip < 0){
         printf("Tip invalid\n");
         return NULL;
     }
@@ -134,4 +135,24 @@ int *citire_payment() {
     ptr[2] = zi;
     ptr[3] = tip;
     return ptr;
+}
+
+int citire_tip(const char* text) {
+    char sir[30];
+    int tip = -1;
+    printf("%s", text);
+    scanf("%30s", sir);
+    fflush(stdin);
+    if(strcmp(sir, "mancare") == 0)
+        tip = 0;
+    else if(strcmp(sir, "transport") == 0)
+        tip = 1;
+    else if(strcmp(sir, "telefon") == 0)
+        tip = 2;
+    else if(strcmp(sir, "imbracaminte") == 0)
+        tip = 3;
+    else if(strcmp(sir, "altele") == 0)
+        tip = 4;
+
+    return tip;
 }

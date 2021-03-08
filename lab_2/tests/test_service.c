@@ -7,9 +7,9 @@
 #include <assert.h>
 
 void test_create_destroy(){
-    // TODO: De intrebat cum testam alocarea dinamica?
     service_payments service;
     construct_service(&service);
+    assert(service.repo.payments != NULL);
 
     destroy_service(&service);
 }
@@ -67,6 +67,25 @@ void test_modificare(){
     destroy_service(&service);
 }
 
+void test_redimensionare(){
+    service_payments service;
+    construct_service(&service);
+    payment de_test = create_payment(1, 1, 1, TIP_ALTELE);
+    for(int i=0; i<15; i++)
+        add_payment(&service.repo, de_test);
+
+    assert(service.repo.marime == 20);
+    assert(service.repo.maxim_curent == 15);
+
+    for(int i=0; i<15; i++)
+        add_payment(&service.repo, de_test);
+
+    assert(service.repo.marime == 40);
+    assert(service.repo.maxim_curent == 30);
+
+    destroy_service(&service);
+}
+
 /**
  * Ruleaza toate testele din service.
  */
@@ -75,4 +94,5 @@ void run_all_service_tests() {
     test_adaugare();
     test_stergere();
     test_modificare();
+    test_redimensionare();
 }

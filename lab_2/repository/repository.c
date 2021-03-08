@@ -21,6 +21,9 @@ void destroy_repository_payment(repository_payment repo_de_dealocat) {
 }
 
 void add_payment(repository_payment* repo, payment de_copiat) {
+    if(repo->maxim_curent >= repo->marime){
+        redimensionare_repository(repo);
+    }
     repo->payments[repo->maxim_curent] = de_copiat;
     repo->maxim_curent = repo->maxim_curent + 1;
 }
@@ -64,5 +67,19 @@ int is_payment_included(repository_payment repo, payment payment_de_cautat) {
         if(payment_equals(repo.payments[i], payment_de_cautat))
             return 1;
     }
+    return 0;
+}
+
+int redimensionare_repository(repository_payment *repo) {
+    int new_marime = repo->marime * 2;
+    payment* new_arr = malloc(sizeof(payment)*new_marime);  // Un array dublu.
+    repo->marime = new_marime;
+    for(int i=0; i<repo->maxim_curent; i++){
+        new_arr[i] = repo->payments[i];
+    }
+
+    free(repo->payments);
+    repo->payments = new_arr;
+
     return 0;
 }
