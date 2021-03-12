@@ -3,7 +3,6 @@
 //
 
 #include "test_repository.h"
-#include <stdio.h>
 #include <assert.h>
 
 /**
@@ -79,10 +78,24 @@ void test_este_inclus(){
     assert(!is_payment_included(repo, create_payment(1000, 2, 3, TIP_TELEFON_INTERNET)));
 }
 
+void test_copiere_lista(){
+    repository_payment repo = create_repository_payment();
+    add_payment(&repo, create_payment(1, 1, 1, TIP_ALTELE));
+    add_payment(&repo, create_payment(2, 2, 2, TIP_MANCARE));
+    payment* lista = copiere_lista(&repo);
+    for(int i=0; i<repo.maxim_curent; i++)
+        assert(payment_equals(lista[i], repo.payments[i]));  // Verifica valori egale
+
+    // Verifica ca este copie
+    update_payment(repo, 1, create_payment(3, 3, 3, TIP_IMBRACAMINTE));
+    assert(!payment_equals(lista[0], *search_payment(repo, 3)));
+}
+
 void run_all_repository_tests() {
     test_repository();
     test_remove();
     test_search();
     test_update();
     test_este_inclus();
+    test_copiere_lista();
 }

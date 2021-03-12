@@ -86,6 +86,31 @@ void test_redimensionare(){
     destroy_service(&service);
 }
 
+#include <stdio.h>
+
+void test_sort_suma(){
+    service_payments service;
+    construct_service(&service);
+    adaugare_payment(&service, 1, 3, 1, TIP_ALTELE);
+    adaugare_payment(&service, 2, 2, 1, TIP_ALTELE);
+    adaugare_payment(&service, 3, 10, 1, TIP_ALTELE);
+    adaugare_payment(&service, 10, 1, 1, TIP_ALTELE);
+
+    payment* lista = sortare_suma(&service, 1);
+    assert(payment_equals(lista[0], create_payment(10, 1, 1, TIP_ALTELE)));
+    assert(payment_equals(lista[1], create_payment(2, 2, 1, TIP_ALTELE)));
+    assert(payment_equals(lista[2], create_payment(1, 3, 1, TIP_ALTELE)));
+    assert(payment_equals(lista[3], create_payment(3, 10, 1, TIP_ALTELE)));
+    free(lista);
+
+    lista = sortare_suma(&service, 0);
+    assert(payment_equals(lista[0], create_payment(3, 10, 1, TIP_ALTELE)));
+    assert(payment_equals(lista[1], create_payment(1, 3, 1, TIP_ALTELE)));
+    assert(payment_equals(lista[2], create_payment(2, 2, 1, TIP_ALTELE)));
+    assert(payment_equals(lista[3], create_payment(10, 1, 1, TIP_ALTELE)));
+    free(lista);
+}
+
 /**
  * Ruleaza toate testele din service.
  */
@@ -95,4 +120,5 @@ void run_all_service_tests() {
     test_stergere();
     test_modificare();
     test_redimensionare();
+    test_sort_suma();
 }

@@ -83,3 +83,11 @@ int redimensionare_repository(repository_payment *repo) {
 
     return 0;
 }
+
+payment *copiere_lista(repository_payment *repo) {
+    payment* rez = NULL;
+    rez = (payment*) malloc(sizeof(payment) * repo->maxim_curent);
+    for(int i=0; i<repo->maxim_curent; i++)
+        rez[i] = repo->payments[i];
+    return rez;
+}

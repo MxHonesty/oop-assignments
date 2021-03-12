@@ -61,4 +61,21 @@ int stergere_payment(service_payments* service, int id);
  */
 int modificare_payment(service_payments* service, int id, int new_id, int new_suma, int new_zi, int new_tip);
 
+/**
+ * Returneaza o lista de payment sortata dupa suma.
+ * @param service - serviciul in care efectuam operatia
+ * @param crescator - 1 daca sortarea se face crescator, 0 daca se face descrescator
+ * @return returneaza o lista responsabilitatea de delocare cade asupra apelantului.
+ */
+payment* sortare_suma(service_payments* service, int crescator);
+
+/**
+ * Returneaza o lista de payment sortata dupa suma.
+ * @param service - serviciul in care efectuam operatia
+ * @param creascator - 1 daca vrem sortare crescatoare, 0 daca vrem descrescatoare.
+ * @return returneaza un pointer la o lista de elemenente. Responsabilitatea de eliberarea a memorie cade asupra
+ * apelantului.
+ */
+payment* sortare_tip(service_payments* service, int creascator);
+
 #endif //LAB_2_SERVICE_PAYMENT_H

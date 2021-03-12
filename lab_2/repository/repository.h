@@ -84,4 +84,11 @@ int is_payment_included(repository_payment repo, payment payment_de_cautat);
  */
 int redimensionare_repository(repository_payment* repo);
 
+/**
+ * Functia returneaza un pointer la un array alocat dinamic care este o copie a array-ului din repo.
+ * @param repo - repository pe care dorim sa il copiem
+ * @return un pointer la array alocat dinamic <h2> Apelatorul trebuie sa elibereze memoria </h2>
+ */
+payment* copiere_lista(repository_payment* repo);
+
 #endif //LAB_2_REPOSITORY_H

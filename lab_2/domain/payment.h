@@ -48,7 +48,15 @@ int payment_equals(payment comp1, payment comp2);
 /**
  * Functie de afisare payment.
  * @param de_afisat
+ * TODO: conversie din tip int la string aferent. De implementat un sistem care sa faca conversia
  */
 char* afisare_payment(payment de_afisat);
+
+/**
+ * Returneaza varianta de string a tipului dat.
+ * @param tip
+ * @return Returneaza un pointer la un string alocat dinamic. Apelantul este responsabil pentru eliberare memorie.
+ */
+char* conversie_tip(int tip);
 
 #endif //LAB_2_PAYMENT_H

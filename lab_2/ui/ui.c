@@ -144,15 +144,15 @@ int citire_tip(const char* text) {
     scanf("%30s", sir);
     fflush(stdin);
     if(strcmp(sir, "mancare") == 0)
-        tip = 0;
+        tip = TIP_MANCARE;
     else if(strcmp(sir, "transport") == 0)
-        tip = 1;
+        tip = TIP_TRANSPORT;
     else if(strcmp(sir, "telefon") == 0)
-        tip = 2;
+        tip = TIP_TELEFON_INTERNET;
     else if(strcmp(sir, "imbracaminte") == 0)
-        tip = 3;
+        tip = TIP_IMBRACAMINTE;
     else if(strcmp(sir, "altele") == 0)
-        tip = 4;
+        tip = TIP_ALTELE;
 
     return tip;
 }

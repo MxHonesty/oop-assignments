@@ -36,3 +36,53 @@ int modificare_payment(service_payments *service, int id, int new_id, int new_su
     update_payment(service->repo, id, new_payment);
     return 0;
 }
+
+/**
+ * Interschimba doua paymenturi
+ * @param pay1
+ * @param pay2
+ */
+void switch_payments(payment* pay1, payment* pay2){
+    payment auxiliar = *pay1;
+    *pay1= *pay2;
+    *pay2 = auxiliar;
+}
+
+payment *sortare_suma(service_payments *service, int crescator) {
+    payment* lista = copiere_lista(&service->repo);
+    int marime = service->repo.maxim_curent;
+
+    if(crescator == 1){
+        for(int i=0; i<marime-1; i++)
+            for(int j=i+1; j<marime; j++)
+                if(lista[i].suma > lista[j].suma)
+                    switch_payments(&lista[i], &lista[j]);
+    } else if(crescator == 0){
+        for(int i=0; i<marime-1; i++)
+            for(int j=i+1; j<marime; j++)
+                if(lista[i].suma < lista[j].suma)
+                    switch_payments(&lista[i], &lista[j]);
+    }
+
+    return lista;
+}
+
+payment *sortare_tip(service_payments *service, int crescator) {
+    payment* lista = copiere_lista(&service->repo);
+    int marime = service->repo.maxim_curent;
+
+    if(crescator == 1){
+        for(int i=0; i<marime-1; i++)
+            for(int j=i+1; j<marime; j++)
+                if(lista[i].tip < lista[j].tip)
+                    switch_payments(&lista[i], &lista[j]);
+    }
+    else if(crescator == 0){
+        for(int i=0; i<marime-1; i++)
+            for(int j=i+1; j<marime; j++)
+                if(lista[i].tip < lista[j].tip)
+                    switch_payments(&lista[i], &lista[j]);
+    }
+
+    return lista;
+}

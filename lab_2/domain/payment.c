@@ -5,6 +5,7 @@
 #include "payment.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 payment create_payment(int id, int suma, int zi, PaymentType tip) {
     payment result;
@@ -28,6 +29,34 @@ int payment_equals(payment comp1, payment comp2) {
  */
 char* afisare_payment(payment de_afisat) {
     char* s = malloc(sizeof(char) * 100);
-    sprintf(s,"\nid: %d  suma: %d  zi: %d  tip: %d\n", de_afisat.id, de_afisat.suma, de_afisat.zi, de_afisat.tip);
+
+    int tip = de_afisat.tip;
+    char* tip_string = conversie_tip(tip);
+
+
+    sprintf(s,"\nid: %d  suma: %d  zi: %d  tip: %s\n", de_afisat.id, de_afisat.suma, de_afisat.zi, tip_string);
+    free(tip_string);
+    return s;
+}
+
+char* conversie_tip(int tip){
+    char* s = malloc(sizeof(char) * 20);
+    switch(tip){
+        case TIP_IMBRACAMINTE:
+            strcpy(s, "imbracaminte");
+            break;
+        case TIP_TELEFON_INTERNET:
+            strcpy(s, "telefon");
+            break;
+        case TIP_TRANSPORT:
+            strcpy(s, "transport");
+            break;
+        case TIP_MANCARE:
+            strcpy(s, "mancare");
+            break;
+        default:
+            strcpy(s, "altele");
+    }
+
     return s;
 }
