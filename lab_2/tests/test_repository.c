@@ -76,6 +76,8 @@ void test_este_inclus(){
 
     assert(is_payment_included(repo, payment_cautat));
     assert(!is_payment_included(repo, create_payment(1000, 2, 3, TIP_TELEFON_INTERNET)));
+
+    destroy_repository_payment(repo);
 }
 
 void test_copiere_lista(){
@@ -89,6 +91,17 @@ void test_copiere_lista(){
     // Verifica ca este copie
     update_payment(repo, 1, create_payment(3, 3, 3, TIP_IMBRACAMINTE));
     assert(!payment_equals(lista[0], *search_payment(repo, 3)));
+
+    destroy_repository_payment(repo);
+}
+
+void test_valoare_maxima(){
+    repository_payment repo = create_repository_payment();
+    add_payment(&repo, create_payment(1, 1, 1, TIP_ALTELE));
+    add_payment(&repo, create_payment(1, 333, 2, TIP_IMBRACAMINTE));
+    assert(valoare_maxima(repo) == 333);
+
+    destroy_repository_payment(repo);
 }
 
 void run_all_repository_tests() {
@@ -98,4 +111,5 @@ void run_all_repository_tests() {
     test_update();
     test_este_inclus();
     test_copiere_lista();
+    test_valoare_maxima();
 }

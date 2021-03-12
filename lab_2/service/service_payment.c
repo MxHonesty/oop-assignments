@@ -5,6 +5,11 @@
 #include "service_payment.h"
 #include <string.h>
 
+/**
+ * Variabila pastreaza id-ul urmatorului element introdus prin mecanismul din ui.
+ */
+int current_id = 1;
+
 void construct_service(service_payments *service) {
     service->repo = create_repository_payment();
 }
@@ -15,7 +20,6 @@ void destroy_service(service_payments *service) {
 
 int adaugare_payment(service_payments* service, int id, int suma, int zi, int tip) {
     payment new_payment = create_payment(id, suma, zi, tip);
-    // TODO: Aici s-ar executa validarea.
     add_payment(&service->repo, new_payment);
     return 0;
 }
@@ -96,4 +100,66 @@ payment *sortare_tip(service_payments *service, int crescator) {
     }
 
     return lista;
+}
+
+Vector filtrare_elemente(service_payments *service, int inceput, int final, int tip_filtrare) {
+    repository_payment temp_repo = create_repository_payment();
+    if(tip_filtrare == 1){
+        for(int i=0; i<service->repo.maxim_curent; i++) {
+            payment current_payment = service->repo.payments[i];
+            if (current_payment.suma <= final && current_payment.suma >= inceput) {
+                add_payment(&temp_repo, service->repo.payments[i]);
+            }
+        }
+    }
+    else if(tip_filtrare == 2){
+        for(int i=0; i<service->repo.maxim_curent; i++) {
+            payment current_payment = service->repo.payments[i];
+            if (current_payment.zi <= final && current_payment.zi >= inceput) {
+                add_payment(&temp_repo, service->repo.payments[i]);
+            }
+        }
+    }
+    else if(tip_filtrare == 3){
+        for(int i=0; i<service->repo.maxim_curent; i++) {
+            payment current_payment = service->repo.payments[i];
+            if (current_payment.tip <= final && current_payment.tip >= inceput) {
+                add_payment(&temp_repo, service->repo.payments[i]);
+            }
+        }
+    }
+    payment* copie_lista = copiere_lista(&temp_repo);
+
+    Vector rez;
+    rez.list = copie_lista;
+    rez.marime = temp_repo.maxim_curent;
+
+    destroy_repository_payment(temp_repo);
+    return rez;
+}
+
+Vector filtrare_elemente_tip_string(service_payments *service, char *filtru) {
+    repository_payment temp_repo = create_repository_payment();
+    for(int i=0; i<service->repo.maxim_curent; i++){
+        payment current_payment = service->repo.payments[i];
+        char* reprezentare = conversie_tip(current_payment.tip);
+        if(strcmp(filtru, reprezentare) == 0)
+            add_payment(&temp_repo, current_payment);
+        free(reprezentare);
+    }
+
+    payment* lista = copiere_lista(&temp_repo);
+    Vector rez;
+    rez.list = lista;
+    rez.marime = temp_repo.maxim_curent;
+
+    destroy_repository_payment(temp_repo);
+    return rez;
+}
+
+int adaugare_payment_user(service_payments *service, int suma, int zi, int tip) {
+    payment new_payment = create_payment(current_id, suma, zi, tip);
+    current_id++;
+    add_payment(&service->repo, new_payment);
+    return 0;
 }

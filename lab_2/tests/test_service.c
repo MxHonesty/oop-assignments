@@ -86,8 +86,6 @@ void test_redimensionare(){
     destroy_service(&service);
 }
 
-#include <stdio.h>
-
 void test_sort_suma(){
     service_payments service;
     construct_service(&service);
@@ -138,6 +136,66 @@ void test_sort_tip(){
     destroy_service(&service);
 }
 
+#include <stdio.h>
+
+void test_filtrare_elemente(){
+    service_payments service;
+    construct_service(&service);
+    adaugare_payment(&service, 1, 1, 1, TIP_MANCARE);
+    adaugare_payment(&service, 2, 2, 2, TIP_TRANSPORT);
+    adaugare_payment(&service, 3, 3, 3, TIP_TELEFON_INTERNET);
+
+    payment* lista = filtrare_elemente(&service, 1, 2, 1).list;
+    assert(payment_equals(lista[0], create_payment(1, 1, 1, TIP_MANCARE)));
+    assert(payment_equals(lista[1], create_payment(2, 2, 2, TIP_TRANSPORT)));
+    free(lista);
+
+    lista = filtrare_elemente(&service, 1, 2, 2).list;
+    assert(payment_equals(lista[0], create_payment(1, 1, 1, TIP_MANCARE)));
+    assert(payment_equals(lista[1], create_payment(2, 2, 2, TIP_TRANSPORT)));
+    free(lista);
+
+    lista = filtrare_elemente(&service, 2, 3, 3).list;
+    assert(payment_equals(lista[0], create_payment(3, 3, 3, TIP_TELEFON_INTERNET)));
+    free(lista);
+
+    destroy_service(&service);
+}
+
+void test_filtrare_tip(){
+    service_payments service;
+    construct_service(&service);
+    adaugare_payment(&service, 1, 1, 1, TIP_TRANSPORT);
+    adaugare_payment(&service, 2, 2, 2, TIP_MANCARE);
+
+    payment* lista = filtrare_elemente_tip_string(&service, "mancare").list;
+    assert(payment_equals(lista[0], create_payment(2, 2, 2, TIP_MANCARE)));
+    free(lista);
+
+    Vector rez = filtrare_elemente_tip_string(&service, "mancare");
+    assert(rez.marime == 1);
+    assert(payment_equals(rez.list[0], create_payment(2, 2, 2, TIP_MANCARE)));
+    free(rez.list);
+
+    destroy_service(&service);
+}
+
+void test_adaugare_user(){
+    service_payments service;
+    construct_service(&service);
+
+    payment unu = create_payment(1, 1, 1, TIP_IMBRACAMINTE);
+    adaugare_payment_user(&service, 1, 1, TIP_IMBRACAMINTE);
+
+    payment doi = create_payment(2, 2, 2, TIP_IMBRACAMINTE);
+    adaugare_payment_user(&service, 2, 2, TIP_IMBRACAMINTE);
+
+    assert(payment_equals(service.repo.payments[0], unu));
+    assert(payment_equals(service.repo.payments[1], doi));
+
+    destroy_service(&service);
+}
+
 /**
  * Ruleaza toate testele din service.
  */
@@ -149,4 +207,7 @@ void run_all_service_tests() {
     test_redimensionare();
     test_sort_suma();
     test_sort_tip();
+    test_filtrare_elemente();
+    test_filtrare_tip();
+    test_adaugare_user();
 }

@@ -38,6 +38,12 @@ int citire_int(const char* text);
 int* citire_payment();
 
 /**
+ * Citeste datele pentru un payment mai putin id-ul.
+ * @return un pointer la un array cu 4 elemente alocat dinamic care contine suma, zi, tip. Sau null daca eroare.
+ */
+int* citire_payment_fara_id();
+
+/**
  * Citeste un sir de caractere care reprezinta tipul. Acesta este convertit in int-ul corespunzator.
  * @return Returneaza tipul daca sirul citit este coret, returneaza -1 daca nu este un sir valid.
  */
@@ -52,6 +58,18 @@ void ui_sortare_suma(service_payments *srv);
  * Metoda de sortarei n functie de tip. Determina daca utilizatorul doreste sa sorteze crescator sau descrescator.
  */
 void ui_sortare_tip(service_payments *srv);
+
+/**
+ * Functie de ui pentru functionalitatea de filtrare a unui element dupa valoare.
+ * @param srv
+ */
+void ui_filtrare_element(service_payments* srv);
+
+/**
+ * Functia de ui pentru functionalitatea de filtrare a unui element dupa tip.
+ * @param srv
+ */
+void ui_filtrare_tip(service_payments* srv);
 
 
 #endif //LAB_2_UI_H

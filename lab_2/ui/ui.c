@@ -14,7 +14,8 @@ void run() {
 
     while(running){
         char optiune;
-        printf("\n\n1-Adaugare\n2-Stergere\n3-Modificare\n4-Afisare\n5-Sortare Suma\n6-Sortare Tip\nq-Iesire\n");
+        printf("\n\n1-Adaugare\n2-Stergere\n3-Modificare\n4-Afisare\n5-Sortare Suma\n6-Sortare Tip\n"
+               "7-Filtrare Element\n8-Filtrare Tip\nq-Iesire\n");
         printf("Alegeti o optiune: ");
         scanf("%c", &optiune);
         fflush(stdin);  // Dau flush dupa fiecare citire ca se se ignore inputul in plus.
@@ -37,6 +38,12 @@ void run() {
             case '6':   // Sortare tip
                 ui_sortare_tip(&service);
                 break;
+            case '7':  // Filtrare element
+                ui_filtrare_element(&service);
+                break;
+            case '8':  // Filtrare Tip
+                ui_filtrare_tip(&service);
+                break;
             case 'q':
                 running = 0;
                 break;
@@ -58,12 +65,12 @@ void ui_print_all(service_payments* srv) {
 }
 
 void ui_adaugare(service_payments *srv) {
-    int* ptr = citire_payment();
+    int* ptr = citire_payment_fara_id();
     if(ptr == NULL){
         return;
     }
 
-    adaugare_payment(srv, ptr[0], ptr[1], ptr[2], ptr[3]);
+    adaugare_payment_user(srv, ptr[0], ptr[1], ptr[2]);
 }
 
 int citire_int(const char *text) {
@@ -123,7 +130,7 @@ int *citire_payment() {
     fflush(stdin);
 
     zi = citire_int("zi: ");
-    if(zi <= 0){
+    if(zi <= 0 || zi > 31){
         printf("Zi invalida\n");
         return NULL;
     }
@@ -208,3 +215,87 @@ int citire_tip(const char* text) {
 
     return tip;
 }
+
+void ui_filtrare_element(service_payments* srv){
+    int tipul_filtrului = citire_int("Tipul filtrului 1-Suma, 2-Zi, 3-Tip: ");
+    if(tipul_filtrului < 1 || tipul_filtrului > 3){
+        printf("%s", "Tip invalid");
+        return;
+    }
+
+    int inceput = citire_int("Limita inferioara (-1 - fara limita inferioara): ");
+    if(inceput < -1 || inceput == 0){
+        printf("%s", "Limita invalida");
+        return;
+    }
+    printf("\n");
+    int final = citire_int("Limina superioara (-1 - fara limita superioara): ");
+    if(final < -1 || final == 0){
+        printf("%s", "Limita invalida");
+        return;
+    }
+
+    // Initializam valorile la cea mai mica, respectiv cea mai mare daca nu este pusa o limita.
+    if(inceput == -1)
+        inceput = 0;
+    if(final == -1)
+        final = valoare_maxima(srv->repo);
+
+    Vector rez;
+    rez = filtrare_elemente(srv, inceput, final, tipul_filtrului);
+
+    if(rez.marime <= 0){
+        printf("Nu au fost gasite elemente cu aceste conditii.");
+        return;
+    }
+    ui_afisare_lista(rez.list, rez.marime);
+    free(rez.list);
+}
+
+void ui_filtrare_tip(service_payments* srv){
+    char filtru[20];  // Filtrul pe care il citim.
+    printf("Tipul dorit: ");
+    scanf("%20s", filtru);
+    fflush(stdin);
+
+    Vector elemente = filtrare_elemente_tip_string(srv, filtru);
+    if(elemente.marime > 0)
+        ui_afisare_lista(elemente.list, elemente.marime);
+    else
+        printf("Nu au fost gasite elemente cu tipul %s", filtru);
+    free(elemente.list);
+}
+
+int *citire_payment_fara_id() {
+    int* ptr = malloc(sizeof(int) * 3);
+    int suma, zi, tip;
+
+    suma = citire_int("suma: ");
+    if(suma <= 0){
+        printf("Suma invalida\n");
+        return NULL;
+    }
+    fflush(stdin);
+
+    zi = citire_int("zi: ");
+    if(zi <= 0 || zi > 31){
+        printf("Zi invalida\n");
+        return NULL;
+    }
+    fflush(stdin);
+
+    tip = citire_tip("tip: ");
+    if(tip < 0){
+        printf("Tip invalid\n");
+        return NULL;
+    }
+    fflush(stdin);
+
+    ptr[0] = suma;
+    ptr[1] = zi;
+    ptr[2] = tip;
+    return ptr;
+}
+
+
+// TODO id dat din service

@@ -40,6 +40,16 @@ void destroy_service(service_payments* service);
 int adaugare_payment(service_payments* service, int id, int suma, int zi, int tip);
 
 /**
+ * Functia de adaugare payment pentru utilizator. Genereaza automat id-uri.
+ * @param service
+ * @param suma
+ * @param zi
+ * @param tip
+ * @return <li>Returneaza 0 daca adaugarea a fost efectuata cu succes.</li>
+ */
+int adaugare_payment_user(service_payments* service, int suma, int zi, int tip);
+
+/**
  * Serviciu de stergere a unui payment din repository.
  * @param service - serviciul in care dorim sa efectuam operatia.
  * @param id - id-ul elementului eliminat
@@ -77,5 +87,32 @@ payment* sortare_suma(service_payments* service, int crescator);
  * apelantului.
  */
 payment* sortare_tip(service_payments* service, int creascator);
+
+/**
+ * Vector de payment utilizat pentru operatia de filtru.
+ * Pastreaza o lista de paymenturi alocata dinamic si o marime.
+ */
+typedef struct{
+    payment* list;
+    int marime;
+}Vector;
+
+/**
+ * Filtreaza elementele din serviciul curent astfel incat sa ramana doar cele care apartin intervalului dat.
+ * @param service - serviciul curent
+ * @param inceput - valoarea de la care incepem
+ * @param final - cea mai mare valoare admisa
+ * @param tip_filtrare <li> 1 - Filtrare suma </li> <li>2 - Filtrare zi </li> <li>3 - Filtrare tip </li>
+ * @return Vector - contine un pointer la lista si marimea ei <h1> Pointerul trebuie dealocat </h1
+ */
+Vector filtrare_elemente(service_payments* service, int inceput, int final, int tip_filtrare);
+
+/**
+ * Filtrare speciala pentru tip.
+ * @param service
+ * @param filtru - sir de caractere dat.
+ * @return Vector pointer si lungime. <h1> Pointerul trebuie dealocat </h1
+ */
+Vector filtrare_elemente_tip_string(service_payments* service, char* filtru);
 
 #endif //LAB_2_SERVICE_PAYMENT_H

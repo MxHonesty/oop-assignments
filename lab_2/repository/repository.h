@@ -91,4 +91,11 @@ int redimensionare_repository(repository_payment* repo);
  */
 payment* copiere_lista(repository_payment* repo);
 
+/**
+ * Determina cea mai mare valoare din toate elementele.
+ * @param repo
+ * @return Cea mai mare valore intalnita printre Zi, Suma si Tip.
+ */
+int valoare_maxima(repository_payment repo);
+
 #endif //LAB_2_REPOSITORY_H

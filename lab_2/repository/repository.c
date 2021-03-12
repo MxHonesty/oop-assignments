@@ -91,3 +91,18 @@ payment *copiere_lista(repository_payment *repo) {
         rez[i] = repo->payments[i];
     return rez;
 }
+
+int valoare_maxima(repository_payment repo) {
+    int max = 0;
+    for(int i=0; i<repo.maxim_curent; i++){
+        payment current = repo.payments[i];
+        if(current.suma > max)
+            max = current.suma;
+        if(current.tip > max)
+            max = current.tip;
+        if(current.zi > max)
+            max = current.zi;
+    }
+
+    return max;
+}
