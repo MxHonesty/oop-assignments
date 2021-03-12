@@ -109,6 +109,33 @@ void test_sort_suma(){
     assert(payment_equals(lista[2], create_payment(2, 2, 1, TIP_ALTELE)));
     assert(payment_equals(lista[3], create_payment(10, 1, 1, TIP_ALTELE)));
     free(lista);
+
+    destroy_service(&service);
+}
+
+void test_sort_tip(){
+    service_payments service;
+    construct_service(&service);
+    adaugare_payment(&service, 1, 1, 1, TIP_MANCARE);
+    adaugare_payment(&service, 1, 1, 1, TIP_ALTELE);
+    adaugare_payment(&service, 1, 1, 1, TIP_TRANSPORT);
+    adaugare_payment(&service, 1, 1, 1, TIP_TELEFON_INTERNET);
+
+    payment* lista = sortare_tip(&service, 1);
+    assert(payment_equals(lista[0], create_payment(1, 1, 1, TIP_ALTELE)));
+    assert(payment_equals(lista[1], create_payment(1, 1, 1, TIP_MANCARE)));
+    assert(payment_equals(lista[2], create_payment(1, 1, 1, TIP_TELEFON_INTERNET)));
+    assert(payment_equals(lista[3], create_payment(1, 1, 1, TIP_TRANSPORT)));
+    free(lista);
+
+    lista = sortare_tip(&service, 0);
+    assert(payment_equals(lista[0], create_payment(1, 1, 1, TIP_TRANSPORT)));
+    assert(payment_equals(lista[1], create_payment(1, 1, 1, TIP_TELEFON_INTERNET)));
+    assert(payment_equals(lista[2], create_payment(1, 1, 1, TIP_MANCARE)));
+    assert(payment_equals(lista[3], create_payment(1, 1, 1, TIP_ALTELE)));
+    free(lista);
+
+    destroy_service(&service);
 }
 
 /**
@@ -121,4 +148,5 @@ void run_all_service_tests() {
     test_modificare();
     test_redimensionare();
     test_sort_suma();
+    test_sort_tip();
 }

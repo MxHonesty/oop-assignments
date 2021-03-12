@@ -43,5 +43,15 @@ int* citire_payment();
  */
 int citire_tip();
 
+/**
+ * Metoda de sortare in functie de suma. Determina daca utilzatorul doreste sa sorteze crescator sau descrescator.
+ */
+void ui_sortare_suma(service_payments *srv);
+
+/**
+ * Metoda de sortarei n functie de tip. Determina daca utilizatorul doreste sa sorteze crescator sau descrescator.
+ */
+void ui_sortare_tip(service_payments *srv);
+
 
 #endif //LAB_2_UI_H

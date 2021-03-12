@@ -14,7 +14,7 @@ void run() {
 
     while(running){
         char optiune;
-        printf("\n\n1-Adaugare\n2-Stergere\n3-Modificare\n4-Afisare\nq-Iesire\n");
+        printf("\n\n1-Adaugare\n2-Stergere\n3-Modificare\n4-Afisare\n5-Sortare Suma\n6-Sortare Tip\nq-Iesire\n");
         printf("Alegeti o optiune: ");
         scanf("%c", &optiune);
         fflush(stdin);  // Dau flush dupa fiecare citire ca se se ignore inputul in plus.
@@ -30,6 +30,12 @@ void run() {
                 break;
             case '4':  // Afisare
                 ui_print_all(&service);
+                break;
+            case '5':  // Sortare Suma
+                ui_sortare_suma(&service);
+                break;
+            case '6':   // Sortare tip
+                ui_sortare_tip(&service);
                 break;
             case 'q':
                 running = 0;
@@ -135,6 +141,52 @@ int *citire_payment() {
     ptr[2] = zi;
     ptr[3] = tip;
     return ptr;
+}
+
+/**
+ * Afiseaza pe ecram lista de paymenturi data.
+ * @param lista
+ * @param marime
+ */
+void ui_afisare_lista(payment* lista, int marime){
+    for(int i = 0; i<marime; i++){
+        char* s = afisare_payment(lista[i]);
+        printf("%s", s);
+        free(s);
+    }
+}
+
+void ui_sortare_suma(service_payments *srv) {
+    int crescator = citire_int("1-Crescator, 2-Descrescator: ");
+    if(crescator == 1) {
+        payment *lista = sortare_suma(srv, 1);
+        ui_afisare_lista(lista, srv->repo.maxim_curent);
+        free(lista);
+    }
+    else if(crescator == 2){
+        payment* lista = sortare_suma(srv, 0);
+        ui_afisare_lista(lista, srv->repo.maxim_curent);
+        free(lista);
+    }
+    else
+        printf("Optiune de sortare invalida.");
+
+}
+
+void ui_sortare_tip(service_payments *srv) {
+    int crescator = citire_int("1-Crescator, 2-Descrescator: ");
+    if(crescator == 0)
+        printf("Optiune de sortare invalida. ");
+    else if(crescator == 1){
+        payment *lista = sortare_tip(srv, 1);
+        ui_afisare_lista(lista, srv->repo.maxim_curent);
+        free(lista);
+    }
+    else if(crescator == 2){
+        payment* lista = sortare_tip(srv, 0);
+        ui_afisare_lista(lista, srv->repo.maxim_curent);
+        free(lista);
+    }
 }
 
 int citire_tip(const char* text) {

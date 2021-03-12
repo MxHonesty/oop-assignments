@@ -3,6 +3,7 @@
 //
 
 #include "service_payment.h"
+#include <string.h>
 
 void construct_service(service_payments *service) {
     service->repo = create_repository_payment();
@@ -73,15 +74,25 @@ payment *sortare_tip(service_payments *service, int crescator) {
 
     if(crescator == 1){
         for(int i=0; i<marime-1; i++)
-            for(int j=i+1; j<marime; j++)
-                if(lista[i].tip < lista[j].tip)
+            for(int j=i+1; j<marime; j++) {
+                char* a = conversie_tip(lista[i].tip);
+                char* b = conversie_tip(lista[j].tip);
+                if (strcmp(a, b) > 0)
                     switch_payments(&lista[i], &lista[j]);
+                free(a);
+                free(b);
+            }
     }
     else if(crescator == 0){
         for(int i=0; i<marime-1; i++)
-            for(int j=i+1; j<marime; j++)
-                if(lista[i].tip < lista[j].tip)
+            for(int j=i+1; j<marime; j++) {
+                char* a = conversie_tip(lista[i].tip);
+                char* b = conversie_tip(lista[j].tip);
+                if (strcmp(a, b) < 0)
                     switch_payments(&lista[i], &lista[j]);
+                free(a);
+                free(b);
+            }
     }
 
     return lista;
