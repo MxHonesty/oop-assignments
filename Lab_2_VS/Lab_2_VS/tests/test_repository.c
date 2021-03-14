@@ -92,6 +92,7 @@ void test_copiere_lista(){
     update_payment(repo, 1, create_payment(3, 3, 3, TIP_IMBRACAMINTE));
     assert(!payment_equals(lista[0], *search_payment(repo, 3)));
 
+    free(lista);
     destroy_repository_payment(repo);
 }
 
