@@ -19,7 +19,8 @@ void run() {
         printf("Alegeti o optiune: ");
         int reusit = scanf("%c", &optiune);
         rewind(stdin);  // Dau flush dupa fiecare citire ca se se ignore inputul in plus.
-        switch (optiune) {
+        if (reusit != 0) {
+            switch (optiune) {
             case '1':  // Adaugare
                 ui_adaugare(&service);
                 break;
@@ -49,6 +50,7 @@ void run() {
                 break;
             default:
                 printf("Optiunea nu este recunoscuta!");
+            }
         }
     }
 
@@ -79,9 +81,12 @@ int citire_int(const char *text) {
     printf("%s", text);
     int reusit = scanf("%15s", string);
     rewind(stdin);
-    string[19] = '\0';
-    int rez = strtol(string, NULL, 10);
-    return rez;
+    if (reusit != 0) {
+        string[19] = '\0';
+        int rez = strtol(string, NULL, 10);
+        return rez;
+    }
+    return -1;
 }
 
 void ui_stergere(service_payments *srv) {
@@ -107,6 +112,7 @@ void ui_modificare(service_payments *srv) {
     rewind(stdin);
     int* ptr = citire_payment();
     if(ptr == NULL){
+        free(ptr);
         return;
     }
 
@@ -120,6 +126,7 @@ int *citire_payment() {
     id = citire_int("id: ");
     if(id <= 0){
         printf("Id invalid\n");
+        free(ptr);
         return NULL;
     }
     rewind(stdin);
@@ -127,6 +134,7 @@ int *citire_payment() {
     suma = citire_int("suma: ");
     if(suma <= 0){
         printf("Suma invalida\n");
+        free(ptr);
         return NULL;
     }
     rewind(stdin);
@@ -134,6 +142,7 @@ int *citire_payment() {
     zi = citire_int("zi: ");
     if(zi <= 0 || zi > 31){
         printf("Zi invalida\n");
+        free(ptr);
         return NULL;
     }
     rewind(stdin);
@@ -141,6 +150,7 @@ int *citire_payment() {
     tip = citire_tip("tip: ");
     if(tip < 0){
         printf("Tip invalid\n");
+        free(ptr);
         return NULL;
     }
     rewind(stdin);
@@ -206,18 +216,19 @@ int citire_tip(const char* text) {
     printf("%s", text);
     int reusit = scanf("%30s", sir);
     rewind(stdin);
-    sir[29] = '\0';
-    if(strcmp(sir, "mancare") == 0)
-        tip = TIP_MANCARE;
-    else if(strcmp(sir, "transport") == 0)
-        tip = TIP_TRANSPORT;
-    else if(strcmp(sir, "telefon") == 0)
-        tip = TIP_TELEFON_INTERNET;
-    else if(strcmp(sir, "imbracaminte") == 0)
-        tip = TIP_IMBRACAMINTE;
-    else if(strcmp(sir, "altele") == 0)
-        tip = TIP_ALTELE;
-
+    if (reusit != 0) {
+        sir[29] = '\0';
+        if (strcmp(sir, "mancare") == 0)
+            tip = TIP_MANCARE;
+        else if (strcmp(sir, "transport") == 0)
+            tip = TIP_TRANSPORT;
+        else if (strcmp(sir, "telefon") == 0)
+            tip = TIP_TELEFON_INTERNET;
+        else if (strcmp(sir, "imbracaminte") == 0)
+            tip = TIP_IMBRACAMINTE;
+        else if (strcmp(sir, "altele") == 0)
+            tip = TIP_ALTELE;
+    }
     return tip;
 }
 
@@ -263,13 +274,15 @@ void ui_filtrare_tip(service_payments* srv){
     printf("Tipul dorit: ");
     int reusit = scanf("%20s", filtru);
     rewind(stdin);
+    if (reusit != 0) {
 
-    Vector elemente = filtrare_elemente_tip_string(srv, filtru);
-    if(elemente.marime > 0)
-        ui_afisare_lista(elemente.list, elemente.marime);
-    else
-        printf("Nu au fost gasite elemente cu tipul %s", filtru);
-    free(elemente.list);
+        Vector elemente = filtrare_elemente_tip_string(srv, filtru);
+        if (elemente.marime > 0)
+            ui_afisare_lista(elemente.list, elemente.marime);
+        else
+            printf("Nu au fost gasite elemente cu tipul %s", filtru);
+        free(elemente.list);
+    }
 }
 
 int *citire_payment_fara_id() {
@@ -279,6 +292,7 @@ int *citire_payment_fara_id() {
     suma = citire_int("suma: ");
     if(suma <= 0){
         printf("Suma invalida\n");
+        free(ptr);
         return NULL;
     }
     rewind(stdin);
@@ -286,6 +300,7 @@ int *citire_payment_fara_id() {
     zi = citire_int("zi: ");
     if(zi <= 0 || zi > 31){
         printf("Zi invalida\n");
+        free(ptr);
         return NULL;
     }
     rewind(stdin);
@@ -293,6 +308,7 @@ int *citire_payment_fara_id() {
     tip = citire_tip("tip: ");
     if(tip < 0){
         printf("Tip invalid\n");
+        free(ptr);
         return NULL;
     }
     rewind(stdin);

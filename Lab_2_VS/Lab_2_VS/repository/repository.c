@@ -74,10 +74,13 @@ int redimensionare_repository(repository_payment *repo) {
     int new_marime = repo->marime * 2;
     payment* new_arr = malloc(sizeof(payment)*new_marime);  // Un array dublu.
     repo->marime = new_marime;
-    for(int i=0; i<repo->maxim_curent; i++){
-        new_arr[i] = repo->payments[i];
+    if (new_arr != NULL && new_marime!= 0) {
+        if (repo->maxim_curent < new_marime) {
+            for (int i = 0; i < repo->maxim_curent; i++) {
+                new_arr[i] = repo->payments[i];
+            }
+        }
     }
-
     free(repo->payments);
     repo->payments = new_arr;
 
@@ -87,8 +90,10 @@ int redimensionare_repository(repository_payment *repo) {
 payment *copiere_lista(repository_payment *repo) {
     payment* rez = NULL;
     rez = (payment*) malloc(sizeof(payment) * repo->maxim_curent);
-    for(int i=0; i<repo->maxim_curent; i++)
-        rez[i] = repo->payments[i];
+    if (rez != NULL) {
+        for (int i = 0; i < repo->maxim_curent; i++)
+            rez[i] = repo->payments[i];
+    }
     return rez;
 }
 

@@ -72,6 +72,14 @@ int stergere_payment(service_payments* service, int id);
 int modificare_payment(service_payments* service, int id, int new_id, int new_suma, int new_zi, int new_tip);
 
 /**
+* Sorteaza elementele dupa un criteriu dat ca functie.
+* @param criteriu - functia cheie
+* @param service service pe care dorim sa sortam.
+* @return o copie a listei din service sortata
+*/
+payment* sortare_generala(service_payments* service, int(*criteriu)(payment), int crescator);
+
+/**
  * Returneaza o lista de payment sortata dupa suma.
  * @param service - serviciul in care efectuam operatia
  * @param crescator - 1 daca sortarea se face crescator, 0 daca se face descrescator

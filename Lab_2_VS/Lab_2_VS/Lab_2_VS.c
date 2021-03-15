@@ -6,7 +6,6 @@
 #include <crtdbg.h>
 
 int main() {
-    _CrtSetReportMode(_CRT_WARN, _CRTDBG_MODE_DEBUG);
     run_all_tests();
 
     run();  // Main loop ui function.

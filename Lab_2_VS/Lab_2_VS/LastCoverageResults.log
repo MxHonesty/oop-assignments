@@ -1,0 +1,21 @@
+[2021-03-15 08:43:42] [info] Start Program:
+Path:"D:\\Facultate\\An 1\\Sem 2\\OOP\\oop-assignments\\Lab_2_VS\\Debug\\Lab_2_VS.exe"
+Arguments:
+Working directory: "D:\\Facultate\\An 1\\Sem 2\\OOP\\oop-assignments\\Lab_2_VS\\Lab_2_VS\\"
+Modules: Selected: D:\Facultate\An 1\Sem 2\OOP\oop-assignments\Lab_2_VS\Debug\Lab_2_VS.exe Excluded: 
+Sources: Selected: D:\Facultate\An 1\Sem 2\OOP\oop-assignments\Lab_2_VS\Lab_2_VS Excluded: 
+Log Level: Normal
+Cover Children: 0
+Aggregate by file: 1
+Continue after C++ exception: 0
+Optimized build support: 0
+Export: binary C:\Users\Stelian Stoian\AppData\Local\Temp\gxxbjrpj.5fh 
+Input coverage: 
+Unified diff: 
+Excluded line regular expressions: 
+Substitute pdb source paths: 
+
+[2021-03-15 08:43:42] [info] Module: D:\Facultate\An 1\Sem 2\OOP\oop-assignments\Lab_2_VS\Debug\Lab_2_VS.exe is selected because it matches selected pattern: D:\Facultate\An 1\Sem 2\OOP\oop-assignments\Lab_2_VS\Debug\Lab_2_VS.exe
+[2021-03-15 08:43:42] [info] ----------------------------------------------------
+[2021-03-15 08:43:42] [info] Coverage binary generated in file: C:\Users\Stelian Stoian\AppData\Local\Temp\gxxbjrpj.5fh
+[2021-03-15 08:43:42] [info] ----------------------------------------------------

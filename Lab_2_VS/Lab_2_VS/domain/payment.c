@@ -33,15 +33,17 @@ char* afisare_payment(payment de_afisat) {
     int tip = de_afisat.tip;
     char* tip_string = conversie_tip(tip);
 
-
-    sprintf(s,"\nid: %d  suma: %d  zi: %d  tip: %s\n", de_afisat.id, de_afisat.suma, de_afisat.zi, tip_string);
+    if (s != NULL) {
+        sprintf(s, "\nid: %d  suma: %d  zi: %d  tip: %s\n", de_afisat.id, de_afisat.suma, de_afisat.zi, tip_string);
+    }
     free(tip_string);
     return s;
 }
 
 char* conversie_tip(int tip){
     char* s = malloc(sizeof(char) * 20);
-    switch(tip){
+    if (s != NULL) {
+        switch (tip) {
         case TIP_IMBRACAMINTE:
             strcpy(s, "imbracaminte");
             break;
@@ -56,7 +58,7 @@ char* conversie_tip(int tip){
             break;
         default:
             strcpy(s, "altele");
+        }
     }
-
     return s;
 }

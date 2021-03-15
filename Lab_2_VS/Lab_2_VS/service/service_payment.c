@@ -53,22 +53,42 @@ void switch_payments(payment* pay1, payment* pay2){
     *pay2 = auxiliar;
 }
 
-payment *sortare_suma(service_payments *service, int crescator) {
+payment* sortare_generala(service_payments* service, int(*criteriu)(payment, payment), int crescator) {
     payment* lista = copiere_lista(&service->repo);
     int marime = service->repo.maxim_curent;
 
-    if(crescator == 1){
-        for(int i=0; i<marime-1; i++)
+    if (crescator == 1) {
+        for(int i=0; i<marime; i++)
             for(int j=i+1; j<marime; j++)
-                if(lista[i].suma > lista[j].suma)
+                if(criteriu(lista[i], lista[j]))
                     switch_payments(&lista[i], &lista[j]);
-    } else if(crescator == 0){
-        for(int i=0; i<marime-1; i++)
-            for(int j=i+1; j<marime; j++)
-                if(lista[i].suma < lista[j].suma)
+    }
+    else if (crescator == 0) {
+        for (int i = 0; i < marime; i++)
+            for (int j = i + 1; j < marime; j++)
+                if (criteriu(lista[i], lista[j]))
                     switch_payments(&lista[i], &lista[j]);
     }
 
+    return lista;
+}
+/**
+* Returneaza true daca elementul a are suma mai mare decat elementul b.
+*/
+int comparare_suma(payment a, payment b) {
+    return a.suma > b.suma;
+}
+
+int comparare_suma_mai_mic(payment a, payment b) {
+    return a.suma < b.suma;
+}
+
+payment *sortare_suma(service_payments *service, int crescator) {
+    if (crescator == 1) {
+        payment* lista = sortare_generala(service, comparare_suma, crescator);
+        return lista;
+    }
+    payment* lista = sortare_generala(service, comparare_suma_mai_mic, crescator);
     return lista;
 }
 
