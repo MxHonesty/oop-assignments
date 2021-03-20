@@ -40,6 +40,6 @@ int validate_criteriu(char* criteriu) {
 	* returneaza true daca un criteriu este valid (suprafata, tip, pret)
 	* criteriu - sir de caractere
 	*/
-	if (strcmp(criteriu, "suprafata") * strcmp(criteriu, "tip") * strcmp(criteriu, "pret") != 0) return 0;
+	if (strcmp(criteriu, "suprafata") * strcmp(criteriu, "tip") * strcmp(criteriu, "pret") * strcmp(criteriu, "adresa") != 0) return 0;
 	return 1;
 }

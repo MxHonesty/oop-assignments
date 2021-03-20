@@ -63,8 +63,7 @@ void run_srv_sorteaza_tests() {
 	free(oferte_sortate->oferte);
 	free(oferte_sortate);
 
-	eliberare_repo(srv_oferte->repo_oferte);
-	free(srv_oferte);
+	distruge_service(srv_oferte);
 }
 
 void run_srv_filter_tests() {
@@ -77,7 +76,7 @@ void run_srv_filter_tests() {
 	srv_oferte = srv_adauga_oferta(srv_oferte, "casa", 100, "Adresa1", 2000);
 	srv_oferte = srv_adauga_oferta(srv_oferte, "teren", 100, "Adresa2", 4000);
 	srv_oferte = srv_adauga_oferta(srv_oferte, "apartament", 100, "Adresa3", 5000);
-	srv_oferte = srv_adauga_oferta(srv_oferte, "casa", 100, "Adresa4", 1000);
+	srv_oferte = srv_adauga_oferta(srv_oferte, "casa", 100, "Adresa2", 1000);
 
 	oferte_filtrate = srv_filtreaza_oferte(srv_oferte, "tip", "casa", "", 0);
 	assert(oferte_filtrate->size == 2);
@@ -94,8 +93,17 @@ void run_srv_filter_tests() {
 	free(oferte_filtrate->oferte);
 	free(oferte_filtrate);
 
-	eliberare_repo(srv_oferte->repo_oferte);
-	free(srv_oferte);
+	oferte_filtrate = srv_filtreaza_oferte(srv_oferte, "adresa", "Adresa3", "<", 50);
+	assert(oferte_filtrate->size == 1);
+	free(oferte_filtrate->oferte);
+	free(oferte_filtrate);
+
+	oferte_filtrate = srv_filtreaza_oferte(srv_oferte, "adresa", "Adresa2", "<", 50);
+	assert(oferte_filtrate->size == 2);
+	free(oferte_filtrate->oferte);
+	free(oferte_filtrate);
+
+	distruge_service(srv_oferte);
 }
 
 void run_service_tests() {
@@ -143,8 +151,38 @@ void run_service_tests() {
 	distruge_service(srv_oferte);
 }
 
+void run_srv_undo_test() {
+	Repository* repo_oferte;
+	repo_oferte = creeaza_repo();
+	Service* srv = creeaza_service(repo_oferte);
+
+	char* adresa = "Strada nr 1";
+	char* tip = "teren";
+	int suprafata = 100;
+	int pret = 2000;
+	srv = srv_adauga_oferta(srv, tip, suprafata, adresa, pret);
+	
+	char* adresa2 = "Strada nr 2";
+	srv = srv_adauga_oferta(srv, tip, suprafata, adresa2, pret);
+
+	Oferta* oferta_de_cautat = creeaza_oferta("teren", 100, "Strada nr 2", 2000);
+	assert(gaseste_oferta(srv->repo_oferte, oferta_de_cautat));
+	
+	service_undo(srv);  // Executam undo.
+	assert(!gaseste_oferta(srv->repo_oferte, oferta_de_cautat));
+
+	
+	
+	
+	
+	distruge_oferta(oferta_de_cautat);
+	distruge_service(srv);
+}
+
 void run_all_service_tests(){
 	run_service_tests();
-	//run_srv_filter_tests();
-	//run_srv_sorteaza_tests();
+	run_srv_filter_tests();
+	run_srv_sorteaza_tests();
+
+	run_srv_undo_test();
 }

@@ -137,10 +137,10 @@ void ui_filtrare_oferte(Service* srv_oferte) {
 	*/
 	VectorOferte* oferte_filtrate = NULL;
 
-	char criteriu[50], rel[50], eroare[100] = "", valoare_tip[50];
+	char criteriu[50], rel[50], eroare[100] = "", valoare_tip[50], valoare_adresa[150];
 	float valoare;
 
-	printf("Introduceti criteriul dupa care se va filtra lista (suprafata / tip / pret)\n");
+	printf("Introduceti criteriul dupa care se va filtra lista (suprafata / tip / pret / adresa)\n");
 	printf("Criteriu: ");
 	scanf("\n%[^\n]", criteriu);
 
@@ -151,6 +151,11 @@ void ui_filtrare_oferte(Service* srv_oferte) {
 			printf("Valoare de comparatie (teren / casa / apartament): ");
 			scanf("\n%[^\n]", valoare_tip);
 			oferte_filtrate = srv_filtreaza_oferte(srv_oferte, criteriu, valoare_tip, "", 0);
+		}
+		else if (strcmp(criteriu, "adresa") == 0) {
+			printf("Adresa de comparatie: ");
+			scanf("\n%[^\n]", valoare_adresa);
+			oferte_filtrate = srv_filtreaza_oferte(srv_oferte, criteriu, valoare_adresa, "", 0);
 		}
 		else {
 			printf("Relatia de filtrare( < , >): ");
@@ -197,6 +202,13 @@ void ui_afisare_oferte(Service* srv_oferte) {
 			get_suprafata_oferta(lista_oferte->repo_oferte->oferte[i]), get_adresa_oferta(lista_oferte->repo_oferte->oferte[i]), get_pret_oferta(lista_oferte->repo_oferte->oferte[i]));
 }
 
+/** Functia de ui pentru functionalitatea de undo.
+	@param srv - service in care dorim sa efectuam undo.
+*/
+void ui_undo(Service* srv) {
+	service_undo(srv);
+}
+
 void afisare_comenzi() {
 	/*
 	* afiseaza comenzile posibile din meniu
@@ -208,6 +220,7 @@ void afisare_comenzi() {
 	printf("   sorteaza  - vizualizarea ofertelor ordonate dupa o categorie\n");
 	printf("   filtreaza - filtrarea ofertelor dupa un criteriu\n");
 	printf("   afiseaza  - afisarea tuturor ofertelor\n");
+	printf("   undo      - anuleaza ultima modificare\n");
 	printf("   exit      - iesirea din aplicatie\n");
 }
 
@@ -230,9 +243,9 @@ void run(Service* srv_oferte) {
 		else if (strcmp(cmd, "filtreaza") == 0) ui_filtrare_oferte(srv_oferte);
 		else if (strcmp(cmd, "afiseaza") == 0) ui_afisare_oferte(srv_oferte);
 		else if (strcmp(cmd, "sterge") == 0) srv_oferte = ui_stergere_oferta(srv_oferte);
+		else if (strcmp(cmd, "undo") == 0) ui_undo(srv_oferte);
 		else printf("comanda invalida!\n");
 	}
 
-	eliberare_repo(srv_oferte->repo_oferte);
-	free(srv_oferte);
+	distruge_service(srv_oferte);
 }

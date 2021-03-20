@@ -56,8 +56,16 @@ void test_leak() {
 	destroy_list(a);
 }
 
+void test_on_empty_list() {
+	List a = create_list();
+	destroy_list(a);
+	destroy_repo_list(a);
+	assert(peek_date(&a) == NULL);
+}
+
 void run_all_list_tests(){
 	test_add();
 	test_remove();
 	test_leak();
+	test_on_empty_list();
 }

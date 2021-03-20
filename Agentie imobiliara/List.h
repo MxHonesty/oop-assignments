@@ -63,3 +63,9 @@ void* peek_date(List* lista);
 * @param lista - lista din care dorim sa eleiminam ultimul element.
 */
 void pop_list(List* lista); // TODO
+
+/** Elimina ultimul repo din lista. Daca lista are mai putin de 2
+*	elemente atunci nu se modifica nimic.
+	@param lista - lista din care dorim sa eliminam elementul.
+*/
+void pop_repo_list(List* lista);

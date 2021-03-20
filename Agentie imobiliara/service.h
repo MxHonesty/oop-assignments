@@ -59,3 +59,8 @@ VectorOferte* srv_sorteaza_oferte(Service*, char*, char*);
 * rezultata si dimensiunea sa
 */
 VectorOferte* srv_filtreaza_oferte(Service*, char*, char*, char*, int);
+
+/** Executa functionalitatea de undo la nivel de service.
+	@param srv - service in care dorim sa executam operatia.
+*/
+void service_undo(Service* srv);

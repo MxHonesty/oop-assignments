@@ -9,10 +9,10 @@
 
 
 void run_all_tests() {
-	//run_all_domain_tests();
-	//run_all_valid_tests();
-	//run_all_repo_tests();
+	run_all_domain_tests();
+	run_all_valid_tests();
+	run_all_repo_tests();
 	run_all_service_tests();
-	//run_all_utils_tests();  // Creeaza leak pentru ca nu se elibereaza repo_history.
-	//run_all_list_tests();
+	run_all_utils_tests();
+	run_all_list_tests();
 }

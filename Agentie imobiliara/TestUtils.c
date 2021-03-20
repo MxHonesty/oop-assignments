@@ -63,8 +63,7 @@ void run_utils_tests() {
 
 	free(oferte_sortate->oferte);
 	free(oferte_sortate);
-	eliberare_repo(srv_oferte->repo_oferte);
-	free(srv_oferte);
+	distruge_service(srv_oferte);
 }
 
 void run_all_utils_tests() {

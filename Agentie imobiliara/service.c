@@ -58,6 +58,7 @@ Service* srv_adauga_oferta(Service* srv_oferte, char* tip, int suprafata, char* 
 
 	distruge_oferta(oferta);
 
+	add_to_list(&srv_oferte->repo_history, repo_copy(srv_oferte->repo_oferte));
 	return srv_oferte;
 }
 
@@ -99,6 +100,8 @@ Service* srv_modifica_oferta(Service* srv_oferte, char* tip_vechi, char* adresa_
 	distruge_oferta(oferta_noua);
 	distruge_oferta(oferta_veche);
 
+
+	add_to_list(&srv_oferte->repo_history, repo_copy(srv_oferte->repo_oferte));
 	return srv_oferte;
 }
 
@@ -128,7 +131,7 @@ Service* srv_sterge_oferta(Service* srv_oferte, char* tip, char* adresa) {
 	}
 
 	srv_oferte->repo_oferte = sterge_oferta(srv_oferte->repo_oferte, oferta);
-
+	add_to_list(&srv_oferte->repo_history, repo_copy(srv_oferte->repo_oferte));
 	distruge_oferta(oferta);
 
 	return srv_oferte;
@@ -203,7 +206,11 @@ VectorOferte* srv_filtreaza_oferte(Service* srv_oferte, char* criteriu, char* cr
 	if (strcmp(relatie, ">") == 0) rel = 1;
 
 	for (int i = 0; i < len(srv_oferte->repo_oferte); ++i) {
-		if (strcmp("tip", criteriu) == 0) {
+		if (strcmp("adresa", criteriu) == 0) {  // Noua filtrare de adresa.
+			if (strcmp(criteriu_valoare, get_adresa_oferta(srv_oferte->repo_oferte->oferte[i])) == 0)
+				Oferte->oferte[Oferte->size++] = srv_oferte->repo_oferte->oferte[i];
+		}
+		else if (strcmp("tip", criteriu) == 0) {
 			if (strcmp(criteriu_valoare, get_tip_oferta(srv_oferte->repo_oferte->oferte[i])) == 0)
 				Oferte->oferte[Oferte->size++] = srv_oferte->repo_oferte->oferte[i];
 		}
@@ -218,4 +225,12 @@ VectorOferte* srv_filtreaza_oferte(Service* srv_oferte, char* criteriu, char* cr
 	}
 
 	return Oferte;
+}
+
+void service_undo(Service* srv){
+	if (srv->repo_history.lungime > 1) {
+		eliberare_repo(srv->repo_oferte);  // Eliberam repo curent
+		pop_repo_list(&srv->repo_history);
+		srv->repo_oferte = repo_copy(peek_date(&srv->repo_history));  // Setam repo curent la o copie a repo-ului din lista.
+	}
 }

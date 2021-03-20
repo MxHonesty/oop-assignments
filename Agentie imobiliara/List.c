@@ -74,8 +74,7 @@ void add_to_list(List* lista, void* data) {
 void* peek_date(List* lista) {
 	if (lista->ultim != NULL) {
 		return lista->ultim->data;
-	}
-	else
+	} else
 		return NULL; // List empty.
 }
 
@@ -85,4 +84,12 @@ void pop_list(List* lista) {
 	lista->lungime--;
 	lista->ultim = a->precedent;
 	destroy_nod(a);
+}
+
+void pop_repo_list(List* lista) {
+	struct Nod* a = lista->ultim;
+	lista->ultim->precedent->urmator = NULL;
+	lista->lungime--;
+	lista->ultim = a->precedent;
+	destory_repo_nod(a);
 }
