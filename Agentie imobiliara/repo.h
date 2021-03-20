@@ -59,3 +59,9 @@ int gaseste_oferta(Repository*, Oferta*);
 */
 void eliberare_repo(Repository* repo);
 
+/** Creeaza un deep copy a repository-ului curent
+	@param de_copiat - pointer la repo de copiat
+	@return pointer la deep copy a repo
+*/
+Repository* repo_copy(Repository* de_copiat);
+

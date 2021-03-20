@@ -15,7 +15,15 @@ Service* creeaza_service(Repository* repo) {
 	Service* service;
 	service = (Service*)malloc(sizeof(Service));
 	service->repo_oferte = repo;
+	service->repo_history = create_list();
+	add_to_list(&service->repo_history, repo_copy(repo));
 	return service;
+}
+
+void distruge_service(Service* de_sters) {
+	destroy_repo_list(de_sters->repo_history);
+	eliberare_repo(de_sters->repo_oferte);
+	free(de_sters);
 }
 
 Service* srv_adauga_oferta(Service* srv_oferte, char* tip, int suprafata, char* adresa, int pret) {

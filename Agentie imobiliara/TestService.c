@@ -137,18 +137,14 @@ void run_service_tests() {
 	srv_oferte = srv_modifica_oferta(srv_oferte, "casa", "Ardeal", "casa", 2, "Cluj", 1000);
 	assert(strcmp(srv_oferte->eroare, "oferta initiala este inexistenta!\n") == 0);
 
-	run_srv_sorteaza_tests();
-
-	run_srv_filter_tests();
-
 	distruge_oferta(oferta);
 	distruge_oferta(oferta2);
-	eliberare_repo(srv_oferte->repo_oferte);
-	free(srv_oferte);
+
+	distruge_service(srv_oferte);
 }
 
 void run_all_service_tests(){
 	run_service_tests();
-	run_srv_filter_tests();
-	run_srv_sorteaza_tests();
+	//run_srv_filter_tests();
+	//run_srv_sorteaza_tests();
 }

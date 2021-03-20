@@ -63,6 +63,26 @@ void run_repo_tests() {
 	eliberare_repo(repo);
 }
 
+void test_copy_repo() {
+	Repository* repo;
+	repo = creeaza_repo();
+
+	char* adresa = "Strada nr 1";
+	char* tip = "teren";
+	int suprafata = 100;
+	int pret = 2000;
+	Oferta* oferta1 = creeaza_oferta(tip, suprafata, adresa, pret);
+	repo = adauga_oferta(repo, oferta1);
+
+	Repository* copie_repo = repo_copy(repo);
+
+	distruge_oferta(oferta1);
+	eliberare_repo(repo);
+
+	eliberare_repo(copie_repo);
+}
+
 void run_all_repo_tests() {
 	run_repo_tests();
+	test_copy_repo(); // Test pentru leak
 }

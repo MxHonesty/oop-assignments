@@ -35,6 +35,16 @@ struct Nod* creade_nod(void* data);
 */
 void destroy_nod(struct Nod* de_distrus);
 
+/** Elibereaza un nod care contine repor-uri 
+	@param de_distrus - nodul dorit
+*/
+void destory_repo_nod(struct Nod* de_distrus);
+
+/** Elibereaza o lista care contine repo-uri 
+	@param de_distrus - nodul dorit
+*/
+void destroy_repo_list(List de_distrus);
+
 /** Adauga date la finalul listei.
 * @param lista - pointer la lista in care dorim sa adaugam.
 * @param data - pointer la datele alocate dinamic pe 

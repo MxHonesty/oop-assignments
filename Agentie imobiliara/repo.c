@@ -125,6 +125,20 @@ void eliberare_repo(Repository* repo) {
 	free(repo);
 }
 
+Repository* repo_copy(Repository* de_copiat){
+	Repository* new_repo = malloc(sizeof(Repository));
+	new_repo->dimensiune = de_copiat->dimensiune;
+	new_repo->capacitate = de_copiat->capacitate;
+	new_repo->oferte = malloc(new_repo->capacitate * sizeof(Oferta*));
+	for (int i = 0; i < new_repo->dimensiune; i++) {
+		Oferta* old_oferta = de_copiat->oferte[i];
+		Oferta* new_oferta = creeaza_oferta(old_oferta->tip, old_oferta->suprafata, old_oferta->adresa, old_oferta->pret);
+		new_repo->oferte[i] = new_oferta;
+	}
+
+	return new_repo;
+}
+
 int gaseste_oferta(Repository* repo, Oferta* oferta) {
 	/*
 	* returneaza true(!=0) daca o oferta data se gaseste in repo,

@@ -1,4 +1,5 @@
 #include "List.h"
+#include "repo.h"
 #include <stddef.h>
 #include <stdlib.h>
 
@@ -14,6 +15,21 @@ List create_list(){
 void destroy_nod(struct Nod* de_distrus) {
 	free(de_distrus->data);
 	free(de_distrus);
+}
+
+void destory_repo_nod(struct Nod* de_distrus) {
+	eliberare_repo(de_distrus->data);
+	free(de_distrus);
+}
+
+void destroy_repo_list(List de_distrus) {
+	if (de_distrus.lungime == 0)
+		return;
+	while (de_distrus.prim != NULL) {
+		struct Nod* urmator = de_distrus.prim->urmator;
+		destory_repo_nod(de_distrus.prim);
+		de_distrus.prim = urmator;
+	}
 }
 
 void destroy_list(List de_distrus) {
