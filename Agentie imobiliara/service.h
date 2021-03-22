@@ -60,6 +60,12 @@ VectorOferte* srv_sorteaza_oferte(Service*, char*, char*);
 */
 VectorOferte* srv_filtreaza_oferte(Service*, char*, char*, char*, int);
 
+/*
+* Genereaza un sample de nr date noi
+* @param nr - numarul de entry-uri noi.
+*/
+Service* sample_data(Service* srv);
+
 /** Executa functionalitatea de undo la nivel de service.
 	@param srv - service in care dorim sa executam operatia.
 */

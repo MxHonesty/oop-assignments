@@ -227,6 +227,23 @@ VectorOferte* srv_filtreaza_oferte(Service* srv_oferte, char* criteriu, char* cr
 	return Oferte;
 }
 
+Service* sample_data(Service* srv){
+	srv = srv_adauga_oferta(srv, "teren", 100, "Strada1", 1);
+	srv = srv_adauga_oferta(srv, "teren", 90, "Strada2", 2);
+	srv = srv_adauga_oferta(srv, "teren", 80, "Strada3", 4);
+
+	srv = srv_adauga_oferta(srv, "casa", 70, "Strada1", 1);
+	srv = srv_adauga_oferta(srv, "casa", 60, "Strada2", 2);
+	srv = srv_adauga_oferta(srv, "casa", 50, "Strada3", 4);
+
+	srv = srv_adauga_oferta(srv, "apartament", 40, "Strada1", 1);
+	srv = srv_adauga_oferta(srv, "apartament", 30, "Strada2", 2);
+	srv = srv_adauga_oferta(srv, "apartament", 20, "Strada3", 4);
+
+	srv = srv_adauga_oferta(srv, "teren", 10, "Strada10", 2);
+	return srv;
+}
+
 void service_undo(Service* srv){
 	if (srv->repo_history.lungime > 1) {
 		eliberare_repo(srv->repo_oferte);  // Eliberam repo curent

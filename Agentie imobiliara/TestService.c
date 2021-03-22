@@ -171,11 +171,18 @@ void run_srv_undo_test() {
 	service_undo(srv);  // Executam undo.
 	assert(!gaseste_oferta(srv->repo_oferte, oferta_de_cautat));
 
-	
-	
-	
-	
 	distruge_oferta(oferta_de_cautat);
+	distruge_service(srv);
+}
+
+void run_sample_data_test() {
+	Repository* repo;
+	repo = creeaza_repo();
+	Service* srv = creeaza_service(repo);
+
+	srv = sample_data(srv);
+	assert(srv->repo_oferte->dimensiune == 10);
+
 	distruge_service(srv);
 }
 
@@ -183,6 +190,6 @@ void run_all_service_tests(){
 	run_service_tests();
 	run_srv_filter_tests();
 	run_srv_sorteaza_tests();
-
+	run_sample_data_test();
 	run_srv_undo_test();
 }

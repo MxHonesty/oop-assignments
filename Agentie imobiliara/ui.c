@@ -209,6 +209,10 @@ void ui_undo(Service* srv) {
 	service_undo(srv);
 }
 
+void ui_sample_data(Service* srv) {
+	srv = sample_data(srv);
+}
+
 void afisare_comenzi() {
 	/*
 	* afiseaza comenzile posibile din meniu
@@ -221,6 +225,7 @@ void afisare_comenzi() {
 	printf("   filtreaza - filtrarea ofertelor dupa un criteriu\n");
 	printf("   afiseaza  - afisarea tuturor ofertelor\n");
 	printf("   undo      - anuleaza ultima modificare\n");
+	printf("   sample    - adauga 10 elemente generate\n");
 	printf("   exit      - iesirea din aplicatie\n");
 }
 
@@ -244,6 +249,7 @@ void run(Service* srv_oferte) {
 		else if (strcmp(cmd, "afiseaza") == 0) ui_afisare_oferte(srv_oferte);
 		else if (strcmp(cmd, "sterge") == 0) srv_oferte = ui_stergere_oferta(srv_oferte);
 		else if (strcmp(cmd, "undo") == 0) ui_undo(srv_oferte);
+		else if (strcmp(cmd, "sample") == 0) ui_sample_data(srv_oferte);
 		else printf("comanda invalida!\n");
 	}
 
