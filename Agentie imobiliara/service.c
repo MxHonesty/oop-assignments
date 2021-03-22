@@ -14,15 +14,14 @@ Service* creeaza_service(Repository* repo) {
 	*/
 	Service* service;
 	service = (Service*)malloc(sizeof(Service));
-	service->repo_oferte = repo;
 	service->repo_history = create_list();
-	add_repo_to_list(&service->repo_history, repo_copy(repo));
+	add_repo_to_list(&service->repo_history, repo);
+	service->repo_oferte = repo;
 	return service;
 }
 
 void distruge_service(Service* de_sters) {
 	destroy_repo_list(de_sters->repo_history);
-	eliberare_repo(de_sters->repo_oferte);
 	free(de_sters);
 }
 
@@ -38,6 +37,7 @@ Service* srv_adauga_oferta(Service* srv_oferte, char* tip, int suprafata, char* 
 	*/
 	Oferta* oferta = creeaza_oferta(tip, suprafata, adresa, pret);
 	strcpy(srv_oferte->eroare, "Operatie efectuata cu succes.\n");
+	Repository* repo = repo_copy(srv_oferte->repo_oferte);
 
 	char eroare[100] = "";
 	strcpy(eroare, validate_oferta(oferta));
@@ -45,20 +45,23 @@ Service* srv_adauga_oferta(Service* srv_oferte, char* tip, int suprafata, char* 
 	if (strlen(eroare) > 0) {
 		strcpy(srv_oferte->eroare, eroare);
 		distruge_oferta(oferta);
+		eliberare_repo(repo);
 		return srv_oferte;
 	}
 
 	if (gaseste_oferta(srv_oferte->repo_oferte, oferta)) {
 		strcpy(srv_oferte->eroare, "oferta deja existenta!\n");
 		distruge_oferta(oferta);
+		eliberare_repo(repo);
 		return srv_oferte;
 	}
 
-	srv_oferte->repo_oferte = adauga_oferta(srv_oferte->repo_oferte, oferta);
+	repo = adauga_oferta(repo, oferta);
 
 	distruge_oferta(oferta);
 
-	add_repo_to_list(&srv_oferte->repo_history, repo_copy(srv_oferte->repo_oferte));
+	add_repo_to_list(&srv_oferte->repo_history, repo);
+	srv_oferte->repo_oferte = repo;
 	return srv_oferte;
 }
 
@@ -77,6 +80,7 @@ Service* srv_modifica_oferta(Service* srv_oferte, char* tip_vechi, char* adresa_
 	Oferta* oferta_noua = creeaza_oferta(tip, suprafata, adresa, pret);
 	Oferta* oferta_veche = creeaza_oferta(tip_vechi, 1, adresa_veche, 1);
 	strcpy(srv_oferte->eroare, "Operatie efectuata cu succes.\n");
+	Repository* repo = repo_copy(srv_oferte->repo_oferte);
 
 	char eroare[150] = "";
 	strcat(eroare, validate_oferta(oferta_veche));
@@ -85,6 +89,7 @@ Service* srv_modifica_oferta(Service* srv_oferte, char* tip_vechi, char* adresa_
 		strcpy(srv_oferte->eroare, eroare);
 		distruge_oferta(oferta_noua);
 		distruge_oferta(oferta_veche);
+		eliberare_repo(repo);
 		return srv_oferte;
 	}
 
@@ -92,16 +97,18 @@ Service* srv_modifica_oferta(Service* srv_oferte, char* tip_vechi, char* adresa_
 		strcpy(srv_oferte->eroare, "oferta initiala este inexistenta!\n");
 		distruge_oferta(oferta_noua);
 		distruge_oferta(oferta_veche);
+		eliberare_repo(repo);
 		return srv_oferte;
 	}
 
-	modificare_oferta(srv_oferte->repo_oferte, oferta_veche, oferta_noua);
+	modificare_oferta(repo, oferta_veche, oferta_noua);
 
 	distruge_oferta(oferta_noua);
 	distruge_oferta(oferta_veche);
 
 
-	add_repo_to_list(&srv_oferte->repo_history, repo_copy(srv_oferte->repo_oferte));
+	add_repo_to_list(&srv_oferte->repo_history, repo);
+	srv_oferte->repo_oferte = repo;
 	return srv_oferte;
 }
 
@@ -115,23 +122,27 @@ Service* srv_sterge_oferta(Service* srv_oferte, char* tip, char* adresa) {
 	*/
 	Oferta* oferta = creeaza_oferta(tip, 1, adresa, 1);
 	strcpy(srv_oferte->eroare, "Operatie efectuata cu succes.\n");
+	Repository* repo = repo_copy(srv_oferte->repo_oferte);
 
 	char eroare[100] = "";
 	strcpy(eroare, validate_oferta(oferta));
 	if (strlen(eroare) > 0) {
 		strcpy(srv_oferte->eroare, eroare);
 		distruge_oferta(oferta);
+		eliberare_repo(repo);
 		return srv_oferte;
 	}
 
 	if (gaseste_oferta(srv_oferte->repo_oferte, oferta) == 0) {
 		strcpy(srv_oferte->eroare, "oferta inexistenta!\n");
 		distruge_oferta(oferta);
+		eliberare_repo(repo);
 		return srv_oferte;
 	}
 
-	srv_oferte->repo_oferte = sterge_oferta(srv_oferte->repo_oferte, oferta);
-	add_repo_to_list(&srv_oferte->repo_history, repo_copy(srv_oferte->repo_oferte));
+	repo = sterge_oferta(repo, oferta);
+	add_repo_to_list(&srv_oferte->repo_history, repo);
+	srv_oferte->repo_oferte = repo;
 	distruge_oferta(oferta);
 
 	return srv_oferte;
@@ -246,8 +257,7 @@ Service* sample_data(Service* srv){
 
 void service_undo(Service* srv){
 	if (srv->repo_history.lungime > 1) {
-		eliberare_repo(srv->repo_oferte);  // Eliberam repo curent
 		pop_repo_list(&srv->repo_history);
-		srv->repo_oferte = repo_copy(peek_date(&srv->repo_history));  // Setam repo curent la o copie a repo-ului din lista.
+		srv->repo_oferte = peek_date(&srv->repo_history);  // Setam repo curent la o copie a repo-ului din lista.
 	}
 }
