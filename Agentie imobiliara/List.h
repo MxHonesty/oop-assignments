@@ -1,15 +1,10 @@
 #pragma once
 
-struct Nod {
-	void* data;
-	struct Nod* urmator;
-	struct Nod* precedent;
-};
 
 typedef struct {
-	struct Nod* prim;
-	struct Nod* ultim;
-	int lungime;
+	void** list;
+	int capacitate;  // Lungimea maxima
+	int lungime;  // Lungimea curenta
 }List;
 
 /** Constructor al listei.
@@ -24,21 +19,6 @@ List create_list();
 */
 void destroy_list(List de_distrus);
 
-/** Creeaza struct Nodul.
-* @param data pointer la datele dorite alocate dinamic.
-* @return pointer la struct Nodul creat.
-*/
-struct Nod* creade_nod(void* data);
-
-/** Distruge struct Nodul dat prin pointer si datele continute in el.
-* @param de_distrus struct Nodul pe care dorim sa il eliberam
-*/
-void destroy_nod(struct Nod* de_distrus);
-
-/** Elibereaza un nod care contine repor-uri 
-	@param de_distrus - nodul dorit
-*/
-void destory_repo_nod(struct Nod* de_distrus);
 
 /** Elibereaza o lista care contine repo-uri 
 	@param de_distrus - nodul dorit
@@ -69,3 +49,10 @@ void pop_list(List* lista); // TODO
 	@param lista - lista din care dorim sa eliminam elementul.
 */
 void pop_repo_list(List* lista);
+
+/** Functie redimensionare */
+void redim_lista(List* la_lista);
+
+void add_repo_to_list(List* lista, void* data);
+
+void redim_repo_lista(List* la_lista);

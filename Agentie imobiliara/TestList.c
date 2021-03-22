@@ -14,16 +14,6 @@ void test_add() {
 	}
 	assert(a.lungime == 100);
 
-	struct Nod* curent = a.prim;
-	for (int i = 0; i < 100; i++) {
-		int* valoare = curent->data;
-		assert(*valoare == i);
-		curent = curent->urmator;
-	}
-	
-	int* salut = peek_date(&a);
-	assert(*salut == 99);
-
 	destroy_list(a);
 }
 
@@ -59,8 +49,6 @@ void test_leak() {
 void test_on_empty_list() {
 	List a = create_list();
 	destroy_list(a);
-	destroy_repo_list(a);
-	assert(peek_date(&a) == NULL);
 }
 
 void run_all_list_tests(){

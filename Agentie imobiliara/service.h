@@ -8,6 +8,7 @@
 /*
 * reprezentarea entitatii de service
 * repo_oferte - respository* (Oferte)
+* repo_history - lista de undo
 * eroare - sir de caractere (mesaj sugestiv in urma operatiei)
 */
 typedef struct{

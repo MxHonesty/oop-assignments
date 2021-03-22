@@ -16,7 +16,7 @@ Service* creeaza_service(Repository* repo) {
 	service = (Service*)malloc(sizeof(Service));
 	service->repo_oferte = repo;
 	service->repo_history = create_list();
-	add_to_list(&service->repo_history, repo_copy(repo));
+	add_repo_to_list(&service->repo_history, repo_copy(repo));
 	return service;
 }
 
@@ -58,7 +58,7 @@ Service* srv_adauga_oferta(Service* srv_oferte, char* tip, int suprafata, char* 
 
 	distruge_oferta(oferta);
 
-	add_to_list(&srv_oferte->repo_history, repo_copy(srv_oferte->repo_oferte));
+	add_repo_to_list(&srv_oferte->repo_history, repo_copy(srv_oferte->repo_oferte));
 	return srv_oferte;
 }
 
@@ -101,7 +101,7 @@ Service* srv_modifica_oferta(Service* srv_oferte, char* tip_vechi, char* adresa_
 	distruge_oferta(oferta_veche);
 
 
-	add_to_list(&srv_oferte->repo_history, repo_copy(srv_oferte->repo_oferte));
+	add_repo_to_list(&srv_oferte->repo_history, repo_copy(srv_oferte->repo_oferte));
 	return srv_oferte;
 }
 
@@ -131,7 +131,7 @@ Service* srv_sterge_oferta(Service* srv_oferte, char* tip, char* adresa) {
 	}
 
 	srv_oferte->repo_oferte = sterge_oferta(srv_oferte->repo_oferte, oferta);
-	add_to_list(&srv_oferte->repo_history, repo_copy(srv_oferte->repo_oferte));
+	add_repo_to_list(&srv_oferte->repo_history, repo_copy(srv_oferte->repo_oferte));
 	distruge_oferta(oferta);
 
 	return srv_oferte;
