@@ -12,12 +12,18 @@
 * eroare - sir de caractere (mesaj sugestiv in urma operatiei)
 */
 typedef struct{
-	List repo_history;
-	Repository* repo_oferte;
+	List* repo_history;  // Lista de lista (stari ale elems).
+	List* elems;  // Lista elemente curente.
 	char eroare[150];
 }Service;
+// TODO: De renuntat la REPO. Rescriem service astfel incat sa folosim lista.
+// TODO: De rescris lista pentru abstractizare.
 
-Service* creeaza_service(Repository*);
+/*
+* returneaza o entitate noua de tip Service*
+* repo - Repository*
+*/
+Service* creeaza_service(List*);
 
 /** Elibereaza toata memoria aferenta service-ului */
 void distruge_service(Service* de_sters);

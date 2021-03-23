@@ -78,3 +78,8 @@ returneaza true daca cele doua oferte sunt echivalente,
 false in caz contrar
 */
 int equals_oferta(Oferta*, Oferta*);
+
+/** Creeaza o copie a unei oferte date prin pointer.
+* @param de_copiat - oferta de copiat
+*/
+Oferta* copy_oferta(Oferta* de_copiat);

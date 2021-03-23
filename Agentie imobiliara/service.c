@@ -7,21 +7,17 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-Service* creeaza_service(Repository* repo) {
-	/*
-	* returneaza o entitate noua de tip Service*
-	* repo - Repository*
-	*/
+Service* creeaza_service() {
 	Service* service;
 	service = (Service*)malloc(sizeof(Service));
 	service->repo_history = create_list();
-	add_repo_to_list(&service->repo_history, repo);
-	service->repo_oferte = repo;
+	service->elems = create_list();
+	add_to_list(service->repo_history, copy_list(service->elems));  // Prima stare introdusa in istoric.
 	return service;
 }
 
 void distruge_service(Service* de_sters) {
-	destroy_repo_list(de_sters->repo_history);
+	//destroy_list(de_sters->repo_history, eliberare_repo);
 	free(de_sters);
 }
 
@@ -60,7 +56,7 @@ Service* srv_adauga_oferta(Service* srv_oferte, char* tip, int suprafata, char* 
 
 	distruge_oferta(oferta);
 
-	add_repo_to_list(&srv_oferte->repo_history, repo);
+	//add_repo_to_list(&srv_oferte->repo_history, repo);
 	srv_oferte->repo_oferte = repo;
 	return srv_oferte;
 }
@@ -107,7 +103,7 @@ Service* srv_modifica_oferta(Service* srv_oferte, char* tip_vechi, char* adresa_
 	distruge_oferta(oferta_veche);
 
 
-	add_repo_to_list(&srv_oferte->repo_history, repo);
+	//add_repo_to_list(&srv_oferte->repo_history, repo);
 	srv_oferte->repo_oferte = repo;
 	return srv_oferte;
 }
@@ -141,7 +137,7 @@ Service* srv_sterge_oferta(Service* srv_oferte, char* tip, char* adresa) {
 	}
 
 	repo = sterge_oferta(repo, oferta);
-	add_repo_to_list(&srv_oferte->repo_history, repo);
+	//add_repo_to_list(&srv_oferte->repo_history, repo);
 	srv_oferte->repo_oferte = repo;
 	distruge_oferta(oferta);
 
@@ -257,7 +253,7 @@ Service* sample_data(Service* srv){
 
 void service_undo(Service* srv){
 	if (srv->repo_history.lungime > 1) {
-		pop_repo_list(&srv->repo_history);
+		//pop_list(&srv->repo_history, eliberare_repo);
 		srv->repo_oferte = peek_date(&srv->repo_history);  // Setam repo curent la o copie a repo-ului din lista.
 	}
 }

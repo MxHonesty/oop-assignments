@@ -117,3 +117,8 @@ int equals_oferta(Oferta* oferta1, Oferta* oferta2) {
 	*/
 	return strcmp(get_adresa_oferta(oferta1),get_adresa_oferta(oferta2)) == 0 && strcmp(get_tip_oferta(oferta1), get_tip_oferta(oferta2)) == 0;
 }
+
+Oferta* copy_oferta(Oferta* de_copiat){
+	Oferta* rez = creeaza_oferta(get_tip_oferta(de_copiat), get_suprafata_oferta(de_copiat), get_adresa_oferta(de_copiat), get_pret_oferta(de_copiat));
+	return rez;
+}
