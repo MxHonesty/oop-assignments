@@ -197,9 +197,10 @@ void ui_afisare_oferte(Service* srv_oferte) {
 
 	printf(lista_oferte->eroare);
 
-	for (int i = 0; i < lista_oferte->repo_oferte->dimensiune; ++i)
-		printf("tip: %s | suprafata: %d | adresa: %s | pret: %d\n", get_tip_oferta(lista_oferte->repo_oferte->oferte[i]),
-			get_suprafata_oferta(lista_oferte->repo_oferte->oferte[i]), get_adresa_oferta(lista_oferte->repo_oferte->oferte[i]), get_pret_oferta(lista_oferte->repo_oferte->oferte[i]));
+
+	for (int i = 0; i < dim(lista_oferte->elems); ++i)
+		printf("tip: %s | suprafata: %d | adresa: %s | pret: %d\n", get_tip_oferta(lista_oferte->elems->list[i]),
+			get_suprafata_oferta(lista_oferte->elems->list[i]), get_adresa_oferta(lista_oferte->elems->list[i]), get_pret_oferta(lista_oferte->elems->list[i]));
 }
 
 /** Functia de ui pentru functionalitatea de undo.

@@ -108,7 +108,7 @@ void pop_list(List* lista, Destructor des) {
 void modificare_element(List* lista, void* inlocuit, void* nou, Destructor des) {
 	int poz = search_element(lista, inlocuit, equals_oferta);
 	if (poz != -1) {  // Daca este in lista
-		des(inlocuit);
+		des(lista->list[poz]);
 		lista->list[poz] = nou;
 	}
 }

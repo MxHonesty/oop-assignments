@@ -23,7 +23,7 @@ typedef struct{
 * returneaza o entitate noua de tip Service*
 * repo - Repository*
 */
-Service* creeaza_service(List*);
+Service* creeaza_service();  // MOD
 
 /** Elibereaza toata memoria aferenta service-ului */
 void distruge_service(Service* de_sters);
@@ -32,6 +32,11 @@ void distruge_service(Service* de_sters);
 * adauga o oferta data prin campurile sale la repo
 * in urma validarii
 * returneaza o entitate service (actualizata)
+* @param srv_oferte - service
+* @param tip - sir de caractere
+* @param suprafata - numar intreg
+* @param adresa - sir de caractere
+* @param pret - numar intreg
 */
 Service* srv_adauga_oferta(Service*, char* , int , char* , int);
 
@@ -50,7 +55,7 @@ Service* srv_modifica_oferta(Service*,char*, char*, char*, int, char*, int);
 Service* srv_sterge_oferta(Service*,char*, char*);
 
 /*
-* returneaza o entitate Service ce contine lista de oferte
+* returneaza pointer la Service ce contine lista de oferte
 * si un mesaj efect al operatiei
 */
 Service* srv_afisare_oferte(Service*);

@@ -13,11 +13,11 @@ VectorOferte* sorteaza(Service* srv_oferte, char*cheie, char*criteriu, int (*cmp
 	*/
 	VectorOferte* oferte;
 	oferte = (VectorOferte*)malloc(sizeof(VectorOferte));
-	oferte->size = len(srv_oferte->repo_oferte);
+	oferte->size = dim(srv_oferte->elems);
 	oferte->oferte = (Oferta**)malloc(oferte->size * sizeof(Oferta*));
 
 	for (int i = 0; i < oferte->size; ++i)
-		oferte->oferte[i] = srv_oferte->repo_oferte->oferte[i];
+		oferte->oferte[i] = srv_oferte->elems->list[i];
 
 	for (int i = 0; i < oferte->size; ++i)
 		for (int j = i + 1; j < oferte->size; ++j)
