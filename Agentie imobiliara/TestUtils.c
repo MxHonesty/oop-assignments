@@ -4,7 +4,6 @@
 #include <string.h>
 #include "oferta.h"
 #include "validator.h"
-#include "repo.h"
 #include "service.h"
 #include "utils.h"
 
@@ -21,10 +20,7 @@ int cmp(Oferta* oferta1, Oferta* oferta2, char* cheie, char* criteriu) {
 
 void run_utils_tests() {
 	VectorOferte* oferte_sortate;
-
-	Repository* repo_oferte;
-	repo_oferte = creeaza_repo();
-	Service* srv_oferte = creeaza_service(repo_oferte);
+	Service* srv_oferte = creeaza_service();
 
 	srv_oferte = srv_adauga_oferta(srv_oferte, "casa", 100, "Adresa1", 2000);
 	srv_oferte = srv_adauga_oferta(srv_oferte, "teren", 100, "Adresa2", 4000);
