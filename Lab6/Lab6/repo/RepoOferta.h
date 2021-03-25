@@ -27,6 +27,11 @@ public:
 	*/
 	bool search(int id) const noexcept;
 
+	/** Returneaza o referinta const la elementul cu id dat
+	* arunca o exceptie daca nu exista elementul cu acest id.
+	*/
+	const Oferta& search_element(int id) const;
+
 	/** Returneaza un vector de copii ale elementelor. 
 	* @return un vector de Oferta care contine copii
 	* ale elementelor din repo.

@@ -74,6 +74,17 @@ void test_repo_dim() {
 	assert(repo.dim() == 50);
 }
 
+void test_search_element() {
+	RepoOferte repo;
+	Oferta a{1, "a", "a", "a", 10};
+	for (int i = 2; i < 5; i++)
+		repo.add({i, "a", "a", "a", 20});
+	repo.add(a);
+	for (int i = 5; i < 10; i++)
+		repo.add({i, "a", "a", "a", 20});
+	assert(a == repo.search_element(1));
+}
+
 void Testing::run_oferta_repository_tests(){
 	test_repo_add();
 	test_repo_remove();
@@ -81,4 +92,5 @@ void Testing::run_oferta_repository_tests(){
 	test_repo_get_all();
 	test_repo_remove_all();
 	test_repo_dim();
+	test_search_element();
 }

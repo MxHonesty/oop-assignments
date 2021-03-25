@@ -22,6 +22,14 @@ bool RepoOferte::search(int id) const noexcept{
 	return false;
 }
 
+const Oferta& RepoOferte::search_element(int id) const{
+	for (auto& el : elems) {
+		if (el.get_id() == id)
+			return el;
+	}
+	throw "Element not found.";
+}
+
 vector<Oferta> RepoOferte::get_all() const{
 	return this->elems;
 }
