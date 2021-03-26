@@ -21,6 +21,13 @@ public:
 	*/
 	void remove(int id) noexcept;
 
+	/** Updateaza elementul cu id dat la noua oferta.
+	* Elementului din lista ii sunt inlocuite atribuitele cu cele noi.
+	* @param id - id-ul elementului cautat
+	* @param new_oferta - noua oferta.
+	*/
+	void update(int id, const Oferta& new_oferta);
+
 	/** Determina daca elementul cu id dat este in lista.
 	* @param id - id-ul elementului cautat.
 	* @return true daca elementul exista in lista, false altfel.

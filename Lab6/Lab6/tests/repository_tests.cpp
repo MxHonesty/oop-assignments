@@ -83,6 +83,24 @@ void test_search_element() {
 	for (int i = 5; i < 10; i++)
 		repo.add({i, "a", "a", "a", 20});
 	assert(a == repo.search_element(1));
+	try {
+		repo.search_element(1000);
+		assert(false);
+	}
+	catch (std::domain_error) {
+		assert(true);
+	}
+}
+
+void test_update_element() {
+	RepoOferte repo;
+	for (int i = 0; i < 10; i++)
+		repo.add({i, "a", "a", "a", 10});
+	repo.update(5, { 5, "b", "b", "b", 100 });
+	Oferta de_comp{ 5, "a", "a", "a", 10 };
+	assert(not (repo.search_element(5).get_pret() == de_comp.get_pret()));
+	de_comp = {5, "b", "b", "b", 100};
+	assert(repo.search_element(5).get_pret() == de_comp.get_pret());
 }
 
 void Testing::run_oferta_repository_tests(){
@@ -93,4 +111,5 @@ void Testing::run_oferta_repository_tests(){
 	test_repo_remove_all();
 	test_repo_dim();
 	test_search_element();
+	test_update_element();
 }
