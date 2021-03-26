@@ -101,8 +101,8 @@ void srv_sortare_test() {
 	ServiceOferta srv;
 	srv.adaugare("b", "b" ,"a", 2);
 	srv.adaugare("a", "a", "a", 1);
-	srv.adaugare("d", "d", "a", 4);
-	srv.adaugare("c", "c", "a", 3);  // Sortare Destinatie
+	srv.adaugare("d", "d", "b", 4);
+	srv.adaugare("c", "c", "b", 3);  // Sortare Destinatie
 	auto vec = srv.sortare([](Oferta& a, Oferta& b) {return a.get_destinatie() < b.get_destinatie(); });
 	int i = 1;
 	for (const auto& el : vec) {

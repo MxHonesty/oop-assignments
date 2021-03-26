@@ -11,11 +11,20 @@
 #include <iostream>
 #include "tests/tests.h"
 #include <crtdbg.h>
+#include "ui/ui.h"
+
+// Functie pentru limitare scope UI.
+void start() {
+    UI ui{};
+    ui.run();
+}
 
 int main()
 {   
     Testing::run_all_tests();
     std::cout << "Test success\n";
 
+    start();
+    
     _CrtDumpMemoryLeaks();
 }

@@ -13,7 +13,7 @@ private:
 public:
 	/** Constructor implicit */
 	ServiceOferta() noexcept : repo{} {
-		id = 0;
+		this->id = 0;
 	}
 
 	/** Functie de adaugare de service. Adauga un element in registru.
@@ -23,7 +23,6 @@ public:
 	* @param pret - pretul elementului adaugat.
 	* @return Arunca eroare cu un mesaj daca elementul nu se poate introduce.
 	*/
-	// TODO: Nu permite adaugare cu id deja existent.
 	void adaugare(string denumire, string destinatie, string tip, int pret);
 
 	/** Functie de stergere din service. Sterge un element din registru.

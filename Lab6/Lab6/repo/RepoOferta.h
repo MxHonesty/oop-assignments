@@ -9,7 +9,7 @@ class RepoOferte {
 private:
 	vector<Oferta> elems;  // Lista de elemente.
 public:
-	RepoOferte() noexcept {}  // Constructor implicit.
+	RepoOferte() noexcept : elems{} {}  // Constructor implicit.
 
 	/** Adauga o oferta in repository.
 	* @param de_adaugat - Oferta pe care dorim sa o adaugam.
