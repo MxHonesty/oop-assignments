@@ -19,31 +19,34 @@ public:
 	/** Elimina elementul cu id-ul dat. 
 	* @param id - id elementului pe care dorim sa il eliminam.
 	*/
-	void remove(int id) noexcept;
+	void remove(const int id);
 
 	/** Updateaza elementul cu id dat la noua oferta.
 	* Elementului din lista ii sunt inlocuite atribuitele cu cele noi.
 	* @param id - id-ul elementului cautat
 	* @param new_oferta - noua oferta.
 	*/
-	void update(int id, const Oferta& new_oferta);
+	void update(const int id, const Oferta& new_oferta);
 
 	/** Determina daca elementul cu id dat este in lista.
 	* @param id - id-ul elementului cautat.
 	* @return true daca elementul exista in lista, false altfel.
 	*/
-	bool search(int id) const noexcept;
+	bool search(const int id) const noexcept;
 
 	/** Returneaza o referinta const la elementul cu id dat
 	* arunca o exceptie daca nu exista elementul cu acest id.
 	*/
-	const Oferta& search_element(int id) const;
+	const Oferta& search_element(const int id) const;
 
 	/** Returneaza un vector de copii ale elementelor. 
 	* @return un vector de Oferta care contine copii
 	* ale elementelor din repo.
 	*/
 	vector<Oferta> get_all() const;
+
+	/** Returneaza referinta la vector*/
+	const vector<Oferta>& afisare() const noexcept;
 
 	/** Elimina toate elementele din repository. */
 	void remove_all() noexcept;

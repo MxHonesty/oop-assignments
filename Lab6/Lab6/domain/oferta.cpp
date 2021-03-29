@@ -1,8 +1,18 @@
 #include "oferta.h"
+#include <iostream>
 
 Oferta::Oferta() noexcept{
 	this->pret = 0;
 	this->id = 0;
+}
+
+Oferta::Oferta(const Oferta& elem){
+	this->denumire = elem.denumire;
+	this->destinatie = elem.destinatie;
+	this->tip = elem.tip;
+	this->pret = elem.pret;
+	this->id = elem.id;
+	std::cout << "Oferta Copiata \n";
 }
 
 std::string Oferta::get_denumire() const{

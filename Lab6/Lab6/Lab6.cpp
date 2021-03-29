@@ -19,8 +19,7 @@ void start() {
     ui.run();
 }
 
-int main()
-{   
+int main() {   
     Testing::run_all_tests();
     std::cout << "Test success\n";
 

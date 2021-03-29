@@ -5,7 +5,7 @@ void RepoOferte::add(const Oferta& de_adaugat){
 	this->elems.push_back(de_adaugat);
 }
 
-void RepoOferte::remove(int id) noexcept{
+void RepoOferte::remove(const int id) {
 	for (auto iter = elems.begin(); iter != elems.end(); iter++) {
 		auto& value = *iter;  // value este elementul curent.
 		if (value.get_id() == id) {
@@ -15,7 +15,7 @@ void RepoOferte::remove(int id) noexcept{
  	}
 }
 
-void RepoOferte::update(int id, const Oferta& new_oferta){
+void RepoOferte::update(const int id, const Oferta& new_oferta){
 	for (auto& el : elems) {
 		if (el.get_id() == id) {
 			el.set_denumire(new_oferta.get_denumire());
@@ -27,7 +27,7 @@ void RepoOferte::update(int id, const Oferta& new_oferta){
 	}
 }
 
-bool RepoOferte::search(int id) const noexcept{
+bool RepoOferte::search(const int id) const noexcept{
 	for (const auto& el : elems)
 		if (el.get_id() == id)
 			return true;
@@ -35,7 +35,7 @@ bool RepoOferte::search(int id) const noexcept{
 	return false;
 }
 
-const Oferta& RepoOferte::search_element(int id) const{
+const Oferta& RepoOferte::search_element(const int id) const{
 	for (auto& el : elems) {
 		if (el.get_id() == id)
 			return el;
@@ -44,6 +44,10 @@ const Oferta& RepoOferte::search_element(int id) const{
 }
 
 vector<Oferta> RepoOferte::get_all() const{
+	return this->elems;
+}
+
+const vector<Oferta>& RepoOferte::afisare() const noexcept {
 	return this->elems;
 }
 

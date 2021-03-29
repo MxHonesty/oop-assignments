@@ -20,6 +20,8 @@ public:
 		denumire{ denumire }, destinatie{ destinatie }, tip{ tip }, id{ id }, pret{ pret } {
 
 	}
+
+	Oferta(const Oferta& elem);
 	
 	/** Returneaza denumirea ofertei. */
 	std::string get_denumire() const;

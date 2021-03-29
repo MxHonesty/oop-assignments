@@ -83,7 +83,7 @@ void UI::ui_cautare() const {
 	std::getline(std::cin, id_string);
 	try {
 		const int id_cautat = std::stoi(id_string);
-		Oferta gasit = srv.cautare(id_cautat);
+		auto& gasit = srv.cautare(id_cautat);
 		this->afisare_oferta(gasit);
 	}
 	catch (std::invalid_argument) {
@@ -124,7 +124,7 @@ void UI::ui_filtrare_destinatie() const{
 	string destinatie;
 	std::cout << "Destinatie: ";
 	std::getline(std::cin, destinatie);
-	auto rez = this->srv.filtrare_destinatie(destinatie);
+	auto& rez = this->srv.filtrare_destinatie(destinatie);
 	for (const auto& el : rez)
 		this->afisare_oferta(el);
 }
@@ -246,11 +246,11 @@ void UI::ui_quit() noexcept {
 }
 
 void UI::ui_afisare() const {
-	auto lista = srv.get_all();
+	auto& lista = srv.get_ref_all();
 	this->afisare_lista(lista);
 }
 
-void UI::afisare_lista(const vector<Oferta>& de_parcurs) const{
+void UI::afisare_lista(const vector<Oferta>& de_parcurs) const {
 	for (const auto& el : de_parcurs)
 		this->afisare_oferta(el);
 }

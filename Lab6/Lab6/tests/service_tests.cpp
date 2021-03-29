@@ -103,21 +103,21 @@ void srv_sortare_test() {
 	srv.adaugare("a", "a", "a", 1);
 	srv.adaugare("d", "d", "b", 4);
 	srv.adaugare("c", "c", "b", 3);  // Sortare Destinatie
-	auto vec = srv.sortare([](Oferta& a, Oferta& b) {return a.get_destinatie() < b.get_destinatie(); });
+	auto vec = srv.sortare([](const Oferta& a, const Oferta& b) {return a.get_destinatie() < b.get_destinatie(); });
 	int i = 1;
 	for (const auto& el : vec) {
 		assert(i == el.get_pret());
 		i++;
 	}
 		
-	vec = srv.sortare([](Oferta& a, Oferta& b) {return a.get_denumire() < b.get_denumire(); });
+	vec = srv.sortare([](const Oferta& a, const Oferta& b) {return a.get_denumire() < b.get_denumire(); });
 	i = 1;
 	for (const auto& el : vec) {
 		assert(i == el.get_pret());  // Verificam ordinea corecta.
 		i++;
 	}
 
-	vec = srv.sortare([](Oferta& a, Oferta& b) {
+	vec = srv.sortare([](const Oferta& a, const Oferta& b) {
 		if (a.get_tip() == b.get_tip())
 			return a.get_pret() < b.get_pret();
 		return a.get_tip() < b.get_tip();
