@@ -99,7 +99,7 @@ void UI::ui_filtrare_pret() const{
 		const int l = std::stoi(lower);
 		std::cout << "Limita superioara: ";
 		std::getline(std::cin, upper);
-		int u;
+		int u = INT_MAX;
 		if (upper == "max")  // Cazul max.
 			u = INT_MAX;
 		else {  // Cazul int normal.
