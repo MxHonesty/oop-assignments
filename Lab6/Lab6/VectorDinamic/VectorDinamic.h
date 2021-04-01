@@ -1,5 +1,7 @@
 #pragma once 
 
+#include <stdexcept>
+
 template <typename T>
 class IteratorVector;  // Forward declaration Iterator
 
@@ -15,12 +17,12 @@ private:
 
 public:
 	// Constructor implicit
-	VectorDinamic();
+	VectorDinamic() noexcept;
 	
 	/** Copy constructor */
 	VectorDinamic(const VectorDinamic<T>& de_copiat);
 
-	VectorDinamic& operator=(const VectorDinamic& de_copiat);
+	VectorDinamic<T>& operator=(const VectorDinamic<T>& de_copiat);
 
 	/** Destructor */
 	~VectorDinamic();
@@ -55,12 +57,14 @@ private:
 
 public:
 	// Constructor implicit
-	IteratorVector();
+	IteratorVector(const VectorDinamic<T>& m) : container{ m } {
+		this->index = 0;
+	};
 
 	/** Determina daca pozitia curenta din iterator este valida. 
 	* @return true daca pozitia curenta este valida, false altfel.
 	*/
-	bool valid();
+	bool valid() const;
 
 	/** Incrementeaza pozitia iteratorului vectorului. */
 	void urmator();
@@ -68,7 +72,7 @@ public:
 	/** Returneaza elementul curent aratat de catre iterator.
 	* @return Referinta la un element din vector.
 	*/
-	T& element();
+	T& element() const;
 
 };
 
@@ -85,22 +89,81 @@ inline void VectorDinamic<T>::ensure_capacity() {
 }
 
 template<typename T>
-inline VectorDinamic<T>::VectorDinamic() {
-	int capacitate = 10;
-	int lungime = 0;
+inline VectorDinamic<T>::VectorDinamic() noexcept {
+	capacitate = 10;
+	lungime = 0;
 	elems = new T[capacitate];  // Capacitate initiala 10
 }
 
 template<typename T>
-inline int VectorDinamic<T>::dim() const noexcept{
+inline int VectorDinamic<T>::dim() const noexcept {
 	return this->lungime;
 }
 
 template<typename T>
 inline VectorDinamic<T>::VectorDinamic(const VectorDinamic& de_copiat) {
-	VectorDinamic<T> nou;
-	for (int i = 0; i < de_copiat.lungime; i++)
-		nou.add(de_copiat.get(i));  // Adauga o copie la fiecare element.
+	this->elems = new T[de_copiat->capacitate];
+	this->lungime = de_copiat.lungime;
+	this->capacitate = de_copiat.capacitate;
 
-	return nou;
+
+	for (int i = 0; i < de_copiat.lungime; i++)
+		this->elems[i] = de_copiat.get(i);  // Adauga o copie la fiecare element.
+
+}
+
+template<typename T>
+inline VectorDinamic<T>::~VectorDinamic() {
+	delete[] this->elems;
+}
+
+template<typename T>
+inline VectorDinamic<T>& VectorDinamic<T>::operator=(const VectorDinamic& de_copiat) {
+	if (&de_copiat != this) {  // self assign guard
+		delete[] this->elems;
+		this->lungime = de_copiat.lungime;
+		this->capacitate = de_copiat.capacitate;
+		for (int i = 0; i < de_copiat.lungime; i++) {  // Copiere fiecare element.
+			this->elems[i] = de_copiat.get(i);
+		}
+	}
+}
+
+template<typename T>
+inline void VectorDinamic<T>::add(const T& de_adaugat) {
+	this->ensure_capacity();
+	this->elems[this->lungime] = de_adaugat;
+	this->lungime++;
+}
+
+template<typename T>
+inline void VectorDinamic<T>::remove(const int pozitie) {
+	for (int i = pozitie; i < this->lungime - 1; i++)
+		this->elems[i] = this->elems[i];
+	this->lungime--;
+}
+
+template<typename T>
+inline T& VectorDinamic<T>::get(const int pozitie) {
+	return this->elems[pozitie];
+}
+
+
+template<typename T>
+inline bool IteratorVector<T>::valid() const {
+	if (this->index >= 0 and this->index < this->container.lungime)
+		return true;
+	return false;
+}
+
+template<typename T>
+inline T& IteratorVector<T>::element() const {
+	if(this->valid())
+		return this->element[this->index];
+	throw std::out_of_range{ "Index out of range" };
+}
+
+template<typename T>
+inline void IteratorVector<T>::urmator() {
+	this->index++;
 }
