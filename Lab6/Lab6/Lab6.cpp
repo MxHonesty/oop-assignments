@@ -23,7 +23,7 @@ int main() {
     Testing::run_all_tests();
     std::cout << "Test success\n";
 
-    start();
+    //start();
     
     _CrtDumpMemoryLeaks();
 }
