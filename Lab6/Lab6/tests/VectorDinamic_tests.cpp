@@ -1,8 +1,6 @@
 #include "VectorDinamic_tests.h"
 #include "../VectorDinamic/VectorDinamic.h"
 #include <cassert>
-#include <iostream>
-#include <algorithm>
 
 void test_Vector_add() {
 	VectorDinamic<int> a;
@@ -96,15 +94,33 @@ void test_stl_algo() {
 	a.sort([](const int& on, const int& ot) noexcept {return on > ot; });
 	for (const auto& el : a)
 		assert(sortat_corect[i++] == el);
-
 }
 
-void Testing::run_all_VectorDinamic_tests(){
+void test_exceptions() {
+	VectorDinamic<int> a;
+	assert(not a.begin().valid());
+
+	try {
+		a.begin().element();
+		assert(false);
+	}
+	catch (const std::exception& e) {
+		if (std::string{ e.what() } == "Index out of range")
+			assert(true);
+		else
+			assert(false); // Wrong error.
+	}
+	
+}
+
+void Testing::run_all_VectorDinamic_tests() {
 	test_Vector_add();
 	test_Vector_remove();
 	test_Vector_Copiere();
-	
+
 	test_Iterator_Vector();
 
 	test_stl_algo();
+
+	test_exceptions();
 }
