@@ -50,12 +50,12 @@ void test_repo_get_all() {
 	for (int i = 0; i < 50; i++)
 		repo.add({i, "a", "a", "a", 10});  // Adaugam 50 de elemente
 
-	vector<Oferta> t = repo.get_all();
+	VectorDinamic<Oferta> t = repo.get_all();
 	for (auto& el : t) {  // Aceste elemente trebuie sa fie in repo)
 		const int id = el.get_id();
 		assert(repo.search(id));
 	}
-	assert(t.size() == repo.dim());
+	assert(t.dim() == repo.dim());
 }
 
 void test_repo_remove_all() {

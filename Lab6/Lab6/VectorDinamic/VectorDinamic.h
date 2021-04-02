@@ -3,6 +3,8 @@
 #include <stdexcept>
 #include <functional>
 
+#include <iostream>
+
 template <typename T>
 class IteratorVector;  // Forward declaration Iterator
 
@@ -54,6 +56,9 @@ public:
 
 	/** Returneaza iterator pe prima pozitie dupa ultimul element */
 	IteratorVector<T> end() const;
+
+	/** Elimina toate elementele din vector. */
+	void clear();
 
 	/** Functia care sorteaza vectorul dupa un criteriu. 
 	* @param criteriu - functia care determina daca un element ar trebui
@@ -109,10 +114,10 @@ template<typename T>
 inline void VectorDinamic<T>::sort(std::function<bool(const T& a, const T& b)> criteriu) {
 	for (int i = 0; i < dim() - 1; i++) {
 		for(int j = i + 1; j < dim(); j++)
-			if (criteriu(this->get(i), this->get(j))) {
-				T aux = this->get(i);
-				this->elems[i] = this->elems[j];
-				this->elems[j] = aux;
+			if (criteriu(this->get(j), this->get(i))) {
+				//std::cout << "\nCOPIE 1!\n";
+				std::swap(this->get(j), this->get(i));
+				//std::cout << "\nCOPIE 2!\n";
 			}
 	}
 }
@@ -157,6 +162,14 @@ inline void VectorDinamic<T>::ensure_capacity() {
 			new_elems[i] = elems[i];  // Copiem toate elementele in noul array.
 		delete[] elems;
 		elems = new_elems;
+	}
+}
+
+template<typename T>
+inline void VectorDinamic<T>::clear() {
+	int de_sters = dim();
+	for (int i = 0; i < de_sters; i++) {
+		remove(0);
 	}
 }
 

@@ -52,23 +52,23 @@ public:
 	* @param upper - limita superioara a pretului. 
 	* @return Returneaza un vector de OFerte care este un subset al registrului. 
 	*/
-	const vector<Oferta> filtrare_pret(const int lower, const int upper) const;
+	const VectorDinamic<Oferta> filtrare_pret(const int lower, const int upper) const;
 
 	/** Functie de filtrare pentru destinatie.
 	* @param filtru_destinatie - destinatia dorita
 	* @ return lista constanta de Oferte, care au aceeasi destinatie cu cea data.
 	*/
-	const vector<Oferta> filtrare_destinatie(const string& filtru_destinatie) const;
+	const VectorDinamic<Oferta> filtrare_destinatie(const string& filtru_destinatie) const;
 
 	/** Functia de sortare pentru service.
 	* @param criteriu - functie bool (Oferta& a, Oferta& b) care returneaza true daca elementul a este "mai mic" decat b.
 	* @return Lista constanta de Oferta care este sortata
 	*/
-	const vector<Oferta> sortare(std::function<bool (const Oferta& a, const Oferta& b)> criteriu) const;  // TODO: sistem de transmitere criteriu.
+	const VectorDinamic<Oferta> sortare(std::function<bool (const Oferta& a, const Oferta& b)> criteriu) const;  // TODO: sistem de transmitere criteriu.
 	/** Ofera un vector cu toate elementele din lista */
-	const vector<Oferta> get_all() const;
+	const VectorDinamic<Oferta>& get_all() const;
 
 	/** Ofera o referinta const la vectorul de elemente */
-	const vector<Oferta>& get_ref_all() const;
+	const VectorDinamic<Oferta>& get_ref_all() const;
 	
 }; 

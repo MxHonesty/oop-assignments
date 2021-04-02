@@ -91,7 +91,7 @@ void test_stl_algo() {
 	
 	const int sortat_corect[5]{ 1, 6, 8, 9, 10 };
 	int i = 0;
-	a.sort([](const int& on, const int& ot) noexcept {return on > ot; });
+	a.sort([](const int& on, const int& ot) noexcept {return on < ot; });
 	for (const auto& el : a)
 		assert(sortat_corect[i++] == el);
 }
@@ -113,6 +113,19 @@ void test_exceptions() {
 	
 }
 
+void test_clear() {
+	VectorDinamic<int> a;
+	a.add(10);
+	a.add(10);
+	a.add(10);
+	a.add(10);
+	a.add(10);
+	a.add(10);
+	assert(a.dim() == 6);
+	a.clear();
+	assert(a.dim() == 0);
+}
+
 void Testing::run_all_VectorDinamic_tests() {
 	test_Vector_add();
 	test_Vector_remove();
@@ -123,4 +136,5 @@ void Testing::run_all_VectorDinamic_tests() {
 	test_stl_algo();
 
 	test_exceptions();
+	test_clear();
 }

@@ -8,17 +8,17 @@ void srv_adaugare_test() {
 	for(int i = 0; i < 10; i++)
 		srv.adaugare("a", "a", "a", 10);
 	auto de_test = srv.get_all(); 
-	assert(de_test.size() == 10);
+	assert(de_test.dim() == 10);
 }
 
 void srv_stergere_test() {
 	ServiceOferta srv;
 	for (int i = 0; i < 20; i++)
 		srv.adaugare("a", "a", "a", 100);
-	assert(srv.get_all().size() == 20);
+	assert(srv.get_all().dim() == 20);
 	for (int i = 0; i < 10; i++)  // Stergem 10 elemente
 		srv.stergere(i);
-	assert(srv.get_all().size() == 10);
+	assert(srv.get_all().dim() == 10);
 
 	try {
 		srv.stergere(1);
@@ -77,7 +77,7 @@ void srv_filtrare_pret_test() {
 	for(int i = 0; i < 100; i++)
 		srv.adaugare("a", "a", "a", i);
 	auto rez = srv.filtrare_pret(0, 49);
-	assert(rez.size() == 50);
+	assert(rez.dim() == 50);
 	int i = 0;
 	for (const auto& el : rez) {
 		assert(i == el.get_pret());
@@ -94,7 +94,7 @@ void srv_filtrare_destinatie_test() {
 	srv.adaugare("a", "c", "a", 1);
 
 	auto rez = srv.filtrare_destinatie("a");
-	assert(rez.size() == 3);
+	assert(rez.dim() == 3);
 }
 
 void srv_sortare_test() {

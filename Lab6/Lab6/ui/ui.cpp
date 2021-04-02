@@ -250,7 +250,7 @@ void UI::ui_afisare() const {
 	this->afisare_lista(lista);
 }
 
-void UI::afisare_lista(const vector<Oferta>& de_parcurs) const {
+void UI::afisare_lista(const VectorDinamic<Oferta>& de_parcurs) const {
 	for (const auto& el : de_parcurs)
 		this->afisare_oferta(el);
 }

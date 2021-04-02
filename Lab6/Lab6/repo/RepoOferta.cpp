@@ -2,17 +2,18 @@
 #include <stdexcept>
 
 void RepoOferte::add(const Oferta& de_adaugat){
-	this->elems.push_back(de_adaugat);
+	this->elems.add(de_adaugat);
 }
 
 void RepoOferte::remove(const int id) {
-	for (auto iter = elems.begin(); iter != elems.end(); iter++) {
-		auto& value = *iter;  // value este elementul curent.
-		if (value.get_id() == id) {
-			elems.erase(iter);
+	int pozitie = 0;
+	for (const auto& el : this->elems) {
+		if (el.get_id() == id) {
+			this->elems.remove(pozitie);
 			break;
 		}
- 	}
+		pozitie++;
+	}
 }
 
 void RepoOferte::update(const int id, const Oferta& new_oferta){
@@ -27,7 +28,7 @@ void RepoOferte::update(const int id, const Oferta& new_oferta){
 	}
 }
 
-bool RepoOferte::search(const int id) const noexcept{
+bool RepoOferte::search(const int id) const{
 	for (const auto& el : elems)
 		if (el.get_id() == id)
 			return true;
@@ -43,11 +44,11 @@ const Oferta& RepoOferte::search_element(const int id) const{
 	throw std::domain_error{"Element not found"};
 }
 
-vector<Oferta> RepoOferte::get_all() const{
+VectorDinamic<Oferta> RepoOferte::get_all() const{
 	return this->elems;
 }
 
-const vector<Oferta>& RepoOferte::afisare() const noexcept {
+const VectorDinamic<Oferta>& RepoOferte::afisare() const noexcept {
 	return this->elems;
 }
 
@@ -55,6 +56,6 @@ void RepoOferte::remove_all() noexcept{
 	elems.clear();
 }
 
-unsigned int RepoOferte::dim() noexcept{
-	return elems.size();
+int RepoOferte::dim() noexcept{
+	return elems.dim();
 }

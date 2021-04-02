@@ -4,6 +4,8 @@
 #include <string>
 using std::string;
 
+#include <iostream>
+
 class Oferta {
 private:
 	std::string denumire;
@@ -20,6 +22,37 @@ public:
 		denumire{ denumire }, destinatie{ destinatie }, tip{ tip }, id{ id }, pret{ pret } {
 
 	}
+
+	/** Move constructor */
+	Oferta(const Oferta&& elem) {
+		this->denumire = elem.denumire;
+		this->destinatie = elem.destinatie;
+		this->tip = elem.tip;
+		this->pret = elem.pret;
+		this->id = elem.id;
+	};
+
+	/** Move assignemnt */
+	Oferta& operator=(const Oferta&& elem) {
+		//std::cout << "MOVE\n";
+		this->denumire = elem.denumire;
+		this->destinatie = elem.destinatie;
+		this->tip = elem.tip;
+		this->pret = elem.pret;
+		this->id = elem.id;
+		return *this;
+	};
+
+	/** Copy Assignment */
+	Oferta& operator=(const Oferta& elem) {
+		//std::cout << "COPY ASSIGN\n";
+		this->denumire = elem.denumire;
+		this->destinatie = elem.destinatie;
+		this->tip = elem.tip;
+		this->pret = elem.pret;
+		this->id = elem.id;
+		return *this;
+	};
 
 	Oferta(const Oferta& elem);
 	

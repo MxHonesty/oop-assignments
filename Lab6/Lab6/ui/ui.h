@@ -1,5 +1,6 @@
 #pragma once
 #include "../service/ServiceOferta.h"
+#include "../VectorDinamic/VectorDinamic.h"
 
 class UI {
 private:
@@ -52,7 +53,7 @@ private:
 	void ui_afisare() const;
 
 	/** Afiseaza o lista de elemente */
-	void afisare_lista(const vector<Oferta>& de_parcurs) const;
+	void afisare_lista(const VectorDinamic<Oferta>& de_parcurs) const;
 
 	/** Adauga elemente de proba */
 	void adauga_elemente_de_proba();
