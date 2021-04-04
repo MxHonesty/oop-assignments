@@ -4,8 +4,11 @@
 #include <iostream>
 
 void ServiceOferta::adaugare(const string& denumire, const string& destinatie, const string& tip, int pret){
-	this->repo.add({ this->id, denumire, destinatie, tip, pret });
-	this->id++;  // incrementare id.
+	Oferta noua_oferta{ this->id, denumire, destinatie, tip, pret };
+	if (valid.validare(noua_oferta)) {
+		this->repo.add(noua_oferta);
+		this->id++;  // incrementare id.
+	}
 }
 
 void ServiceOferta::stergere(const int id_sters){
@@ -20,7 +23,8 @@ void ServiceOferta::modificare(const int id_modificat, const string& denumire, c
 		throw std::out_of_range{"Elementul nu este in registru"};
 	}
 	Oferta noua_oferta{id_modificat, denumire, destinatie, tip, pret};
-	this->repo.update(id_modificat, noua_oferta);
+	if(valid.validare(noua_oferta))
+		this->repo.update(id_modificat, noua_oferta);
 }
 
 const Oferta& ServiceOferta::cautare(int id_cautat) const{

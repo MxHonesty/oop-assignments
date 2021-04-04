@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../repo/RepoOferta.h"
+#include "../Validator/validator.h"
 #include <string>
 #include <functional>
 using std::string;
@@ -9,6 +10,7 @@ class ServiceOferta {
 private:
 	RepoOferte repo;
 	int id;  // Id asignat automat la aduagare.
+	Validator valid;
 
 public:
 	/** Constructor implicit */

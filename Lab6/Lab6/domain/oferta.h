@@ -18,7 +18,7 @@ public:
 	Oferta() noexcept; // Default constructor
 
 	/** Data constructor */
-	Oferta(int id, const string& denumire, const string& destinatie, const string& tip, int pret): 
+	Oferta(int id, const string& denumire, const string& destinatie, const string& tip, int pret) :
 		denumire{ denumire }, destinatie{ destinatie }, tip{ tip }, id{ id }, pret{ pret } {
 
 	}
@@ -55,7 +55,7 @@ public:
 	};
 
 	Oferta(const Oferta& elem);
-	
+
 	/** Returneaza denumirea ofertei. */
 	std::string get_denumire() const;
 
