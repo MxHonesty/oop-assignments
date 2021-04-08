@@ -2,18 +2,15 @@
 #include <stdexcept>
 
 void RepoOferte::add(const Oferta& de_adaugat){
-	this->elems.add(de_adaugat);
+	this->elems.push_back(de_adaugat);
 }
 
 void RepoOferte::remove(const int id) {
-	int pozitie = 0;
-	for (const auto& el : this->elems) {
-		if (el.get_id() == id) {
-			this->elems.remove(pozitie);
-			break;
-		}
-		pozitie++;
-	}
+	auto de_sters = std::remove_if(elems.begin(), elems.end(), 
+		[id](const Oferta& el) noexcept {return el.get_id() == id; });
+	
+	if (de_sters != elems.end())
+		elems.erase(de_sters);
 }
 
 void RepoOferte::update(const int id, const Oferta& new_oferta){
@@ -29,26 +26,30 @@ void RepoOferte::update(const int id, const Oferta& new_oferta){
 }
 
 bool RepoOferte::search(const int id) const{
-	for (const auto& el : elems)
-		if (el.get_id() == id)
-			return true;
+	auto gasit = std::find_if(elems.begin(), elems.end(),
+		[id](const Oferta& el) noexcept {return el.get_id() == id; });
 
-	return false;
+	if (gasit == elems.end())
+		return false;
+	else
+		return true;
 }
 
 const Oferta& RepoOferte::search_element(const int id) const{
-	for (auto& el : elems) {
-		if (el.get_id() == id)
-			return el;
-	}
-	throw std::domain_error{"Element not found"};
+	auto gasit = std::find_if(elems.begin(), elems.end(), 
+		[id](const Oferta& el) noexcept {return el.get_id() == id; });
+
+	if (gasit == elems.end())
+		throw std::domain_error{ "Element not found" };
+	else
+		return *gasit;
 }
 
-VectorDinamic<Oferta> RepoOferte::get_all() const{
+vector<Oferta> RepoOferte::get_all() const{
 	return this->elems;
 }
 
-const VectorDinamic<Oferta>& RepoOferte::afisare() const noexcept {
+const vector<Oferta>& RepoOferte::afisare() const noexcept {
 	return this->elems;
 }
 
@@ -56,6 +57,6 @@ void RepoOferte::remove_all() noexcept{
 	elems.clear();
 }
 
-int RepoOferte::dim() noexcept{
-	return elems.dim();
+unsigned RepoOferte::dim() noexcept{
+	return elems.size();
 }

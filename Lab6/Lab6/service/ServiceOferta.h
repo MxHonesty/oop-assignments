@@ -3,8 +3,10 @@
 #include "../repo/RepoOferta.h"
 #include "../Validator/validator.h"
 #include <string>
+#include <vector>
 #include <functional>
 using std::string;
+using std::vector;
 
 class ServiceOferta {
 private:
@@ -54,23 +56,23 @@ public:
 	* @param upper - limita superioara a pretului. 
 	* @return Returneaza un vector de OFerte care este un subset al registrului. 
 	*/
-	const VectorDinamic<Oferta> filtrare_pret(const int lower, const int upper) const;
+	const vector<Oferta> filtrare_pret(const int lower, const int upper) const;
 
 	/** Functie de filtrare pentru destinatie.
 	* @param filtru_destinatie - destinatia dorita
 	* @ return lista constanta de Oferte, care au aceeasi destinatie cu cea data.
 	*/
-	const VectorDinamic<Oferta> filtrare_destinatie(const string& filtru_destinatie) const;
+	const vector<Oferta> filtrare_destinatie(const string& filtru_destinatie) const;
 
 	/** Functia de sortare pentru service.
 	* @param criteriu - functie bool (Oferta& a, Oferta& b) care returneaza true daca elementul a este "mai mic" decat b.
 	* @return Lista constanta de Oferta care este sortata
 	*/
-	const VectorDinamic<Oferta> sortare(std::function<bool (const Oferta& a, const Oferta& b)> criteriu) const;  // TODO: sistem de transmitere criteriu.
+	const vector<Oferta> sortare(std::function<bool (const Oferta& a, const Oferta& b)> criteriu) const;  // TODO: sistem de transmitere criteriu.
 	/** Ofera un vector cu toate elementele din lista */
-	const VectorDinamic<Oferta>& get_all() const;
+	const vector<Oferta>& get_all() const noexcept;
 
 	/** Ofera o referinta const la vectorul de elemente */
-	const VectorDinamic<Oferta>& get_ref_all() const;
+	const vector<Oferta>& get_ref_all() const noexcept;
 	
 }; 

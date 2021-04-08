@@ -31,36 +31,37 @@ const Oferta& ServiceOferta::cautare(int id_cautat) const{
 	return this->repo.search_element(id_cautat);
 }
 
-const VectorDinamic<Oferta> ServiceOferta::filtrare_pret(const int lower, const int upper) const {
-	VectorDinamic<Oferta> new_vec;
-	for (const auto& el : this->get_ref_all()) {
-		if (el.get_pret() >= lower and el.get_pret() <= upper)
-			new_vec.add(el);  // Adaugam in noul vector.  // O Copie la adaugare
-	}
-
+const vector<Oferta> ServiceOferta::filtrare_pret(const int lower, const int upper) const {
+	vector<Oferta> new_vec;
+	const vector<Oferta>& current = this->get_ref_all() ;
+	std::copy_if(current.begin(), current.end(), std::back_inserter(new_vec), 
+		[lower, upper](const Oferta& el) noexcept 
+	{return el.get_pret() >= lower and el.get_pret() <= upper; });
 	return new_vec;  // Returnam copie.  // O noua copie la returnare
 }
 
-const VectorDinamic<Oferta> ServiceOferta::filtrare_destinatie(const string& filtru_destinatie) const {
-	VectorDinamic<Oferta> new_vec;
-	for (const auto& el : this->get_ref_all()) {
-		if (el.get_destinatie() == filtru_destinatie)
-			new_vec.add(el);
-	}
+const vector<Oferta> ServiceOferta::filtrare_destinatie(const string& filtru_destinatie) const {
+	vector<Oferta> new_vec;
+	const vector<Oferta>& current = this->get_ref_all();
+
+	std::copy_if(current.begin(), current.end(), std::back_inserter(new_vec),
+		[filtru_destinatie](const Oferta& el) 
+	{return el.get_destinatie() == filtru_destinatie; });
+
 
 	return new_vec;
 }
 
-const VectorDinamic<Oferta> ServiceOferta::sortare(std::function<bool(const Oferta& a, const Oferta& b)> criteriu) const{
+const vector<Oferta> ServiceOferta::sortare(std::function<bool(const Oferta& a, const Oferta& b)> criteriu) const{
 	auto new_vec = this->get_all();
-	new_vec.sort(criteriu);
+	std::sort(new_vec.begin(), new_vec.end(), criteriu);
 	return new_vec;  // Copiaza fiecare element de doua ori.
 }
 
-const VectorDinamic<Oferta>& ServiceOferta::get_all() const {
+const vector<Oferta>& ServiceOferta::get_all() const noexcept {
 	return this->repo.afisare();
 }
 
-const VectorDinamic<Oferta>& ServiceOferta::get_ref_all() const {
+const vector<Oferta>& ServiceOferta::get_ref_all() const noexcept {
 	return this->repo.afisare();
 }

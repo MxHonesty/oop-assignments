@@ -2,13 +2,12 @@
 
 #include <vector>
 #include "../domain/oferta.h"
-#include "../VectorDinamic/VectorDinamic.h"
 using std::vector;
 
 /** RepoOferte clasa responsabila pentru stocarea si gestionarea ofertelor. */
 class RepoOferte {
 private:
-	VectorDinamic<Oferta> elems;  // Lista de elemente.
+	vector<Oferta> elems;  // Lista de elemente.
 public:
 	RepoOferte() noexcept : elems{} {}  // Constructor implicit.
 
@@ -44,10 +43,10 @@ public:
 	* @return un vector de Oferta care contine copii
 	* ale elementelor din repo.
 	*/
-	VectorDinamic<Oferta> get_all() const;
+	vector<Oferta> get_all() const;
 
 	/** Returneaza referinta la vector*/
-	const VectorDinamic<Oferta>& afisare() const noexcept;
+	const vector<Oferta>& afisare() const noexcept;
 
 	/** Elimina toate elementele din repository. */
 	void remove_all() noexcept;
@@ -55,5 +54,5 @@ public:
 	/** Returneaza numarul de elemente din repo.
 	* @return int numarul de elemente 
 	*/
-	int dim() noexcept;
+	unsigned dim() noexcept;
 };
