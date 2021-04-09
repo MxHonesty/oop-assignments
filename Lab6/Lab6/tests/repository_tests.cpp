@@ -92,6 +92,20 @@ void test_search_element() {
 	}
 }
 
+void test_repo_search_denumire() {
+	RepoOferte repo;
+	Oferta a{ 1, "a", "a", "a", 1 };
+	Oferta b{ 1, "b", "a", "a", 1 };
+	Oferta c{ 1, "c", "a", "a", 1 };
+	repo.add(a);
+	repo.add(b);
+	repo.add(c);
+	assert(repo.search_denumire("a"));
+	assert(repo.search_denumire("b"));
+	assert(repo.search_denumire("c"));
+	assert(not repo.search_denumire("d"));
+}
+
 void test_update_element() {
 	RepoOferte repo;
 	for (int i = 0; i < 10; i++)
@@ -112,4 +126,5 @@ void Testing::run_oferta_repository_tests(){
 	test_repo_dim();
 	test_search_element();
 	test_update_element();
+	test_repo_search_denumire();
 }

@@ -12,9 +12,13 @@ void Cos::sterge(const Oferta& of) {
 	}
 }
 
-void Cos::export_html() {
+const unsigned Cos::dim() const {
+	return elems.size();
 }
 
-const vector<Oferta>& Cos::lista_cos() noexcept {
+void Cos::export_html() const {
+}
+
+const vector<Oferta>& Cos::lista_cos() const noexcept {
 	return elems;
 }

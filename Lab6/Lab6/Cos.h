@@ -23,8 +23,10 @@ public:
 	void sterge(const Oferta& of);
 
 	/** Exporta cosul curent ca html. */
-	void export_html();
+	void export_html() const;
 
 	/** Returneaza lista de elemente din cos. */
-	const vector<Oferta>& lista_cos() noexcept ;
+	const vector<Oferta>& lista_cos() const noexcept ;
+
+	const unsigned dim() const;
 };

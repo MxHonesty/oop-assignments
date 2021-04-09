@@ -18,7 +18,7 @@ private:
 
 public:
 	/** Constructor implicit */
-	ServiceOferta() noexcept : repo{}, cos{}, valid{} {
+	ServiceOferta() noexcept : repo{}, cos{}, valid{&repo} {
 		this->id = 0;
 	}
 

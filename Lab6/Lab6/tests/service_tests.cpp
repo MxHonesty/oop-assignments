@@ -5,16 +5,22 @@
 
 void srv_adaugare_test() {
 	ServiceOferta srv;
-	for(int i = 0; i < 10; i++)
-		srv.adaugare("a", "a", "a", 10);
+	char index = 'a';
+	for (int i = 0; i < 10; i++) {
+		srv.adaugare(string{ index }, "a", "a", 10);
+		index++;
+	}
 	auto de_test = srv.get_all(); 
 	assert(de_test.size() == 10);
 }
 
 void srv_stergere_test() {
 	ServiceOferta srv;
-	for (int i = 0; i < 20; i++)
-		srv.adaugare("a", "a", "a", 100);
+	char index = 'a';
+	for (int i = 0; i < 20; i++) {
+		srv.adaugare(string{index}, "a", "a", 100);
+		index++;
+	}
 	assert(srv.get_all().size() == 20);
 	for (int i = 0; i < 10; i++)  // Stergem 10 elemente
 		srv.stergere(i);
@@ -39,8 +45,11 @@ void srv_stergere_test() {
 
 void srv_modificare_test() {
 	ServiceOferta srv;
-	for (int i = 0; i < 10; i++)
-		srv.adaugare("a", "a", "a", 100);
+	char index = 'a';
+	for (int i = 0; i < 10; i++) {
+		srv.adaugare(string{ index }, "a", "a", 100);
+		index++;
+	}
 
 	try {
 		srv.modificare(10, "b", "b", "b", 1);  // Elementul nu exista
@@ -51,14 +60,17 @@ void srv_modificare_test() {
 	}
 
 	// Modificam un element din lista.
-	srv.modificare(5, "b", "b", "b", 1);
+	srv.modificare(5, "z", "b", "b", 1);
 	assert(srv.cautare(5).get_pret() == 1);
 }
 
 void srv_cautare_test() {
 	ServiceOferta srv; 
-	for (int i = 0; i < 10; i++)
-		srv.adaugare("a", "a", "a", 100);
+	char index = 'a';
+	for (int i = 0; i < 10; i++) {
+		srv.adaugare(string{ index }, "a", "a", 100);
+		index++;
+	}
 
 	Oferta of = srv.cautare(5);
 	assert(of.get_pret() == 100);
@@ -74,8 +86,11 @@ void srv_cautare_test() {
 
 void srv_filtrare_pret_test() {
 	ServiceOferta srv;
-	for(int i = 0; i < 100; i++)
-		srv.adaugare("a", "a", "a", i);
+	char index = 'a';
+	for (int i = 0; i < 100; i++) {
+		srv.adaugare(string{ index }, "a", "a", i);
+		index++;
+	}
 	auto rez = srv.filtrare_pret(0, 49);
 	assert(rez.size() == 50);
 	int i = 0;
@@ -88,10 +103,10 @@ void srv_filtrare_pret_test() {
 void srv_filtrare_destinatie_test() {
 	ServiceOferta srv;
 	srv.adaugare("a", "a", "a", 1);
-	srv.adaugare("a", "b", "a", 1);
-	srv.adaugare("a", "a", "a", 1);
-	srv.adaugare("a", "a", "a", 1);
-	srv.adaugare("a", "c", "a", 1);
+	srv.adaugare("b", "b", "a", 1);
+	srv.adaugare("c", "a", "a", 1);
+	srv.adaugare("d", "a", "a", 1);
+	srv.adaugare("e", "c", "a", 1);
 
 	auto rez = srv.filtrare_destinatie("a");
 	assert(rez.size() == 3);

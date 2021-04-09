@@ -34,6 +34,11 @@ public:
 	*/
 	bool search(const int id) const;
 
+	/** Determina daca exista un element cu denumirea data. 
+	* @param denumire - string
+	*/
+	bool search_denumire(const std::string& denumire) const;
+
 	/** Returneaza o referinta const la elementul cu id dat
 	* arunca o exceptie daca nu exista elementul cu acest id.
 	*/
