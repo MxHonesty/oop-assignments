@@ -97,6 +97,10 @@ void ServiceOferta::export_html_cos(const string& file_name) const {
 	cos.export_html(file_name);
 }
 
+void ServiceOferta::export_html_cos_fancy(const string& file_name) const {
+	cos.export_html_fancy(file_name);
+}
+
 void ServiceOferta::adauga_random_cos(int numar) {
 	vector<Oferta> vec = get_all();  // Copiem toate elementele in vector.
 	const auto seed = static_cast<unsigned>(std::chrono::system_clock::now().time_since_epoch().count());  // generam seed 

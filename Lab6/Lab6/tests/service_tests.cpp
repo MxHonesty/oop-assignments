@@ -203,14 +203,29 @@ void test_export_html() {
 	srv.adauga_cos("d");
 
 	srv.export_html_cos("testfisier");
+	srv.export_html_cos_fancy("testfisierfancy");
 	std::ifstream de_test;
 	de_test.open("testfisier.html");
 	if (de_test) {
 		assert(true);
+		de_test.close();
+		std::remove("testfisier.html");
 	}
 	else {
 		assert(false);
 	}
+
+	std::ifstream de_test_fancy;
+	de_test_fancy.open("testfisierfancy.html");
+	if (de_test_fancy) {
+		de_test_fancy.close();
+		assert(true);
+		std::remove("testfisierfancy.html");
+	}
+	else {
+		assert(false);
+	}
+
 }
 
 void test_adaugare_random() {

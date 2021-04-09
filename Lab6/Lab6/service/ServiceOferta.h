@@ -99,6 +99,9 @@ public:
 	*/
 	void export_html_cos(const string& file_name) const;
 
+	/** Versiunea fancy la export_html_cos */
+	void export_html_cos_fancy(const string& file_name) const;
+
 	/** Adauga un numar de elemente random in cos.
 	* @param numar - int numar elemente.
 	*/

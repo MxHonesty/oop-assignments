@@ -31,6 +31,11 @@ public:
 	*/
 	void export_html(const string& fisier) const;
 
+	/** Exporta cosul curent ca html.
+	* Versiunea cu bootstrap.
+	*/
+	void export_html_fancy(const string& fisier) const;
+
 	/** Returneaza lista de elemente din cos. */
 	const vector<Oferta>& lista_cos() const noexcept ;
 

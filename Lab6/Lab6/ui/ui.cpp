@@ -285,7 +285,15 @@ void UI::ui_export_cos() const {
 	string fisier;
 	std::cout << "\nNume fisier(fara extensie): ";
 	std::getline(std::cin, fisier);
-	srv.export_html_cos(fisier);
+
+	std::cout << "\nTip (normal/fancy): ";
+	string tip;
+	std::getline(std::cin, tip);
+	if (tip == "fancy")
+		srv.export_html_cos_fancy(fisier);
+	else if (tip == "normal")
+		srv.export_html_cos(fisier);
+	else std::cout << "\nTip invalid!";
 }
 
 void UI::ui_adauga_cos() {
@@ -336,12 +344,14 @@ Alegeti o optiune:
 6  - Sortare 
 7  - Afisare
 8  - Adauga elemente proba
+
 9  - Afisare cos
 10 - Adauga cos
 11 - Sterge cos
 12 - Goleste cos
 13 - Random cos
 14 - Export cos
+
 q  - Iesire
 )";
 		std::cout << "Numarul de oferte din cos: " << srv.dimensiune_cos() <<"\n";
