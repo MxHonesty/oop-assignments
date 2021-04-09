@@ -82,7 +82,9 @@ public:
 	*/
 	void adauga_cos(const string& denumire);
 
-	/** Sterge oferta cu denumirea data din cos. */
+	/** Sterge oferta cu denumirea data din cos. 
+		@param denumire - denumirea cautata.
+	*/
 	void sterge_din_cos(const string& denumire);
 
 	/** Goleste cosul de oferte */

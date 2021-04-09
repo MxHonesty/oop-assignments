@@ -2,7 +2,9 @@
 #include "../errors/ServiceError.h"
 #include "../errors/RepoError.h"
 #include "../errors/UiError.h"
+#include "../errors/CosError.h"
 #include <cassert>
+#include "../errors/FileError.h"
 
 
 void ServiceError_test() {
@@ -32,8 +34,28 @@ void UI_Error_test() {
 	}
 }
 
+void CosError_test() {
+	try {
+		throw CosError{ "Ceva rau!" };
+	}
+	catch (const CosError& e) {
+		assert(std::string{ e.what() } == "Ceva rau!");
+	}
+}
+
+void FileError_test() {
+	try {
+		throw FileError{ "Ceva rau!" };
+	}
+	catch (const FileError& e) {
+		assert(std::string{ e.what() } == "Ceva rau!");
+	}
+}
+
 void Testing::run_all_error_tests() {
 	ServiceError_test();
 	RepoError_test();
 	UI_Error_test();
+	CosError_test();
+	FileError_test();
 }

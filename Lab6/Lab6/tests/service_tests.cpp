@@ -226,6 +226,22 @@ void test_export_html() {
 		assert(false);
 	}
 
+	try {
+		srv.export_html_cos("/<>");
+		assert(false);
+	}
+	catch (...){
+		assert(true);
+	}
+
+	try {
+		srv.export_html_cos_fancy("<>");
+		assert(false);
+	}
+	catch (...) {
+		assert(true);
+	}
+
 }
 
 void test_adaugare_random() {

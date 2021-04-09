@@ -39,5 +39,6 @@ public:
 	/** Returneaza lista de elemente din cos. */
 	const vector<Oferta>& lista_cos() const noexcept ;
 
+	/** Dimensiunea cosului. */
 	const unsigned dim() const noexcept;
 };
