@@ -2,6 +2,8 @@
 #include "../errors/ServiceError.h"
 #include <algorithm>
 #include <iostream>
+#include <random>
+#include <chrono>
 
 void ServiceOferta::adaugare(const string& denumire, const string& destinatie, const string& tip, int pret){
 	Oferta noua_oferta{ this->id, denumire, destinatie, tip, pret };
@@ -15,6 +17,7 @@ void ServiceOferta::stergere(const int id_sters){
 	if (not this->repo.search(id_sters)) {
 		throw ServiceError{"Elementul nu este in registru"};
 	}
+	this->cos.sterge(this->repo.search_element(id_sters));  // Stergem din cos. 
 	this->repo.remove(id_sters);
 }
 
@@ -23,8 +26,10 @@ void ServiceOferta::modificare(const int id_modificat, const string& denumire, c
 		throw ServiceError{"Elementul nu este in registru"};
 	}
 	Oferta noua_oferta{id_modificat, denumire, destinatie, tip, pret};
-	if(valid.validare(noua_oferta))
+	if (valid.validare(noua_oferta)) {
+		this->cos.sterge(this->repo.search_element(id_modificat));  // Stergem din cos
 		this->repo.update(id_modificat, noua_oferta);
+	}
 }
 
 const Oferta& ServiceOferta::cautare(int id_cautat) const{
@@ -64,4 +69,42 @@ const vector<Oferta>& ServiceOferta::get_all() const noexcept {
 
 const vector<Oferta>& ServiceOferta::get_ref_all() const noexcept {
 	return this->repo.afisare();
+}
+
+void ServiceOferta::adauga_cos(const string& denumire) {
+	const auto& gasit = repo.search_get_denumire(denumire);
+	cos.adauga(gasit);
+}
+
+void ServiceOferta::sterge_din_cos(const string& denumire) {
+	const auto& gasit = repo.search_get_denumire(denumire);
+	cos.sterge(gasit);
+}
+
+void ServiceOferta::golire_cos() noexcept {
+	cos.golire();
+}
+
+unsigned ServiceOferta::dimensiune_cos() const noexcept {
+	return cos.dim();
+}
+
+const vector<Oferta>& ServiceOferta::vector_cos() const noexcept {
+	return cos.lista_cos();
+}
+
+void ServiceOferta::export_html_cos(const string& file_name) const {
+	cos.export_html(file_name);
+}
+
+void ServiceOferta::adauga_random_cos(int numar) {
+	vector<Oferta> vec = get_all();  // Copiem toate elementele in vector.
+	const auto seed = static_cast<unsigned>(std::chrono::system_clock::now().time_since_epoch().count());  // generam seed 
+	std::shuffle(vec.begin(), vec.end(), std::default_random_engine(seed)); //amesteca vectorul v
+	for (const auto& el : vec) {
+		if (numar > 0) {
+			this->adauga_cos(el.get_denumire());
+			numar--;
+		}
+	}
 }

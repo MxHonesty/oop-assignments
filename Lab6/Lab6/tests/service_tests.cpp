@@ -2,6 +2,7 @@
 #include "../service/ServiceOferta.h"
 #include <cassert>
 #include <iostream>
+#include <fstream>
 
 void srv_adaugare_test() {
 	ServiceOferta srv;
@@ -146,6 +147,90 @@ void srv_sortare_test() {
 
 }
 
+void srv_test_cos() {
+	ServiceOferta srv;
+	srv.adaugare("a", "a", "a", 1);
+	srv.adaugare("b", "a", "a", 2);
+	srv.adaugare("c", "a", "a", 3);
+	srv.adaugare("d", "a", "a", 4);
+	srv.adauga_cos("a");
+	srv.adauga_cos("b");
+	
+	try {
+		srv.adauga_cos("C");  // Adauga in cos un element care nu exista.
+	}
+	catch (const std::exception& e) {
+		assert(string{e.what()} == "Element not found");
+	}
+	assert(srv.dimensiune_cos() == 2);
+
+	// Nu putem adauga acelasi element de mai multe ori.
+	srv.adauga_cos("a");
+	srv.adauga_cos("a");
+	srv.adauga_cos("a");
+	srv.adauga_cos("a");
+	assert(srv.dimensiune_cos() == 2);
+
+	srv.adauga_cos("c");
+	srv.adauga_cos("d");
+	try {
+		srv.sterge_din_cos("D");
+	}
+	catch (const std::exception& e) {
+		assert(string{ e.what() } == "Element not found");
+	}
+
+	srv.sterge_din_cos("d");
+	assert(srv.dimensiune_cos() == 3);
+
+	const auto& vec = srv.vector_cos();
+	assert(vec.size() == 3);
+
+	srv.golire_cos();
+	assert(srv.dimensiune_cos() == 0);
+}
+
+void test_export_html() {
+	ServiceOferta srv;
+	srv.adaugare("a", "a", "a", 1);
+	srv.adaugare("b", "a", "a", 2);
+	srv.adaugare("c", "a", "a", 3);
+	srv.adaugare("d", "a", "a", 4);
+
+	srv.adauga_cos("a");
+	srv.adauga_cos("b");
+	srv.adauga_cos("c");
+	srv.adauga_cos("d");
+
+	srv.export_html_cos("testfisier");
+	std::ifstream de_test;
+	de_test.open("testfisier.html");
+	if (de_test) {
+		assert(true);
+	}
+	else {
+		assert(false);
+	}
+}
+
+void test_adaugare_random() {
+	ServiceOferta srv;
+	srv.adaugare("a", "a", "a", 1);
+	srv.adaugare("b", "a", "a", 2);
+	srv.adaugare("c", "a", "a", 3);
+	srv.adaugare("d", "a", "a", 4);
+
+	srv.adauga_random_cos(3);
+	assert(srv.dimensiune_cos() == 3);
+
+	try {
+		srv.adauga_random_cos(-1);
+	}
+	catch (...) {
+		assert(true);
+	}
+}
+
 void Testing::run_all_service_tests(){
 	srv_adaugare_test();
 	srv_stergere_test();
@@ -154,4 +239,7 @@ void Testing::run_all_service_tests(){
 	srv_filtrare_pret_test();
 	srv_filtrare_destinatie_test();
 	srv_sortare_test();
+	srv_test_cos();
+	test_export_html();
+	test_adaugare_random();
 }

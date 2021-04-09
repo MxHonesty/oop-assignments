@@ -39,6 +39,11 @@ public:
 	*/
 	bool search_denumire(const std::string& denumire) const;
 
+	/** Returneaza referinta constanta la elementul cu denumirea data.
+	* @param denumire - string
+	*/
+	const Oferta& search_get_denumire(const std::string& denumire) const;
+
 	/** Returneaza o referinta const la elementul cu id dat
 	* arunca o exceptie daca nu exista elementul cu acest id.
 	*/

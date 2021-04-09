@@ -104,6 +104,16 @@ void test_repo_search_denumire() {
 	assert(repo.search_denumire("b"));
 	assert(repo.search_denumire("c"));
 	assert(not repo.search_denumire("d"));
+
+	const Oferta& verif = repo.search_get_denumire("a");
+	assert(a == verif);
+
+	try {
+		repo.search_get_denumire("ABAB");
+	}
+	catch (...) {
+		assert(true);
+	}
 }
 
 void test_update_element() {

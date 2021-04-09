@@ -76,5 +76,32 @@ public:
 
 	/** Ofera o referinta const la vectorul de elemente */
 	const vector<Oferta>& get_ref_all() const noexcept;
+
+	/** Adauga oferta cu denumirea data in cos. 
+	* Arunca eroare de Repo daca nu este gasit niciun element.
+	*/
+	void adauga_cos(const string& denumire);
+
+	/** Sterge oferta cu denumirea data din cos. */
+	void sterge_din_cos(const string& denumire);
+
+	/** Goleste cosul de oferte */
+	void golire_cos() noexcept;
+
+	/** Returneaza dimensiunea cosului. */
+	unsigned dimensiune_cos() const noexcept;
+
+	/** Referinta la vectorul de elemente din cos. */
+	const vector<Oferta>& vector_cos() const noexcept;
+
+	/** Creeaza si exporteaza un document html afarent cosului curent de cumparaturi.
+	* @param file_name - numele fisierului dorit, fara extensie.
+	*/
+	void export_html_cos(const string& file_name) const;
+
+	/** Adauga un numar de elemente random in cos.
+	* @param numar - int numar elemente.
+	*/
+	void adauga_random_cos(int numar);
 	
 }; 

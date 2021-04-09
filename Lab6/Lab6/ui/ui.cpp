@@ -278,10 +278,48 @@ void UI::afisare_oferta(const Oferta& of) const {
 }
 
 void UI::ui_afisare_cos() const {
-
+	afisare_lista(srv.vector_cos());
 }
 
 void UI::ui_export_cos() const {
+	string fisier;
+	std::cout << "\nNume fisier(fara extensie): ";
+	std::getline(std::cin, fisier);
+	srv.export_html_cos(fisier);
+}
+
+void UI::ui_adauga_cos() {
+	string denumire;
+	std::cout << "\nDenumirea: ";
+	std::getline(std::cin, denumire);
+	srv.adauga_cos(denumire);
+}
+
+void UI::ui_sterge_cos() {
+	string denumire;
+	std::cout << "\nDenumirea: ";
+	std::getline(std::cin, denumire);
+	srv.sterge_din_cos(denumire);
+}
+
+void UI::ui_golire_cos() {
+	srv.golire_cos();
+}
+
+void UI::ui_random_cos() {
+	string numar_string;
+	std::cout << "\nNumarul de elemente: ";
+	std::getline(std::cin, numar_string);
+	try {
+		const unsigned int numar = std::stoi(numar_string);
+		if (numar <= 0 or numar > srv.get_all().size())
+			throw std::invalid_argument{"Numar invalid"};
+		srv.golire_cos();
+		srv.adauga_random_cos(numar);
+	}
+	catch (std::invalid_argument) {
+		std::cout << "Numar invalid";
+	}
 }
 
 
@@ -299,9 +337,14 @@ Alegeti o optiune:
 7  - Afisare
 8  - Adauga elemente proba
 9  - Afisare cos
-10 - Export
+10 - Adauga cos
+11 - Sterge cos
+12 - Goleste cos
+13 - Random cos
+14 - Export cos
 q  - Iesire
 )";
+		std::cout << "Numarul de oferte din cos: " << srv.dimensiune_cos() <<"\n";
 		string comanda;
 		std::cout << "Optiune: ";
 		std::getline(std::cin, comanda);  // Citim linia.
@@ -316,7 +359,11 @@ q  - Iesire
 			else if (comanda == "7") ui_afisare();
 			else if (comanda == "8") adauga_elemente_de_proba();
 			else if (comanda == "9") ui_afisare_cos();
-			else if (comanda == "10") ui_export_cos();
+			else if (comanda == "10") ui_adauga_cos();
+			else if (comanda == "11") ui_sterge_cos();
+			else if (comanda == "12") ui_golire_cos();
+			else if (comanda == "13") ui_random_cos();
+			else if (comanda == "14") ui_export_cos();
 		}
 		catch (const std::exception& e) {
 			std::cout << "\n" << e.what() << "\n";

@@ -36,6 +36,9 @@ void test_cos_stergere() {
 		assert(el == de_proba);
 		i += 2;
 	}
+
+	cos.golire();
+	assert(cos.dim() == 0);
 }
 
 void Testing::run_all_cos_tests() {

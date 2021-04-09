@@ -12,7 +12,8 @@ public:
 
 	/** Adauga oferta data in cos.
 	* @param of - oferta pe care dorim sa o adaugam.
-	* Se creeaza o copie a ofertei.
+	* Daca se incearca introducerea a aceleasi oferte de doua ori,
+	* nu se intampla nimic.
 	*/
 	void adauga(const Oferta& of);
 
@@ -22,11 +23,16 @@ public:
 	*/
 	void sterge(const Oferta& of);
 
-	/** Exporta cosul curent ca html. */
-	void export_html() const;
+	/** Goleste cosul de elemente. */
+	void golire() noexcept;
+
+	/** Exporta cosul curent ca html.
+	* @param fisier - numele fisierului dorit, FARA extensie.
+	*/
+	void export_html(const string& fisier) const;
 
 	/** Returneaza lista de elemente din cos. */
 	const vector<Oferta>& lista_cos() const noexcept ;
 
-	const unsigned dim() const;
+	const unsigned dim() const noexcept;
 };

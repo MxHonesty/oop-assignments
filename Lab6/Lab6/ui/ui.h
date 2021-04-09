@@ -69,6 +69,18 @@ private:
 	/** Functia de ui pentru exportare cos. */
 	void ui_export_cos() const;
 
+	/** Adauga un element in cos. */
+	void ui_adauga_cos();
+
+	/** Sterge un element din cos. */
+	void ui_sterge_cos();
+	
+	/** Goleste cosul. */
+	void ui_golire_cos();
+
+	/** Adauga elemente random in cos */
+	void ui_random_cos();  // TODO: SERVICE FUNC FOR THIS.
+
 public:
 	/** Constructor implicit */
 	UI() noexcept : srv{} {
