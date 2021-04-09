@@ -62,6 +62,13 @@ private:
 	* @param of - oferta de afisat.
 	*/
 	void afisare_oferta(const Oferta& of) const;
+
+	/** Functia de ui pentru afiseara cosului. */
+	void ui_afisare_cos() const;
+
+	/** Functia de ui pentru exportare cos. */
+	void ui_export_cos() const;
+
 public:
 	/** Constructor implicit */
 	UI() noexcept : srv{} {

@@ -1,4 +1,6 @@
 #include "ui.h"
+#include "../errors/UiError.h"
+#include "../errors/ServiceError.h"
 #include <string>
 #include <iostream>
 #include <vector>
@@ -21,7 +23,7 @@ void UI::ui_adaugare(){
 	try {
 		const int pret = std::stoi(pret_string);  // Arunca exceptie la invalid.
 		if (pret < 0)
-			throw std::invalid_argument{ "Pret invalid" };
+			throw UiError{ "Pret invalid" };
 		srv.adaugare(denumire, destinatie, tip, pret);
 	}
 	catch (std::invalid_argument) {
@@ -67,14 +69,14 @@ void UI::ui_modificare(){
 		try {
 			const int pret = std::stoi(pret_string);  // Arunca exceptie la invalid.
 			if (pret < 0)
-				throw std::invalid_argument{"Pret invalid"};
+				throw UiError{"Pret invalid"};
 			srv.modificare(id_modificat, denumire, destinatie, tip, pret);
 		}
 		catch (std::invalid_argument) {
 			std::cout << "Pret invalid";
 		}
 	}
-	catch (std::invalid_argument) {
+	catch (std::invalid_argument) {  // eroare de la stoi
 		std::cout << "Id invalid";
 	}
 }
@@ -144,7 +146,7 @@ void UI::ui_filtrare() const {
 		ui_filtrare_pret();
 	}
 	else
-		throw std::invalid_argument{"Tipul sortarii invalid"};
+		throw UiError{"Tipul sortarii invalid"};
 }
 
 string UI::ui_sortare_determina_tipul() const {
@@ -166,7 +168,7 @@ void UI::ui_sortare_denumire() const {
 		this->afisare_lista(vec);
 	}
 	else
-		throw std::invalid_argument{"Tipul sortarii invalid"};
+		throw UiError{"Tipul sortarii invalid"};
 }
 
 void UI::ui_sortare_destinatie() const{
@@ -180,7 +182,7 @@ void UI::ui_sortare_destinatie() const{
 		this->afisare_lista(vec);
 	}
 	else
-		throw std::invalid_argument{ "Tipul sortarii invalid" };
+		throw UiError{ "Tipul sortarii invalid" };
 }
 
 void UI::sortare_tip_pret() const{
@@ -202,7 +204,7 @@ void UI::sortare_tip_pret() const{
 		this->afisare_lista(vec);
 	}
 	else
-		throw std::invalid_argument{ "Tipul sortarii invalid" };
+		throw UiError{ "Tipul sortarii invalid" };
 }
 
 void UI::sortare_pret() const{
@@ -220,7 +222,7 @@ void UI::sortare_pret() const{
 		this->afisare_lista(vec);
 	}
 	else
-		throw std::invalid_argument{ "Tipul sortarii invalid" };
+		throw UiError{ "Tipul sortarii invalid" };
 }
 
 void UI::ui_sortare() const {
@@ -240,7 +242,7 @@ void UI::ui_sortare() const {
 		this->sortare_pret();
 	}
 	else
-		throw std::invalid_argument{"Tipul sortarii invalid"};
+		throw UiError{"Tipul sortarii invalid"};
 }
 
 void UI::ui_quit() noexcept {
@@ -275,21 +277,30 @@ void UI::afisare_oferta(const Oferta& of) const {
 	std::cout<< "Id: " << of.get_id() <<"   Denumire: "<<of.get_denumire()<<"   Destinatie: "<<of.get_destinatie()<<"   Tip: "<<of.get_tip()<<"   Pret: "<<of.get_pret() << "\n";
 }
 
+void UI::ui_afisare_cos() const {
+
+}
+
+void UI::ui_export_cos() const {
+}
+
 
 
 void UI::run(){
 	while (this->running) {
 		std::cout << R"(
 Alegeti o optiune: 
-1 - Adaugare 
-2 - Stergere 
-3 - Modificare 
-4 - Cautare 
-5 - Filtrare 
-6 - Sortare 
-7 - Afisare
-8 - Adauga elemente proba
-q - Iesire
+1  - Adaugare 
+2  - Stergere 
+3  - Modificare 
+4  - Cautare 
+5  - Filtrare 
+6  - Sortare 
+7  - Afisare
+8  - Adauga elemente proba
+9  - Afisare cos
+10 - Export
+q  - Iesire
 )";
 		string comanda;
 		std::cout << "Optiune: ";
@@ -304,6 +315,8 @@ q - Iesire
 			else if (comanda == "6") ui_sortare();
 			else if (comanda == "7") ui_afisare();
 			else if (comanda == "8") adauga_elemente_de_proba();
+			else if (comanda == "9") ui_afisare_cos();
+			else if (comanda == "10") ui_export_cos();
 		}
 		catch (const std::exception& e) {
 			std::cout << "\n" << e.what() << "\n";

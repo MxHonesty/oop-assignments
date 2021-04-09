@@ -1,5 +1,5 @@
 #include "RepoOferta.h"
-#include <stdexcept>
+#include "../errors/RepoError.h"
 
 void RepoOferte::add(const Oferta& de_adaugat){
 	this->elems.push_back(de_adaugat);
@@ -10,7 +10,7 @@ void RepoOferte::remove(const int id) {
 		[id](const Oferta& el) noexcept {return el.get_id() == id; });
 	
 	if (de_sters != elems.end())
-		elems.erase(de_sters);
+		elems.erase(de_sters, elems.end());
 }
 
 void RepoOferte::update(const int id, const Oferta& new_oferta){
@@ -40,7 +40,7 @@ const Oferta& RepoOferte::search_element(const int id) const{
 		[id](const Oferta& el) noexcept {return el.get_id() == id; });
 
 	if (gasit == elems.end())
-		throw std::domain_error{ "Element not found" };
+		throw RepoError{ "Element not found" };
 	else
 		return *gasit;
 }

@@ -1,5 +1,5 @@
 #include "ServiceOferta.h"
-#include <stdexcept>
+#include "../errors/ServiceError.h"
 #include <algorithm>
 #include <iostream>
 
@@ -13,14 +13,14 @@ void ServiceOferta::adaugare(const string& denumire, const string& destinatie, c
 
 void ServiceOferta::stergere(const int id_sters){
 	if (not this->repo.search(id_sters)) {
-		throw std::out_of_range{"Elementul nu este in registru"};
+		throw ServiceError{"Elementul nu este in registru"};
 	}
 	this->repo.remove(id_sters);
 }
 
 void ServiceOferta::modificare(const int id_modificat, const string& denumire, const string& destinatie, const string& tip, const int pret){
 	if (not this->repo.search(id_modificat)) {
-		throw std::out_of_range{"Elementul nu este in registru"};
+		throw ServiceError{"Elementul nu este in registru"};
 	}
 	Oferta noua_oferta{id_modificat, denumire, destinatie, tip, pret};
 	if(valid.validare(noua_oferta))

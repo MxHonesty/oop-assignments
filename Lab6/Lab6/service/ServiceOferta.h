@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include <functional>
+#include "../Cos.h"
 using std::string;
 using std::vector;
 
@@ -13,10 +14,11 @@ private:
 	RepoOferte repo;
 	int id;  // Id asignat automat la aduagare.
 	Validator valid;
+	Cos cos;
 
 public:
 	/** Constructor implicit */
-	ServiceOferta() noexcept : repo{} {
+	ServiceOferta() noexcept : repo{}, cos{}, valid{} {
 		this->id = 0;
 	}
 

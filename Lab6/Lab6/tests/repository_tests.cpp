@@ -1,7 +1,7 @@
 #include "repository_tests.h"
 #include <cassert>
 #include "../repo/RepoOferta.h"
-
+#include "../errors/RepoError.h"
 #include <iostream>
 
 void test_repo_add() {
@@ -87,7 +87,7 @@ void test_search_element() {
 		repo.search_element(1000);
 		assert(false);
 	}
-	catch (std::domain_error) {
+	catch (RepoError) {
 		assert(true);
 	}
 }
