@@ -27,7 +27,7 @@ void ServiceOferta::modificare(const int id_modificat, const string& denumire, c
 	}
 	Oferta noua_oferta{id_modificat, denumire, destinatie, tip, pret};
 	if (valid.validare(noua_oferta)) {
-		this->cos.sterge(this->repo.search_element(id_modificat));  // Stergem din cos
+		this->cos.modifica(this->repo.search_element(id_modificat), noua_oferta);
 		this->repo.update(id_modificat, noua_oferta);
 	}
 }

@@ -12,7 +12,7 @@ Oferta::Oferta(const Oferta& elem){
 	this->tip = elem.tip;
 	this->pret = elem.pret;
 	this->id = elem.id;
-	//std::cout << "Oferta Copiata \n";
+	std::cout << "Oferta Copiata \n";
 }
 
 std::string Oferta::get_denumire() const{

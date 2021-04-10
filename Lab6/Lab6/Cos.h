@@ -33,12 +33,24 @@ public:
 
 	/** Exporta cosul curent ca html.
 	* Versiunea cu bootstrap.
+	* @param fisier - numele fisierului pe care dorim
+	* sa il scriem fara extensie.
 	*/
 	void export_html_fancy(const string& fisier) const;
 
-	/** Returneaza lista de elemente din cos. */
+	/** Returneaza lista de elemente din cos. 
+	* @return referinta la vectorul de oferte.
+	*/
 	const vector<Oferta>& lista_cos() const noexcept ;
 
-	/** Dimensiunea cosului. */
+	/** Modifica oferta data. Daca nu apartine, nu se intampla nimic.
+	* @param of - oferta de modificat.
+	* @param new_of - noua oferta.
+	*/
+	void modifica(const Oferta& of, const Oferta& new_of);
+
+	/** Dimensiunea cosului. 
+	* @return UNSIGNED.
+	*/
 	const unsigned dim() const noexcept;
 };

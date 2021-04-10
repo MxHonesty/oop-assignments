@@ -37,7 +37,7 @@ bool RepoOferte::search(const int id) const{
 
 bool RepoOferte::search_denumire(const std::string& denumire) const {
 	auto gasit = std::find_if(elems.begin(), elems.end(),
-		[&denumire](const Oferta& el) noexcept {return el.get_denumire() == denumire; });
+		[&denumire](const Oferta& el) {return el.get_denumire() == denumire; });
 
 	if (gasit == elems.end())
 		return false;
@@ -46,7 +46,7 @@ bool RepoOferte::search_denumire(const std::string& denumire) const {
 
 const Oferta& RepoOferte::search_get_denumire(const std::string& denumire) const {
 	auto gasit = std::find_if(elems.begin(), elems.end(),
-		[denumire](const Oferta& el) noexcept {return el.get_denumire() == denumire; });
+		[denumire](const Oferta& el) {return el.get_denumire() == denumire; });
 
 	if (gasit == elems.end())
 		throw RepoError{ "Element not found" };

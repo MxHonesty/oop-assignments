@@ -1,10 +1,8 @@
 #pragma once
 /** Modul pentru clasa Oferta. Reprezinta modelarea domeniului problemei. */
-
+#include <iostream>
 #include <string>
 using std::string;
-
-#include <iostream>
 
 class Oferta {
 private:
@@ -71,21 +69,28 @@ public:
 	/** Returneaza id-ul ofertei */
 	int get_id() const noexcept;
 
-	/** Seteaza denumirea ofertei */
+	/** Seteaza denumirea ofertei 
+	* @param new_denumire - noua denumire a Ofertei.
+	*/
 	void set_denumire(const std::string new_denumire);
 
-	/** Seteaza destinatia ofertei */
+	/** Seteaza destinatia ofertei 
+	* @param new_destinatie - noua destinatie a ofertei.
+	*/
 	void set_destinatie(const std::string new_destinatie);
 
-	/** Seteaza tipul ofertei */
+	/** Seteaza tipul ofertei 
+	* @param new_tip - noul tip al ofertei.
+	*/
 	void set_tip(const std::string new_tip);
 
-	/** Seteaza pretul ofertei */
+	/** Seteaza pretul ofertei 
+	* @param new_pret - noul pret al ofertei.
+	*/
 	void set_pret(const int new_pret) noexcept;
 
 	/** Egalitate dintre oferte.
 		@param rhs referinta la o alta oferta
 		@return true daca cele doua oferte au id egal. false altfel */
 	bool operator==(const Oferta& rhs) const noexcept;
-
 };

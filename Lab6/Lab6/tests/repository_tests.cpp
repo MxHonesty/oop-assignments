@@ -4,6 +4,7 @@
 #include "../errors/RepoError.h"
 #include <iostream>
 
+/** Testare adaugare */
 void test_repo_add() {
 	RepoOferte repo;
 	for(int i = 0; i < 10; i++)
@@ -14,6 +15,7 @@ void test_repo_add() {
 	assert(not repo.search(10));
 }
 
+/** Testare remove */
 void test_repo_remove() {
 	RepoOferte repo;
 	for (int i = 0; i < 10; i++)
@@ -29,6 +31,7 @@ void test_repo_remove() {
 	assert(repo.dim() == 0);
 }
 
+/** Testare search */
 void test_repo_search() {
 	RepoOferte repo;
 	for (int i = 0; i < 10; i += 2)  // Adaugam doar index par.
@@ -45,6 +48,7 @@ void test_repo_search() {
 	assert(not repo.search(1000));
 }
 
+/** Testare get_all */
 void test_repo_get_all() {
 	RepoOferte repo;
 	for (int i = 0; i < 50; i++)
@@ -58,6 +62,7 @@ void test_repo_get_all() {
 	assert(t.size() == repo.dim());
 }
 
+/** Testare remove_all */
 void test_repo_remove_all() {
 	RepoOferte repo;
 	for (int i = 0; i < 100; i++)
@@ -67,6 +72,7 @@ void test_repo_remove_all() {
 	assert(repo.dim() == 0);
 }
 
+/** Testare dim */
 void test_repo_dim() {
 	RepoOferte repo;
 	for (int i = 0; i < 50; i++)
@@ -74,6 +80,7 @@ void test_repo_dim() {
 	assert(repo.dim() == 50);
 }
 
+/** Testare search */
 void test_search_element() {
 	RepoOferte repo;
 	Oferta a{1, "a", "a", "a", 10};
@@ -92,6 +99,7 @@ void test_search_element() {
 	}
 }
 
+/** Testare search denumire */
 void test_repo_search_denumire() {
 	RepoOferte repo;
 	Oferta a{ 1, "a", "a", "a", 1 };
@@ -116,6 +124,7 @@ void test_repo_search_denumire() {
 	}
 }
 
+/** Testare update_element */
 void test_update_element() {
 	RepoOferte repo;
 	for (int i = 0; i < 10; i++)

@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 
+/** Testare adaugare */
 void srv_adaugare_test() {
 	ServiceOferta srv;
 	char index = 'a';
@@ -15,6 +16,7 @@ void srv_adaugare_test() {
 	assert(de_test.size() == 10);
 }
 
+/** Testare stergere */
 void srv_stergere_test() {
 	ServiceOferta srv;
 	char index = 'a';
@@ -44,6 +46,7 @@ void srv_stergere_test() {
 	assert(i == 20);
 }
 
+/** Testare modificare */
 void srv_modificare_test() {
 	ServiceOferta srv;
 	char index = 'a';
@@ -65,6 +68,7 @@ void srv_modificare_test() {
 	assert(srv.cautare(5).get_pret() == 1);
 }
 
+/** Testare cautare */
 void srv_cautare_test() {
 	ServiceOferta srv; 
 	char index = 'a';
@@ -85,6 +89,7 @@ void srv_cautare_test() {
 	}
 }
 
+/** Testare filtrare pret */
 void srv_filtrare_pret_test() {
 	ServiceOferta srv;
 	char index = 'a';
@@ -101,6 +106,7 @@ void srv_filtrare_pret_test() {
 	}
 }
 
+/** Testare destinatie filtrare */
 void srv_filtrare_destinatie_test() {
 	ServiceOferta srv;
 	srv.adaugare("a", "a", "a", 1);
@@ -113,6 +119,7 @@ void srv_filtrare_destinatie_test() {
 	assert(rez.size() == 3);
 }
 
+/** Testare sortare */
 void srv_sortare_test() {
 	ServiceOferta srv;
 	srv.adaugare("b", "b" ,"a", 2);
@@ -147,6 +154,7 @@ void srv_sortare_test() {
 
 }
 
+/** Testare Cos */
 void srv_test_cos() {
 	ServiceOferta srv;
 	srv.adaugare("a", "a", "a", 1);
@@ -190,6 +198,7 @@ void srv_test_cos() {
 	assert(srv.dimensiune_cos() == 0);
 }
 
+/** Testare Exportare html */
 void test_export_html() {
 	ServiceOferta srv;
 	srv.adaugare("a", "a", "a", 1);
@@ -244,6 +253,7 @@ void test_export_html() {
 
 }
 
+/** Testare adaugare random */
 void test_adaugare_random() {
 	ServiceOferta srv;
 	srv.adaugare("a", "a", "a", 1);

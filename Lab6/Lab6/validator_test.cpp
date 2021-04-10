@@ -2,6 +2,7 @@
 #include "Validator/validator.h"
 #include <cassert>
 
+/** Testare validare. */
 void Testing::run_validator_tests() {
 	const Validator v;
 	Oferta b(1, "a", "a", "a", 10);

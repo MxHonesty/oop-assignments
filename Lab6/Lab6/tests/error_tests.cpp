@@ -6,7 +6,7 @@
 #include <cassert>
 #include "../errors/FileError.h"
 
-
+/** Test Exceptie de Service */
 void ServiceError_test() {
 	try {
 		throw ServiceError{ "Ceva rau!" };
@@ -16,6 +16,7 @@ void ServiceError_test() {
 	}
 }
 
+/** Test Exceptie de Repo */
 void RepoError_test() {
 	try {
 		throw RepoError{ "Ceva rau!" };
@@ -25,6 +26,7 @@ void RepoError_test() {
 	}
 }
 
+/** Test Exceptie de UI */
 void UI_Error_test() {
 	try {
 		throw UiError{ "Ceva rau!" };
@@ -34,6 +36,7 @@ void UI_Error_test() {
 	}
 }
 
+/** Test Exceptie de Cos */
 void CosError_test() {
 	try {
 		throw CosError{ "Ceva rau!" };
@@ -43,6 +46,7 @@ void CosError_test() {
 	}
 }
 
+/** Test Exceptie de File */
 void FileError_test() {
 	try {
 		throw FileError{ "Ceva rau!" };

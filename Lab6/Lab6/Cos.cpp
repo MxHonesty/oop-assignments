@@ -20,6 +20,14 @@ void Cos::golire() noexcept {
 	elems.clear();
 }
 
+void Cos::modifica(const Oferta& of, const Oferta& new_of) {
+	auto gasit = std::find(elems.begin(), elems.end(), of);
+	if (gasit == elems.end()) {
+		return;
+	}
+	*gasit = new_of;
+}
+
 const unsigned Cos::dim() const noexcept {
 	return elems.size();
 }
