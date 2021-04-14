@@ -64,8 +64,28 @@ void test_cos_modificare() {
 	assert(*gasit2 == b);
 }
 
+/** Testeaza daca valorile de adevar returnate in urma
+	Operatiilor de adaugare, stergere, modificare sunt adevarate.
+*/
+void test_cos_returns() {
+	Cos cos;
+
+	assert(cos.adauga({ 1, "A", "A", "A", 100 }) == true);
+	assert(cos.adauga({ 1, "A", "A", "A", 100 }) == false);
+	assert(cos.adauga({ 1, "A", "A", "A", 100 }) == false);
+	assert(cos.adauga({ 2, "B", "A", "A", 100 }) == true);
+	assert(cos.adauga({ 3, "C", "A", "A", 100 }) == true);
+
+	assert(cos.sterge({ 1, "A", "A", "A", 100 }) == true);
+	assert(cos.sterge({ 1, "A", "A", "A", 100 }) == false);
+
+	assert(cos.modifica({ 2, "B", "A", "A", 100 }, {1, "A", "A", "A", 100}) == true);
+	assert(cos.modifica({ 2, "B", "A", "A", 100 }, {1, "A", "A", "A", 100}) == false);
+}
+
 void Testing::run_all_cos_tests() {
 	test_cos_adaugare();
 	test_cos_stergere();
 	test_cos_modificare();
+	test_cos_returns();
 }

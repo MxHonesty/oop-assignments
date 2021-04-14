@@ -79,7 +79,13 @@ private:
 	void ui_golire_cos();
 
 	/** Adauga elemente random in cos */
-	void ui_random_cos();  // TODO: SERVICE FUNC FOR THIS.
+	void ui_random_cos(); 
+
+	/** Functie de ui pentru mapare tip. */
+	void ui_mapare_tip();
+
+	/** Functia de ui pentru undo. */
+	void ui_undo();
 
 public:
 	/** Constructor implicit */

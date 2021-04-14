@@ -330,6 +330,18 @@ void UI::ui_random_cos() {
 	}
 }
 
+void UI::ui_mapare_tip() {
+	const auto rez = srv.mapare_tip();
+	std::cout << "\n";
+	for (const auto& el : rez) {
+		std::cout<<el.first<<" ==> "<<el.second.get_count()<<"\n";
+	}
+}
+
+void UI::ui_undo() {
+	srv.undo();
+}
+
 
 
 void UI::run(){
@@ -351,6 +363,9 @@ Alegeti o optiune:
 12 - Goleste cos
 13 - Random cos
 14 - Export cos
+
+15 - Mapare tip
+16 - Undo
 
 q  - Iesire
 )";
@@ -374,6 +389,8 @@ q  - Iesire
 			else if (comanda == "12") ui_golire_cos();
 			else if (comanda == "13") ui_random_cos();
 			else if (comanda == "14") ui_export_cos();
+			else if (comanda == "15") ui_mapare_tip();
+			else if (comanda == "16") ui_undo();
 		}
 		catch (const std::exception& e) {
 			std::cout << "\n" << e.what() << "\n";

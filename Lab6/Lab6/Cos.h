@@ -14,14 +14,16 @@ public:
 	* @param of - oferta pe care dorim sa o adaugam.
 	* Daca se incearca introducerea a aceleasi oferte de doua ori,
 	* nu se intampla nimic.
+	* @return true daca s-a efectuat adaugarea.
 	*/
-	void adauga(const Oferta& of);
+	bool adauga(const Oferta& of);
 
 	/** Sterge oferta data din cos.
 	* @param of - oferta pe care dorim sa o stergem din cos.
 	* Se sterge oferta.
+	* @return true daca s-a efectuat stergerea.
 	*/
-	void sterge(const Oferta& of);
+	bool sterge(const Oferta& of);
 
 	/** Goleste cosul de elemente. */
 	void golire() noexcept;
@@ -46,8 +48,9 @@ public:
 	/** Modifica oferta data. Daca nu apartine, nu se intampla nimic.
 	* @param of - oferta de modificat.
 	* @param new_of - noua oferta.
+	* @return true - daca s-a efectuat modificarea.
 	*/
-	void modifica(const Oferta& of, const Oferta& new_of);
+	bool modifica(const Oferta& of, const Oferta& new_of);
 
 	/** Dimensiunea cosului. 
 	* @return UNSIGNED.

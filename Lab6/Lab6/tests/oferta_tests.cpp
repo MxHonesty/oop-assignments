@@ -1,5 +1,6 @@
 #include "oferta_tests.h"
 #include "../domain/oferta.h"
+#include "../TipDTO.h"
 #include <cassert>
 
 void test_oferta_get_set() {
@@ -35,7 +36,32 @@ void test_operator_egalitate() {
 	assert(not (a == diferit_de_a));
 }
 
+void test_dto() {
+	TipDTO sal;
+
+	assert(sal.get_count() == 0);
+	assert(sal.get_tip() == "");
+
+	sal.set_tip("hello");
+	assert(sal.get_tip() == "hello");
+	assert(sal.get_count() == 1);
+
+	TipDTO sal2{ "b" };
+	assert(sal2.get_count() == 1);
+	assert(sal2.get_tip() == "b");
+	sal2.increment_count();
+	sal2.increment_count();
+	sal2.increment_count();
+	assert(sal2.get_count() == 4);
+	assert(sal2.get_tip() == "b");
+
+	sal2.clear();
+	assert(sal2.get_count() == 0);
+	assert(sal2.get_tip() == "");
+}
+
 void Testing::run_oferta_tests(){
 	test_oferta_get_set();
 	test_operator_egalitate();
+	test_dto();
 }

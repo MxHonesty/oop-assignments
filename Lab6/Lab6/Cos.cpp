@@ -2,30 +2,36 @@
 #include <fstream>
 #include "errors/FileError.h"
 
-void Cos::adauga(const Oferta& of) {
+bool Cos::adauga(const Oferta& of) {
 	const auto& gasit = std::find(elems.begin(), elems.end(), of);
-	if (gasit == elems.end())
+	if (gasit == elems.end()) {
 		elems.push_back(of);
+		return true;
+	}
+	return false;
 }
 
-void Cos::sterge(const Oferta& of) {
+bool Cos::sterge(const Oferta& of) {
 	auto gasit = std::remove_if(elems.begin(), elems.end(), 
 		[of](const Oferta& el) noexcept {return el == of; });
 	if (gasit != elems.end()) {
 		elems.erase(gasit, elems.end());
+		return true;
 	}
+	return false;
 }
 
 void Cos::golire() noexcept {
 	elems.clear();
 }
 
-void Cos::modifica(const Oferta& of, const Oferta& new_of) {
+bool Cos::modifica(const Oferta& of, const Oferta& new_of) {
 	auto gasit = std::find(elems.begin(), elems.end(), of);
 	if (gasit == elems.end()) {
-		return;
+		return false;
 	}
 	*gasit = new_of;
+	return true;
 }
 
 const unsigned Cos::dim() const noexcept {

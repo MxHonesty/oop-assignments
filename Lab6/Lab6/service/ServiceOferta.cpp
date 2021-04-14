@@ -10,6 +10,7 @@ void ServiceOferta::adaugare(const string& denumire, const string& destinatie, c
 	if (valid.validare(noua_oferta)) {
 		this->repo.add(noua_oferta);
 		this->id++;  // incrementare id.
+		undo_actions.push_back(std::make_unique<UndoAdauga>(repo, noua_oferta, cos));
 	}
 }
 
@@ -17,8 +18,16 @@ void ServiceOferta::stergere(const int id_sters){
 	if (not this->repo.search(id_sters)) {
 		throw ServiceError{"Elementul nu este in registru"};
 	}
-	this->cos.sterge(this->repo.search_element(id_sters));  // Stergem din cos. 
+	const Oferta de_sters = this->repo.search_element(id_sters);
+	const auto a_sters_cos = this->cos.sterge(de_sters);  // Stergem din cos. 
 	this->repo.remove(id_sters);
+
+	if (a_sters_cos) {
+		undo_actions.push_back(std::make_unique<UndoStergeCuCos>(repo, de_sters, cos));
+	}
+	else {
+		undo_actions.push_back(std::make_unique<UndoSterge>(repo, de_sters));
+	}
 }
 
 void ServiceOferta::modificare(const int id_modificat, const string& denumire, const string& destinatie, const string& tip, const int pret){
@@ -27,8 +36,18 @@ void ServiceOferta::modificare(const int id_modificat, const string& denumire, c
 	}
 	Oferta noua_oferta{id_modificat, denumire, destinatie, tip, pret};
 	if (valid.validare(noua_oferta)) {
-		this->cos.modifica(this->repo.search_element(id_modificat), noua_oferta);
+		const Oferta de_modifcat = this->repo.search_element(id_modificat);
+		const auto a_modificat_cos = this->cos.modifica(de_modifcat, noua_oferta);
 		this->repo.update(id_modificat, noua_oferta);
+
+		if (a_modificat_cos) {
+			undo_actions.push_back(std::make_unique<UndoModificaCuCos>(repo,
+				de_modifcat, noua_oferta, cos));
+		}
+		else {
+			undo_actions.push_back(std::make_unique<UndoModifica>(repo,
+				de_modifcat, noua_oferta));
+		}
 	}
 }
 
@@ -110,5 +129,29 @@ void ServiceOferta::adauga_random_cos(int numar) {
 			this->adauga_cos(el.get_denumire());
 			numar--;
 		}
+	}
+}
+
+std::unordered_map<string, TipDTO> ServiceOferta::mapare_tip() {
+	std::unordered_map<string, TipDTO> rez;
+	// Folosim find, daca rezultatul == end nu exista.
+
+	for (const auto& el : get_ref_all()) {
+		const auto gasit = rez.find(el.get_tip());
+		if (gasit == rez.end()) {  // Nu exista deja
+			rez.insert({ el.get_tip(), TipDTO{el.get_tip()} });  // Inseram perechea
+		}
+		else {  // Exista pe pozitia aratata de gasit.
+			(*gasit).second.increment_count();  // Incrementam aparitia.
+		}
+	}
+
+	return rez;
+}
+
+void ServiceOferta::undo() {
+	if (not undo_actions.empty()) {
+		this->undo_actions.back()->doUndo();
+		this->undo_actions.pop_back();
 	}
 }

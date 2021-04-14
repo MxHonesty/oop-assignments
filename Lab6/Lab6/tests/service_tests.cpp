@@ -272,6 +272,87 @@ void test_adaugare_random() {
 	}
 }
 
+void test_mapare() {
+	ServiceOferta srv;
+	srv.adaugare("a", "a", "a", 1);
+	srv.adaugare("b", "a", "a", 2);
+	srv.adaugare("c", "a", "a", 3);
+	srv.adaugare("d", "a", "a", 4);
+	srv.adaugare("d2", "a", "b", 5);
+	srv.adaugare("d22", "a", "c", 6);
+
+	const auto rez = srv.mapare_tip();
+	assert(rez.size() == 3);
+
+	assert(rez.at("a").get_count() == 4);
+}
+
+void test_undo() {
+	ServiceOferta srv;
+	
+	srv.adaugare("a", "a", "a", 1);
+	srv.adaugare("b", "a", "a", 1);
+	srv.adaugare("c", "a", "a", 1);
+	srv.undo();
+	assert(srv.get_ref_all().size() == 2);
+	srv.undo();
+	assert(srv.get_ref_all().size() == 1);
+	srv.undo();
+	assert(srv.get_ref_all().size() == 0);
+
+	srv.adaugare("a", "a", "a", 1);
+	srv.adaugare("b", "a", "a", 1);
+	srv.adaugare("c", "a", "a", 1);
+	srv.stergere(3);
+	srv.stergere(4);
+	srv.stergere(5);
+	srv.undo();
+	assert(srv.get_ref_all().size() == 1);
+	srv.undo();
+	assert(srv.get_ref_all().size() == 2);
+	srv.undo();
+	assert(srv.get_ref_all().size() == 3);
+
+	Oferta inainte_modificare{ 3, "a", "a", "a", 1 };
+	srv.modificare(3, "A", "A", "A", 1000);
+	srv.undo();
+	assert(inainte_modificare.get_denumire() == srv.cautare(3).get_denumire());
+}
+
+void test_undo_cos() {
+	ServiceOferta srv;
+
+	srv.adaugare("a", "a", "a", 1);
+	srv.adaugare("b", "a", "a", 1);
+	srv.adaugare("c", "a", "a", 1);
+
+	srv.adauga_cos("a");
+	srv.adauga_cos("b");
+	srv.adauga_cos("c");
+
+	srv.stergere(0);
+	assert(srv.dimensiune_cos() == 2);
+	srv.undo();
+	assert(srv.dimensiune_cos() == 3);
+
+	Oferta veche{ 0, "a", "a", "a", 1 };
+	srv.modificare(0, "A", "A", "A", 1000);
+	srv.undo();
+	const auto& vec = srv.vector_cos();  // Cautam elementul nou modificat.
+	const auto gasit = std::find(vec.begin(), vec.end(), veche);
+	assert(gasit != vec.end());
+}
+
+/** Bugfix: Daca introduci un nou element, apoi il pui in cos si dai undo, ramane in cos. */
+void test_undo_cos_pastreaza_dupa_undo() {
+	ServiceOferta srv;
+
+	srv.adaugare("a", "a", "a", 1);
+	srv.adauga_cos("a");
+	srv.undo();
+	assert(srv.dimensiune_cos() == 0);
+}
+
 void Testing::run_all_service_tests(){
 	srv_adaugare_test();
 	srv_stergere_test();
@@ -283,4 +364,9 @@ void Testing::run_all_service_tests(){
 	srv_test_cos();
 	test_export_html();
 	test_adaugare_random();
+	test_mapare();
+
+	test_undo();
+	test_undo_cos();
+	test_undo_cos_pastreaza_dupa_undo();
 }

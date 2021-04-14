@@ -5,7 +5,10 @@
 #include <string>
 #include <vector>
 #include <functional>
+#include <unordered_map>
 #include "../Cos.h"
+#include "../TipDTO.h"
+#include "../Undo/UndoAction.h"
 using std::string;
 using std::vector;
 
@@ -15,6 +18,7 @@ private:
 	int id;  // Id asignat automat la aduagare.
 	Validator valid;
 	Cos cos;
+	vector<std::unique_ptr<UndoAction>> undo_actions;
 
 public:
 	/** Constructor implicit */
@@ -108,5 +112,13 @@ public:
 	* @param numar - int numar elemente.
 	*/
 	void adauga_random_cos(int numar);
+	
+	/** Mapeaza tipurile elementelor cu un contor de aparitii in dictionar.
+	* @return unordered_map string => TipDTO;
+	*/
+	std::unordered_map<string, TipDTO> mapare_tip();
+
+	/** Executa undo. */
+	void undo();
 	
 }; 
