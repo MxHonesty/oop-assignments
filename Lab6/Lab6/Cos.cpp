@@ -41,7 +41,7 @@ const unsigned Cos::dim() const noexcept {
 void Cos::export_html(const string& fisier) const {
 	const std::string filename = fisier + ".html";
 	std::ofstream f(filename);
-	if (f.is_open()) {
+	if (not f.fail()) {
 		f << "<!DOCTYPE html><html><body>";
 		f << "<ul>";  // unordered list.
 		for (const auto& el : elems) {
@@ -66,7 +66,7 @@ void Cos::export_html(const string& fisier) const {
 void Cos::export_html_fancy(const string& fisier) const {
 	const std::string filename = fisier + ".html";
 	std::ofstream f(filename);
-	if (f.is_open()) {
+	if (not f.fail()) {
 		f << R"(<!DOCTYPE html><html><head><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"></head>)";
 		f << "<body>";
 		f << R"(<div style="margin-left:40%; margin-right:40%">)";
