@@ -6,12 +6,12 @@
 
 class Validator {
 private:
-	std::optional<const RepoOferte*> oRepo;
+	std::optional<const Repository*> oRepo;
 
 public:
 
 	/** Constructor */
-	Validator(const RepoOferte* r) noexcept : oRepo(r) {};
+	Validator(const Repository* r) noexcept : oRepo(r) {};
 
 	/** Default constructor 
 	* Validator cu repo gol.

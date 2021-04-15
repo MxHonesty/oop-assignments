@@ -14,7 +14,7 @@ using std::vector;
 
 class ServiceOferta {
 private:
-	RepoOferte repo;
+	std::shared_ptr<Repository> repo;
 	int id;  // Id asignat automat la aduagare.
 	Validator valid;
 	Cos cos;
@@ -22,8 +22,15 @@ private:
 
 public:
 	/** Constructor implicit */
-	ServiceOferta() noexcept : repo{}, cos{}, valid{&repo} {
+	ServiceOferta() : cos{ } {
+		repo = std::make_shared<RepoOferte>();
 		this->id = 0;
+		valid = Validator(repo.get());
+	}
+
+	/** Constructor cu Repo dat. */
+	ServiceOferta(std::shared_ptr<Repository> r) noexcept : repo{ r }, cos{}, valid{repo.get()} {
+		id = 0;
 	}
 
 	/** Functie de adaugare de service. Adauga un element in registru.
@@ -76,10 +83,10 @@ public:
 	*/
 	const vector<Oferta> sortare(std::function<bool (const Oferta& a, const Oferta& b)> criteriu) const;  // TODO: sistem de transmitere criteriu.
 	/** Ofera un vector cu toate elementele din lista */
-	const vector<Oferta>& get_all() const noexcept;
+	const vector<Oferta>& get_all() const;
 
 	/** Ofera o referinta const la vectorul de elemente */
-	const vector<Oferta>& get_ref_all() const noexcept;
+	const vector<Oferta>& get_ref_all() const;
 
 	/** Adauga oferta cu denumirea data in cos. 
 	* Arunca eroare de Repo daca nu este gasit niciun element.

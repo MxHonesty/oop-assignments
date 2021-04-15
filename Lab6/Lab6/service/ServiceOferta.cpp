@@ -8,51 +8,51 @@
 void ServiceOferta::adaugare(const string& denumire, const string& destinatie, const string& tip, int pret){
 	Oferta noua_oferta{ this->id, denumire, destinatie, tip, pret };
 	if (valid.validare(noua_oferta)) {
-		this->repo.add(noua_oferta);
+		this->repo->add(noua_oferta);
 		this->id++;  // incrementare id.
-		undo_actions.push_back(std::make_unique<UndoAdauga>(repo, noua_oferta, cos));
+		undo_actions.push_back(std::make_unique<UndoAdauga>(repo.get(), noua_oferta, cos));
 	}
 }
 
 void ServiceOferta::stergere(const int id_sters){
-	if (not this->repo.search(id_sters)) {
+	if (not this->repo->search(id_sters)) {
 		throw ServiceError{"Elementul nu este in registru"};
 	}
-	const Oferta de_sters = this->repo.search_element(id_sters);
+	const Oferta de_sters = this->repo->search_element(id_sters);
 	const auto a_sters_cos = this->cos.sterge(de_sters);  // Stergem din cos. 
-	this->repo.remove(id_sters);
+	this->repo->remove(id_sters);
 
 	if (a_sters_cos) {
-		undo_actions.push_back(std::make_unique<UndoStergeCuCos>(repo, de_sters, cos));
+		undo_actions.push_back(std::make_unique<UndoStergeCuCos>(repo.get(), de_sters, cos));
 	}
 	else {
-		undo_actions.push_back(std::make_unique<UndoSterge>(repo, de_sters));
+		undo_actions.push_back(std::make_unique<UndoSterge>(repo.get(), de_sters));
 	}
 }
 
 void ServiceOferta::modificare(const int id_modificat, const string& denumire, const string& destinatie, const string& tip, const int pret){
-	if (not this->repo.search(id_modificat)) {
+	if (not this->repo->search(id_modificat)) {
 		throw ServiceError{"Elementul nu este in registru"};
 	}
 	Oferta noua_oferta{id_modificat, denumire, destinatie, tip, pret};
 	if (valid.validare(noua_oferta)) {
-		const Oferta de_modifcat = this->repo.search_element(id_modificat);
+		const Oferta de_modifcat = this->repo->search_element(id_modificat);
 		const auto a_modificat_cos = this->cos.modifica(de_modifcat, noua_oferta);
-		this->repo.update(id_modificat, noua_oferta);
+		this->repo->update(id_modificat, noua_oferta);
 
 		if (a_modificat_cos) {
-			undo_actions.push_back(std::make_unique<UndoModificaCuCos>(repo,
+			undo_actions.push_back(std::make_unique<UndoModificaCuCos>(repo.get(),
 				de_modifcat, noua_oferta, cos));
 		}
 		else {
-			undo_actions.push_back(std::make_unique<UndoModifica>(repo,
+			undo_actions.push_back(std::make_unique<UndoModifica>(repo.get(),
 				de_modifcat, noua_oferta));
 		}
 	}
 }
 
 const Oferta& ServiceOferta::cautare(int id_cautat) const{
-	return this->repo.search_element(id_cautat);
+	return this->repo->search_element(id_cautat);
 }
 
 const vector<Oferta> ServiceOferta::filtrare_pret(const int lower, const int upper) const {
@@ -82,21 +82,21 @@ const vector<Oferta> ServiceOferta::sortare(std::function<bool(const Oferta& a, 
 	return new_vec;  // Copiaza fiecare element de doua ori.
 }
 
-const vector<Oferta>& ServiceOferta::get_all() const noexcept {
-	return this->repo.afisare();
+const vector<Oferta>& ServiceOferta::get_all() const {
+	return this->repo->afisare();
 }
 
-const vector<Oferta>& ServiceOferta::get_ref_all() const noexcept {
-	return this->repo.afisare();
+const vector<Oferta>& ServiceOferta::get_ref_all() const {
+	return this->repo->afisare();
 }
 
 void ServiceOferta::adauga_cos(const string& denumire) {
-	const auto& gasit = repo.search_get_denumire(denumire);
+	const auto& gasit = repo->search_get_denumire(denumire);
 	cos.adauga(gasit);
 }
 
 void ServiceOferta::sterge_din_cos(const string& denumire) {
-	const auto& gasit = repo.search_get_denumire(denumire);
+	const auto& gasit = repo->search_get_denumire(denumire);
 	cos.sterge(gasit);
 }
 

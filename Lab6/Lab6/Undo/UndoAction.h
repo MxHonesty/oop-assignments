@@ -15,15 +15,15 @@ public:
 class UndoAdauga: public UndoAction {
 protected:
 	Oferta oferta_adaugata;  // Obiectul care a fost adaugat.
-	RepoOferte& repo;  // Repo in care a fost executata actiunea.
+	Repository* repo;  // Repo in care a fost executata actiunea.
 	Cos& cos;
 
 public:
-	UndoAdauga(RepoOferte& r, const Oferta& added, Cos& c) : repo{ r }, oferta_adaugata{ added }, cos{c} {}
+	UndoAdauga(Repository* r, const Oferta& added, Cos& c) : repo{ r }, oferta_adaugata{ added }, cos{c} {}
 
 	/** Elimina elementul adaugat din repo si din cos. Daca acesta nu era in cos inainte, nu se intampla nimic. */
 	void doUndo() override {
-		repo.remove(oferta_adaugata.get_id());
+		repo->remove(oferta_adaugata.get_id());
 		cos.sterge(oferta_adaugata);
 	}
 
@@ -33,14 +33,14 @@ public:
 class UndoSterge : public UndoAction {
 protected:
 	Oferta oferta_stearsa;
-	RepoOferte& repo;
+	Repository* repo;
 
 public:
-	UndoSterge(RepoOferte& r, const Oferta& stearsa) : repo{ r }, oferta_stearsa{ stearsa } {}
+	UndoSterge(Repository* r, const Oferta& stearsa) : repo{ r }, oferta_stearsa{ stearsa } {}
 
 	/** Adauga inapoi in repo elementul sters. */
 	void doUndo() override {
-		repo.add(oferta_stearsa);
+		repo->add(oferta_stearsa);
 	}
 };
 
@@ -49,14 +49,14 @@ class UndoModifica : public UndoAction {
 protected:
 	Oferta oferta_modificata;  // Oferta originala.
 	Oferta noua_oferta;  // Oferta de dupa modificare.
-	RepoOferte& repo;
+	Repository* repo;
 
 public:
-	UndoModifica(RepoOferte& r, const Oferta& inainte, const Oferta& dupa) : repo{ r }, oferta_modificata{ inainte }, noua_oferta{ dupa } {};
+	UndoModifica(Repository* r, const Oferta& inainte, const Oferta& dupa) : repo{ r }, oferta_modificata{ inainte }, noua_oferta{ dupa } {};
 
 	/** Modifica obiectul la starea lui originala. */
 	void doUndo() override {
-		repo.update(noua_oferta.get_id(), oferta_modificata);
+		repo->update(noua_oferta.get_id(), oferta_modificata);
 	}
 };
 
@@ -66,11 +66,11 @@ protected:
 	Cos& cos;
 
 public:
-	UndoStergeCuCos(RepoOferte& r, const Oferta& stearsa, Cos& c) : UndoSterge{ r, stearsa }, cos{ c } {}
+	UndoStergeCuCos(Repository* r, const Oferta& stearsa, Cos& c) : UndoSterge{ r, stearsa }, cos{ c } {}
 
 	/** Adauga elementul inapoit in repo si cos. */
 	void doUndo() override {
-		repo.add(oferta_stearsa);
+		repo->add(oferta_stearsa);
 		cos.adauga(oferta_stearsa);
 	}
 
@@ -82,11 +82,11 @@ protected:
 	Cos& cos;
 
 public:
-	UndoModificaCuCos(RepoOferte& r, const Oferta& inainte, const Oferta& dupa, Cos& c) : UndoModifica{ r, inainte, dupa }, cos{ c } {}
+	UndoModificaCuCos(Repository* r, const Oferta& inainte, const Oferta& dupa, Cos& c) : UndoModifica{ r, inainte, dupa }, cos{ c } {}
 
 	/** Modifica atat in repo cat si in cos. */
 	void doUndo() override {
-		repo.update(noua_oferta.get_id(), oferta_modificata);
+		repo->update(noua_oferta.get_id(), oferta_modificata);
 		cos.modifica(noua_oferta, oferta_modificata);
 	}
 };
