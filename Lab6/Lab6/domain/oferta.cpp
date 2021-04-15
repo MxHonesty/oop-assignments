@@ -39,6 +39,11 @@ bool Oferta::operator==(const Oferta& rhs) const noexcept {
 	return this->get_id() == rhs.get_id();
 }
 
+bool Oferta::equals(const Oferta& other) const noexcept {
+	return (id == other.id) and (denumire == other.denumire) and
+		(tip == other.tip) and (destinatie == other.denumire);
+}
+
 void Oferta::set_denumire(const std::string new_denumire){
 	this->denumire = new_denumire;
 }
@@ -53,4 +58,14 @@ void Oferta::set_tip(const std::string new_tip){
 
 void Oferta::set_pret(const int new_pret) noexcept {
 	this->pret = new_pret;
+}
+
+std::ostream& operator<<(std::ostream& os, const Oferta& dt) {
+	os << dt.id <<" "<<dt.denumire<<" "<<dt.destinatie<<" "<<dt.tip<<" "<<dt.pret<<"\n";
+	return os;
+}
+
+std::istream& operator>>(std::istream& in, Oferta& of) {
+	in >> of.id >> of.denumire >> of.destinatie >> of.tip >> of.pret;
+	return in;
 }

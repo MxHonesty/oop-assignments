@@ -79,3 +79,12 @@ void RepoOferte::remove_all() noexcept{
 unsigned RepoOferte::dim() noexcept{
 	return elems.size();
 }
+
+int RepoOferte::get_max_index() const noexcept {
+	int maxim = 0;
+	for (const auto& el : elems)
+		if (el.get_id() > maxim)
+			maxim = el.get_id();
+
+	return maxim;
+}

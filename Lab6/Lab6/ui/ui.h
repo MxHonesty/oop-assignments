@@ -1,6 +1,7 @@
 #pragma once
 #include "../service/ServiceOferta.h"
 #include "../VectorDinamic/VectorDinamic.h"
+#include "../RepoFile.h"
 
 class UI {
 private:
@@ -76,7 +77,7 @@ private:
 	void ui_sterge_cos();
 	
 	/** Goleste cosul. */
-	void ui_golire_cos();
+	void ui_golire_cos() noexcept;
 
 	/** Adauga elemente random in cos */
 	void ui_random_cos(); 
@@ -88,9 +89,10 @@ private:
 	void ui_undo();
 
 public:
-	/** Constructor implicit */
-	UI() noexcept : srv{} {
-		this->running = true;
+	/** Constructor implicit. */
+	UI() {
+		running = true;
+		srv = ServiceOferta(std::make_shared<RepoFile>());
 	};
 
 	/** Functia principala a ui-ului. Contine main loop.  */

@@ -2,13 +2,13 @@
 
 #include "../repo/RepoOferta.h"
 #include "../Validator/validator.h"
+#include "../Cos.h"
+#include "../TipDTO.h"
+#include "../Undo/UndoAction.h"
 #include <string>
 #include <vector>
 #include <functional>
 #include <unordered_map>
-#include "../Cos.h"
-#include "../TipDTO.h"
-#include "../Undo/UndoAction.h"
 using std::string;
 using std::vector;
 
@@ -30,7 +30,7 @@ public:
 
 	/** Constructor cu Repo dat. */
 	ServiceOferta(std::shared_ptr<Repository> r) noexcept : repo{ r }, cos{}, valid{repo.get()} {
-		id = 0;
+		id = repo->get_max_index() + 1;
 	}
 
 	/** Functie de adaugare de service. Adauga un element in registru.

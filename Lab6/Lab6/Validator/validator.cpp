@@ -9,11 +9,12 @@ bool Validator::validare(const Oferta& of) const {
 		throw ValidatorError{ "Oferta invalida" };
 
 	if (oRepo.has_value()) {  // Daca este un repo atasat
-		if (oRepo.value()->search_denumire(of.get_denumire())) {
+		if (oRepo.value()->search_denumire(of.get_denumire())) {  // Daca exista cu denumire identica.
 			const Oferta& gasita = oRepo.value()->search_get_denumire(of.get_denumire());
 			if(not (gasita == of))
 				throw ValidatorError{ "Un element cu aceasta denumire deja exista" };
 		}
 	}
+
 	return true;
 }

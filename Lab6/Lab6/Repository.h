@@ -38,5 +38,8 @@ public:
 	/** Returneaza dimensiunea */
 	virtual unsigned dim() = 0;
 
+	/** Get the max in dex of this repository. */
+	virtual int get_max_index() const = 0;
+
 	virtual ~Repository() = default;
 };

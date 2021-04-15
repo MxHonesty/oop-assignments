@@ -2,6 +2,7 @@
 /** Modul pentru clasa Oferta. Reprezinta modelarea domeniului problemei. */
 #include <iostream>
 #include <string>
+#include <ostream>
 using std::string;
 
 class Oferta {
@@ -93,4 +94,16 @@ public:
 		@param rhs referinta la o alta oferta
 		@return true daca cele doua oferte au id egal. false altfel */
 	bool operator==(const Oferta& rhs) const noexcept;
+
+	/** Determina daca acest obiect are toate campurile identice cu other.
+	@param other - alt obiect de tip Oferta
+	@return - true daca cele doua au campuri identice.
+	*/
+	bool equals(const Oferta& other) const noexcept;
+
+	/** Scriere custom in fisier. */
+	friend std::ostream& operator<<(std::ostream& os, const Oferta& dt);
+
+	/** Citire custom din fisier. */
+	friend std::istream& operator>> (std::istream& in, Oferta& of);
 };

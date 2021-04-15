@@ -1,23 +1,44 @@
 #pragma once
 
+#include "Repository.h"
+#include "domain/oferta.h"
+#include "Validator/validator.h"
 #include <vector>
-#include "../domain/oferta.h"
-#include "../Repository.h"
-using std::vector;
+#include <string>
 
-/** RepoOferte clasa responsabila pentru stocarea si gestionarea ofertelor. */
-class RepoOferte: public Repository {
+// TODO: de restructurat sistemul de citit si scris oferta pentru ca nu functioneaza denumiri cu spatii.
+// adica de introdus un separator nou.
+
+class RepoFile : public Repository {
 private:
-	vector<Oferta> elems;  // Lista de elemente.
+	std::string filename;  // Name of the file.
+	std::vector<Oferta> elems;  // Lista de elemente.
+	Validator valid;  // Pentru validare ce citim din fisier.
+
+	/** Scrie toate elementele din vector in fisier. */
+	void salveaza_fisier();
+
+	/** Citeste elementele din fisier. */
+	void citeste_fisier();
+
 public:
-	RepoOferte() noexcept : elems{} {}  // Constructor implicit.
+
+	/** Default constructor */
+	RepoFile() : filename{ "salvare.txt" }, elems{}, valid{this} {
+		citeste_fisier();
+	};
+
+	/** Constructor with filename */
+	RepoFile(std::string file) : filename{ file }, elems{}, valid{this} {
+		citeste_fisier();
+	};
 
 	/** Adauga o oferta in repository.
 	* @param de_adaugat - Oferta pe care dorim sa o adaugam.
 	*/
 	void add(const Oferta& de_adaugat) override;
 
-	/** Elimina elementul cu id-ul dat. 
+	/** Elimina elementul cu id-ul dat.
 	* @param id - id elementului pe care dorim sa il eliminam.
 	*/
 	void remove(const int id) override;
@@ -35,7 +56,7 @@ public:
 	*/
 	bool search(const int id) const override;
 
-	/** Determina daca exista un element cu denumirea data. 
+	/** Determina daca exista un element cu denumirea data.
 	* @param denumire - string
 	*/
 	bool search_denumire(const std::string& denumire) const override;
@@ -50,25 +71,25 @@ public:
 	*/
 	const Oferta& search_element(const int id) const override;
 
-	/** Returneaza un vector de copii ale elementelor. 
+	/** Returneaza un vector de copii ale elementelor.
 	* @return un vector de Oferta care contine copii
 	* ale elementelor din repo.
 	*/
-	vector<Oferta> get_all() const override;
+	std::vector<Oferta> get_all() const override;
 
 	/** Returneaza referinta la vector*/
-	const vector<Oferta>& afisare() const noexcept override;
+	const std::vector<Oferta>& afisare() const noexcept override;
 
 	/** Elimina toate elementele din repository. */
 	void remove_all() noexcept override;
 
 	/** Returneaza numarul de elemente din repo.
-	* @return int numarul de elemente 
+	* @return int numarul de elemente
 	*/
 	unsigned dim() noexcept override;
 
-
 	/** Get max index out of elements */
 	int get_max_index() const noexcept override;
-	
+
 };
+

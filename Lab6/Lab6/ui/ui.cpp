@@ -310,7 +310,7 @@ void UI::ui_sterge_cos() {
 	srv.sterge_din_cos(denumire);
 }
 
-void UI::ui_golire_cos() {
+void UI::ui_golire_cos() noexcept {
 	srv.golire_cos();
 }
 
