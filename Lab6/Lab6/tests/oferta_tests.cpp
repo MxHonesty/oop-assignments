@@ -67,15 +67,15 @@ void test_scriere() {
 	std::ostringstream m;
 
 	m << a;
-	assert(m.str() == "1 A B C 100\n");
+	assert(m.str() == "1|A|B|C|100|\n");
 
 	Oferta b{ 2, "A", "A", "A", 100 };
 	m << b;
-	assert(m.str() == "1 A B C 100\n2 A A A 100\n");
+	assert(m.str() == "1|A|B|C|100|\n2|A|A|A|100|\n");
 }
 
 void test_citire() {
-	std::istringstream m("1 A A A 100\n2 B B B 100\n");
+	std::istringstream m("1|A|A|A|100|\n2|B|B|B|100|\n");
 	Oferta a, b;
 	m >> a >> b;
 	assert(a.get_denumire() == "A");
@@ -89,6 +89,25 @@ void test_citire() {
 	assert(b.get_tip() == "B");
 	assert(b.get_id() == 2);
 	assert(b.get_pret() == 100);
+
+
+	std::istringstream incomplet{ "1|A|salut|" };
+	try {
+		incomplet >> a;
+		assert(false);
+	}
+	catch (...) {
+		assert(true);
+	}
+
+	std::istringstream incorect{ "AA|AA|AA|AA|20|" };
+	try {
+		incorect >> a;
+		assert(false);
+	}
+	catch (...) {
+		assert(true);
+	}
 }
 
 void test_equals() {

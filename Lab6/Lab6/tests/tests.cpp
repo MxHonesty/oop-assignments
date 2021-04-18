@@ -7,6 +7,7 @@
 #include "validator_test.h"
 #include "Cos_tests.h"
 #include "error_tests.h"
+#include "../FileRepoTests.h"
 
 void Testing::run_all_tests() {
 	Testing::run_oferta_tests();  // Teste entitate oferta.
@@ -16,4 +17,5 @@ void Testing::run_all_tests() {
 	Testing::run_validator_tests();
 	Testing::run_all_cos_tests();
 	Testing::run_all_error_tests();
+	Testing::run_file_repo_tests();
 }

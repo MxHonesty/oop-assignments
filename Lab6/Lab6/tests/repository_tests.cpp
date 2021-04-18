@@ -136,6 +136,12 @@ void test_update_element() {
 	assert(repo.search_element(5).get_pret() == de_comp.get_pret());
 }
 
+void test_get_max_index() {
+	RepoOferte repo;
+	repo.add({10, "a", "a", "a", 10});
+	assert(repo.get_max_index() == 10);
+}
+
 void Testing::run_oferta_repository_tests(){
 	test_repo_add();
 	test_repo_remove();
@@ -146,4 +152,5 @@ void Testing::run_oferta_repository_tests(){
 	test_search_element();
 	test_update_element();
 	test_repo_search_denumire();
+	test_get_max_index();
 }

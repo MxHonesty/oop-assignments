@@ -3,6 +3,7 @@
 #include <cassert>
 #include <iostream>
 #include <fstream>
+#include "../RepoFile.h"
 
 /** Testare adaugare */
 void srv_adaugare_test() {
@@ -353,6 +354,15 @@ void test_undo_cos_pastreaza_dupa_undo() {
 	assert(srv.dimensiune_cos() == 0);
 }
 
+/** Testing the constructor from repo pointer. */
+void test_constructor_from_repo_pointer() {
+	std::shared_ptr<Repository> rep = std::make_shared<RepoFile>("de_test.txt");
+
+	ServiceOferta srv{ rep };
+
+	std::remove("de_test.txt");
+}
+
 void Testing::run_all_service_tests(){
 	srv_adaugare_test();
 	srv_stergere_test();
@@ -369,4 +379,6 @@ void Testing::run_all_service_tests(){
 	test_undo();
 	test_undo_cos();
 	test_undo_cos_pastreaza_dupa_undo();
+
+	test_constructor_from_repo_pointer();
 }

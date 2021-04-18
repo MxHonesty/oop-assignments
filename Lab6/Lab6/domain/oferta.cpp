@@ -1,5 +1,7 @@
 #include "oferta.h"
 #include <iostream>
+#include <sstream>
+#include "../errors/FileError.h"
 
 Oferta::Oferta() noexcept{
 	this->pret = 0;
@@ -61,11 +63,44 @@ void Oferta::set_pret(const int new_pret) noexcept {
 }
 
 std::ostream& operator<<(std::ostream& os, const Oferta& dt) {
-	os << dt.id <<" "<<dt.denumire<<" "<<dt.destinatie<<" "<<dt.tip<<" "<<dt.pret<<"\n";
+	os << dt.id <<"|"<<dt.denumire<<"|"<<dt.destinatie<<"|"<<dt.tip<<"|"<<dt.pret<<"|\n";
 	return os;
 }
 
+/** Arunca DomainError daca datele nu sunt complete. */
 std::istream& operator>>(std::istream& in, Oferta& of) {
-	in >> of.id >> of.denumire >> of.destinatie >> of.tip >> of.pret;
+	std::string line;
+	std::getline(in, line);
+
+	// In line trebuie sa fie 5 caractere |
+	const int gasite = std::count(line.begin(), line.end(), '|');
+	if (gasite != 5)
+		throw FileError{ "Stream este invalid" };
+
+	// Avem linia in line.
+	// Acum impartim dupa delimitator.
+	std::istringstream token{line};
+	std::string id_string, pret_string, denumire_string, destinatie_string, tip_string;
+
+	std::getline(token, id_string, '|');
+	std::getline(token, denumire_string, '|');
+	std::getline(token, destinatie_string, '|');
+	std::getline(token, tip_string, '|');
+	std::getline(token, pret_string, '|');
+	int new_id, new_pret;
+	try {
+		new_id = stoi(id_string);
+		new_pret = stoi(pret_string);
+	}
+	catch (...) {
+		throw FileError{"Eroare de conversie in int"};
+	}
+
+	of.id = new_id;
+	of.pret = new_pret;
+	of.destinatie = destinatie_string;
+	of.denumire = denumire_string;
+	of.tip = tip_string;
+
 	return in;
 }

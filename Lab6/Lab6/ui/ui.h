@@ -92,7 +92,7 @@ public:
 	/** Constructor implicit. */
 	UI() {
 		running = true;
-		srv = ServiceOferta(std::make_shared<RepoFile>());
+		srv = ServiceOferta(std::make_shared<RepoFile>("data.txt"));
 	};
 
 	/** Functia principala a ui-ului. Contine main loop.  */

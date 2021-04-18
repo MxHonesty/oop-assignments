@@ -2,6 +2,7 @@
 #include "errors/RepoError.h"
 #include "errors/ValidatorError.h"
 #include <fstream>
+#include "errors/FileError.h"
 
 void RepoFile::salveaza_fisier() {
 	std::ofstream file(filename);
@@ -25,7 +26,12 @@ void RepoFile::citeste_fisier() {
 	else {
 		while (not file.eof()) {
 			Oferta citit;
-			file >> citit;
+			try {
+				file >> citit;
+			}
+			catch (const FileError&) {
+				continue;
+			}
 			try {
 				valid.validare(citit);
 				const auto gasit = std::find_if(elems.begin(), elems.end(), [&citit](const Oferta& of) noexcept 
