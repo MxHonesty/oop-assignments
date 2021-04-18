@@ -28,7 +28,9 @@ public:
 		citeste_fisier();
 	};
 
-	/** Constructor with filename */
+	/** Constructor with filename 
+	* @param file - string nume de fisier cu extensie.
+	*/
 	RepoFile(std::string file) : filename{ file }, elems{}, valid{this} {
 		citeste_fisier();
 	};

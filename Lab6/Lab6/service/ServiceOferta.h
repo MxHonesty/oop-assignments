@@ -29,7 +29,7 @@ public:
 	}
 
 	/** Constructor cu Repo dat. */
-	ServiceOferta(std::shared_ptr<Repository> r) noexcept : repo{ r }, cos{}, valid{repo.get()} {
+	ServiceOferta(std::shared_ptr<Repository> r) : repo{ r }, cos{}, valid{repo.get()} {
 		id = repo->get_max_index() + 1;
 	}
 
