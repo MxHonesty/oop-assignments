@@ -54,7 +54,7 @@ public:
 	/** Returneaza o referinta la vectorul de elemente.
 	* @return referinta la vectorul de elemente.
 	*/
-	virtual const std::vector<Oferta>& afisare() const = 0;
+	virtual const std::vector<Oferta> afisare() const = 0;
 	
 	/** Elimina toate elementele din repo. */
 	virtual void remove_all() = 0;

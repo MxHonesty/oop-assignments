@@ -80,7 +80,7 @@ public:
 	std::vector<Oferta> get_all() const override;
 
 	/** Returneaza referinta la vector*/
-	const std::vector<Oferta>& afisare() const noexcept override;
+	const std::vector<Oferta> afisare() const noexcept override;
 
 	/** Elimina toate elementele din repository. */
 	void remove_all() noexcept override;

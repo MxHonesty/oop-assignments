@@ -2,6 +2,7 @@
 #include "../service/ServiceOferta.h"
 #include "../VectorDinamic/VectorDinamic.h"
 #include "../RepoFile.h"
+#include "../RepoException.h"
 
 class UI {
 private:
@@ -93,6 +94,7 @@ public:
 	UI() {
 		running = true;
 		srv = ServiceOferta(std::make_shared<RepoFile>("data.txt"));
+		//srv = ServiceOferta(std::make_shared<RepoException>(0.7f));
 	};
 
 	/** Functia principala a ui-ului. Contine main loop.  */

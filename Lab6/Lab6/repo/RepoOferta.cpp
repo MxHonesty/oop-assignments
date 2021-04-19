@@ -68,7 +68,7 @@ vector<Oferta> RepoOferte::get_all() const{
 	return this->elems;
 }
 
-const vector<Oferta>& RepoOferte::afisare() const noexcept {
+const vector<Oferta> RepoOferte::afisare() const noexcept {
 	return this->elems;
 }
 

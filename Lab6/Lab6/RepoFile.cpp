@@ -120,7 +120,7 @@ vector<Oferta> RepoFile::get_all() const {
 	return this->elems;
 }
 
-const vector<Oferta>& RepoFile::afisare() const noexcept {
+const vector<Oferta> RepoFile::afisare() const noexcept {
 	return this->elems;
 }
 

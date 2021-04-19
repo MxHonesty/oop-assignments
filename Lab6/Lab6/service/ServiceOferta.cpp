@@ -82,11 +82,11 @@ const vector<Oferta> ServiceOferta::sortare(std::function<bool(const Oferta& a, 
 	return new_vec;  // Copiaza fiecare element de doua ori.
 }
 
-const vector<Oferta>& ServiceOferta::get_all() const {
+const vector<Oferta> ServiceOferta::get_all() const {
 	return this->repo->afisare();
 }
 
-const vector<Oferta>& ServiceOferta::get_ref_all() const {
+const vector<Oferta> ServiceOferta::get_ref_all() const {
 	return this->repo->afisare();
 }
 

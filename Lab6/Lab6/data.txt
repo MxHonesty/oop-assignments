@@ -7,5 +7,5 @@
 8|C|Franta|Vacanta|400|
 9|B|Romania|Vacanta|200|
 10|A|Franta|Cazare|400|
-11|sus|sus|amogus|10000|
 1|J|Grecia|Vacanta|300|
+11|jos|jos|amogus|10000|

@@ -83,10 +83,10 @@ public:
 	*/
 	const vector<Oferta> sortare(std::function<bool (const Oferta& a, const Oferta& b)> criteriu) const;  // TODO: sistem de transmitere criteriu.
 	/** Ofera un vector cu toate elementele din lista */
-	const vector<Oferta>& get_all() const;
+	const vector<Oferta> get_all() const;
 
 	/** Ofera o referinta const la vectorul de elemente */
-	const vector<Oferta>& get_ref_all() const;
+	const vector<Oferta> get_ref_all() const;
 
 	/** Adauga oferta cu denumirea data in cos. 
 	* Arunca eroare de Repo daca nu este gasit niciun element.

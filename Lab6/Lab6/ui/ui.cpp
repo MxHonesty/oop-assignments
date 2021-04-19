@@ -395,5 +395,6 @@ q  - Iesire
 		catch (const std::exception& e) {
 			std::cout << "\n" << e.what() << "\n";
 		}
+
 	}
 }
