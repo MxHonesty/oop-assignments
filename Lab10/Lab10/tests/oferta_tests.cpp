@@ -1,6 +1,6 @@
 #include "oferta_tests.h"
 #include "../domain/oferta.h"
-#include "../TipDTO.h"
+#include "../DTO/TipDTO.h"
 #include <cassert>
 #include <sstream>
 #include <vector>
@@ -35,7 +35,7 @@ void test_operator_egalitate() {
 	Oferta egal_cu_a{1, "A", "A", "A", 1};
 	Oferta diferit_de_a{2, "A", "A", "A", 1};
 	assert(a == egal_cu_a);
-	assert(not (a == diferit_de_a));
+	assert(! (a == diferit_de_a));
 }
 
 void test_dto() {
@@ -115,7 +115,7 @@ void test_equals() {
 	Oferta b{ 1, "A", "A", "A", 1 };
 	Oferta c{ 2, "A", "b", "A", 1 };
 	assert(a.equals(b));
-	assert(not a.equals(c));
+	assert(! a.equals(c));
 	assert(b.equals(a));
 }
 

@@ -2,8 +2,8 @@
 
 #include "../repo/RepoOferta.h"
 #include "../Validator/validator.h"
-#include "../Cos.h"
-#include "../TipDTO.h"
+#include "../cos/Cos.h"
+#include "../DTO/TipDTO.h"
 #include "../Undo/UndoAction.h"
 #include <string>
 #include <vector>
@@ -102,7 +102,7 @@ public:
 	void golire_cos() noexcept;
 
 	/** Returneaza dimensiunea cosului. */
-	unsigned dimensiune_cos() const noexcept;
+	size_t dimensiune_cos() const noexcept;
 
 	/** Referinta la vectorul de elemente din cos. */
 	const vector<Oferta>& vector_cos() const noexcept;
@@ -115,7 +115,7 @@ public:
 	/** Versiunea fancy la export_html_cos */
 	void export_html_cos_fancy(const string& file_name) const;
 
-	/** Adauga un numar de elemente random in cos.
+	/** Adauga un numar de elemente r&&om in cos.
 	* @param numar - int numar elemente.
 	*/
 	void adauga_random_cos(int numar);

@@ -1,5 +1,5 @@
 #include "Cos_tests.h"
-#include "../Cos.h"
+#include "../cos/Cos.h"
 #include <cassert>
 
 /** Functie de testare pentru functionalitatea de adaugare din cos. */

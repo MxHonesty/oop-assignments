@@ -15,7 +15,7 @@ void ServiceOferta::adaugare(const string& denumire, const string& destinatie, c
 }
 
 void ServiceOferta::stergere(const int id_sters){
-	if (not this->repo->search(id_sters)) {
+	if (! this->repo->search(id_sters)) {
 		throw ServiceError{"Elementul nu este in registru"};
 	}
 	const Oferta de_sters = this->repo->search_element(id_sters);
@@ -31,7 +31,7 @@ void ServiceOferta::stergere(const int id_sters){
 }
 
 void ServiceOferta::modificare(const int id_modificat, const string& denumire, const string& destinatie, const string& tip, const int pret){
-	if (not this->repo->search(id_modificat)) {
+	if (! this->repo->search(id_modificat)) {
 		throw ServiceError{"Elementul nu este in registru"};
 	}
 	Oferta noua_oferta{id_modificat, denumire, destinatie, tip, pret};
@@ -60,7 +60,7 @@ const vector<Oferta> ServiceOferta::filtrare_pret(const int lower, const int upp
 	const vector<Oferta>& current = this->get_ref_all() ;
 	std::copy_if(current.begin(), current.end(), std::back_inserter(new_vec), 
 		[lower, upper](const Oferta& el) noexcept 
-	{return el.get_pret() >= lower and el.get_pret() <= upper; });
+	{return el.get_pret() >= lower && el.get_pret() <= upper; });
 	return new_vec;  // Returnam copie.  // O noua copie la returnare
 }
 
@@ -104,7 +104,7 @@ void ServiceOferta::golire_cos() noexcept {
 	cos.golire();
 }
 
-unsigned ServiceOferta::dimensiune_cos() const noexcept {
+size_t ServiceOferta::dimensiune_cos() const noexcept {
 	return cos.dim();
 }
 
@@ -150,7 +150,7 @@ std::unordered_map<string, TipDTO> ServiceOferta::mapare_tip() {
 }
 
 void ServiceOferta::undo() {
-	if (not undo_actions.empty()) {
+	if (! undo_actions.empty()) {
 		this->undo_actions.back()->doUndo();
 		this->undo_actions.pop_back();
 	}

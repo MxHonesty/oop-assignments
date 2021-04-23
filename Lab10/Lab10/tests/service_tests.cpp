@@ -3,7 +3,7 @@
 #include <cassert>
 #include <iostream>
 #include <fstream>
-#include "../RepoFile.h"
+#include "../repo/RepoFile.h"
 
 /** Testare adaugare */
 void srv_adaugare_test() {
@@ -169,7 +169,7 @@ void srv_test_cos() {
 		srv.adauga_cos("C");  // Adauga in cos un element care nu exista.
 	}
 	catch (const std::exception& e) {
-		assert(string{e.what()} == "Element not found");
+		assert(string{e.what()} == "Element ! found");
 	}
 	assert(srv.dimensiune_cos() == 2);
 
@@ -186,7 +186,7 @@ void srv_test_cos() {
 		srv.sterge_din_cos("D");
 	}
 	catch (const std::exception& e) {
-		assert(string{ e.what() } == "Element not found");
+		assert(string{ e.what() } == "Element ! found");
 	}
 
 	srv.sterge_din_cos("d");
@@ -254,7 +254,7 @@ void test_export_html() {
 
 }
 
-/** Testare adaugare random */
+/** Testare adaugare r&&om */
 void test_adaugare_random() {
 	ServiceOferta srv;
 	srv.adaugare("a", "a", "a", 1);

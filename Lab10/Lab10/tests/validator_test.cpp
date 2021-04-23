@@ -1,5 +1,5 @@
 #include "validator_test.h"
-#include "Validator/validator.h"
+#include "../Validator/validator.h"
 #include <cassert>
 
 /** Testare validare. */

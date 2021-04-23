@@ -1,5 +1,5 @@
 #pragma once
-#include "domain/oferta.h"
+#include "../domain/oferta.h"
 #include <vector>
 
 class Repository {
@@ -60,7 +60,7 @@ public:
 	virtual void remove_all() = 0;
 
 	/** Returneaza dimensiunea */
-	virtual unsigned dim() = 0;
+	virtual size_t dim() = 0;
 
 	/** Get the max in dex of this repository. */
 	virtual int get_max_index() const = 0;

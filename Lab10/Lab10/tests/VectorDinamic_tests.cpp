@@ -55,7 +55,7 @@ void test_Vector_Copiere() {
 	c = a;
 	c.add(100);
 	c.add(100);
-	assert(c.dim() == 5 and a.dim() == 3);
+	assert(c.dim() == 5 && a.dim() == 3);
 }
 
 void test_Iterator_Vector() {
@@ -98,7 +98,7 @@ void test_stl_algo() {
 
 void test_exceptions() {
 	VectorDinamic<int> a;
-	assert(not a.begin().valid());
+	assert(! a.begin().valid());
 
 	try {
 		a.begin().element();

@@ -60,7 +60,7 @@ public:
 	}
 };
 
-/** Undo pentru stergere cand elementul sters era si in cos. */
+/** Undo pentru stergere c&& elementul sters era si in cos. */
 class UndoStergeCuCos : public UndoSterge {
 protected:
 	Cos& cos;
@@ -76,7 +76,7 @@ public:
 
 };
 
-/** Undo pentru modificarea cand elementul modificat era si in cos. */
+/** Undo pentru modificarea c&& elementul modificat era si in cos. */
 class UndoModificaCuCos : public UndoModifica {
 protected:
 	Cos& cos;

@@ -12,7 +12,7 @@ void test_repo_add() {
 	assert(repo.dim() == 10);
 	for (int i = 0; i < 10; i++)
 		assert(repo.search(i));
-	assert(not repo.search(10));
+	assert(! repo.search(10));
 }
 
 /** Testare remove */
@@ -37,15 +37,15 @@ void test_repo_search() {
 	for (int i = 0; i < 10; i += 2)  // Adaugam doar index par.
 		repo.add({ i, "A", "A", "A", 10 });
 	for (int i = 0; i < 10; i++) {
-		i % 2 == 0 ? assert(repo.search(i)) : assert(not repo.search(i));
+		i % 2 == 0 ? assert(repo.search(i)) : assert(! repo.search(i));
 	}
 
-	assert(not repo.search(100));
+	assert(! repo.search(100));
 
 	repo.add({1000, "B", "B", "B", 20});
 	assert(repo.search(1000));
 	repo.remove(1000);
-	assert(not repo.search(1000));
+	assert(! repo.search(1000));
 }
 
 /** Testare get_all */
@@ -111,7 +111,7 @@ void test_repo_search_denumire() {
 	assert(repo.search_denumire("a"));
 	assert(repo.search_denumire("b"));
 	assert(repo.search_denumire("c"));
-	assert(not repo.search_denumire("d"));
+	assert(! repo.search_denumire("d"));
 
 	const Oferta& verif = repo.search_get_denumire("a");
 	assert(a == verif);
@@ -131,7 +131,7 @@ void test_update_element() {
 		repo.add({i, "a", "a", "a", 10});
 	repo.update(5, { 5, "b", "b", "b", 100 });
 	Oferta de_comp{ 5, "a", "a", "a", 10 };
-	assert(not (repo.search_element(5).get_pret() == de_comp.get_pret()));
+	assert(! (repo.search_element(5).get_pret() == de_comp.get_pret()));
 	de_comp = {5, "b", "b", "b", 100};
 	assert(repo.search_element(5).get_pret() == de_comp.get_pret());
 }

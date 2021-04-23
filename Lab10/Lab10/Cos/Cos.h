@@ -1,7 +1,7 @@
 #pragma once
 
 #include <vector>
-#include "repo/RepoOferta.h"
+#include "../repo/RepoOferta.h"
 using std::vector;
 
 class Cos {
@@ -55,5 +55,5 @@ public:
 	/** Dimensiunea cosului. 
 	* @return UNSIGNED.
 	*/
-	const unsigned dim() const noexcept;
+	const size_t dim() const noexcept;
 };

@@ -1,8 +1,8 @@
 #pragma once
 
 #include "Repository.h"
-#include "domain/oferta.h"
-#include "Validator/validator.h"
+#include "../domain/oferta.h"
+#include "../Validator/validator.h"
 #include <vector>
 #include <string>
 
@@ -88,7 +88,7 @@ public:
 	/** Returneaza numarul de elemente din repo.
 	* @return int numarul de elemente
 	*/
-	unsigned dim() noexcept override;
+	size_t dim() noexcept override;
 
 	/** Get max index out of elements */
 	int get_max_index() const noexcept override;

@@ -95,7 +95,7 @@ void RepoException::remove_all() noexcept {
 	dict.clear();
 }
 
-unsigned RepoException::dim() noexcept {
+size_t RepoException::dim() noexcept {
 	trigger();
 	return dict.size();
 }

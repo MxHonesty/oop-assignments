@@ -2,7 +2,7 @@
 
 #include <vector>
 #include "../domain/oferta.h"
-#include "../Repository.h"
+#include "../repo/Repository.h"
 using std::vector;
 
 /** RepoOferte clasa responsabila pentru stocarea si gestionarea ofertelor. */
@@ -65,7 +65,7 @@ public:
 	/** Returneaza numarul de elemente din repo.
 	* @return int numarul de elemente 
 	*/
-	unsigned dim() noexcept override;
+	size_t dim() noexcept override;
 
 
 	/** Get max index out of elements */

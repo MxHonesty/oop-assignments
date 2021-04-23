@@ -1,8 +1,8 @@
 #include "RepoFile.h"
-#include "errors/RepoError.h"
-#include "errors/ValidatorError.h"
+#include "../errors/RepoError.h"
+#include "../errors/ValidatorError.h"
+#include "../errors/FileError.h"
 #include <fstream>
-#include "errors/FileError.h"
 
 void RepoFile::salveaza_fisier() {
 	std::ofstream file(filename);
@@ -24,7 +24,7 @@ void RepoFile::citeste_fisier() {
 		temp.close();
 	}
 	else {
-		while (not file.eof()) {
+		while (! file.eof()) {
 			Oferta citit;
 			try {
 				file >> citit;
@@ -101,7 +101,7 @@ const Oferta& RepoFile::search_get_denumire(const std::string& denumire) const {
 		[denumire](const Oferta& el) {return el.get_denumire() == denumire; });
 
 	if (gasit == elems.end())
-		throw RepoError{ "Element not found" };
+		throw RepoError{ "Element ! found" };
 	else
 		return *gasit;
 }
@@ -111,7 +111,7 @@ const Oferta& RepoFile::search_element(const int id) const {
 		[id](const Oferta& el) noexcept {return el.get_id() == id; });
 
 	if (gasit == elems.end())
-		throw RepoError{ "Element not found" };
+		throw RepoError{ "Element ! found" };
 	else
 		return *gasit;
 }
@@ -128,7 +128,7 @@ void RepoFile::remove_all() noexcept {
 	elems.clear();
 }
 
-unsigned RepoFile::dim() noexcept {
+size_t RepoFile::dim() noexcept {
 	return elems.size();
 }
 

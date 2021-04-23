@@ -1,6 +1,7 @@
 #pragma once
 #include "Repository.h"
-#include "errors/RepoError.h"
+#include "../errors/RepoError.h"
+#include "../domain/oferta.h"
 #include <unordered_map>
 #include <vector>
 using std::vector;
@@ -73,7 +74,7 @@ public:
 	/** Returneaza numarul de elemente din repo.
 	* @return int numarul de elemente
 	*/
-	unsigned dim() noexcept override;
+	size_t dim() noexcept override;
 
 
 	/** Get max index out of elements */

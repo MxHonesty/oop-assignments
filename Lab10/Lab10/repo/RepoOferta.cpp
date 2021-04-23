@@ -49,7 +49,7 @@ const Oferta& RepoOferte::search_get_denumire(const std::string& denumire) const
 		[denumire](const Oferta& el) {return el.get_denumire() == denumire; });
 
 	if (gasit == elems.end())
-		throw RepoError{ "Element not found" };
+		throw RepoError{ "Element ! found" };
 	else
 		return *gasit;
 }
@@ -59,7 +59,7 @@ const Oferta& RepoOferte::search_element(const int id) const{
 		[id](const Oferta& el) noexcept {return el.get_id() == id; });
 
 	if (gasit == elems.end())
-		throw RepoError{ "Element not found" };
+		throw RepoError{ "Element ! found" };
 	else
 		return *gasit;
 }
@@ -76,7 +76,7 @@ void RepoOferte::remove_all() noexcept{
 	elems.clear();
 }
 
-unsigned RepoOferte::dim() noexcept{
+size_t RepoOferte::dim() noexcept{
 	return elems.size();
 }
 

@@ -51,7 +51,7 @@ public:
 	*/
 	int dim() const noexcept;
 
-	/** Returneaza iterator incpand de la primul element */
+	/** Returneaza iterator incp&& de la primul element */
 	IteratorVector<T> begin() const;
 
 	/** Returneaza iterator pe prima pozitie dupa ultimul element */
@@ -240,7 +240,7 @@ inline T& VectorDinamic<T>::get(const int pozitie) const noexcept {
 
 template<typename T>
 inline bool IteratorVector<T>::valid() const {
-	if (this->index >= 0 and this->index < this->container.dim())
+	if (this->index >= 0 && this->index < this->container.dim())
 		return true;
 	return false;
 }

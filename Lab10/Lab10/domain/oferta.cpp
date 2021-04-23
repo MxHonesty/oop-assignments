@@ -42,8 +42,8 @@ bool Oferta::operator==(const Oferta& rhs) const noexcept {
 }
 
 bool Oferta::equals(const Oferta& other) const noexcept {
-	return (id == other.id) and (denumire == other.denumire) and
-		(tip == other.tip) and (destinatie == other.denumire);
+	return (id == other.id) && (denumire == other.denumire) &&
+		(tip == other.tip) && (destinatie == other.denumire);
 }
 
 void Oferta::set_denumire(const std::string new_denumire){
@@ -73,7 +73,7 @@ std::istream& operator>>(std::istream& in, Oferta& of) {
 	std::getline(in, line);
 
 	// In line trebuie sa fie 5 caractere |
-	const int gasite = std::count(line.begin(), line.end(), '|');
+	const auto gasite = std::count(line.begin(), line.end(), '|');
 	if (gasite != 5)
 		throw FileError{ "Stream este invalid" };
 
