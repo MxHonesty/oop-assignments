@@ -7,6 +7,11 @@
 #include "ui/ListView.h"
 #include <QtWidgets/qboxlayout.h>
 
+#include <QtWidgets/qlistwidget.h>
+
+/**
+    Main Window-ul aplicatiei.
+*/
 class Lab10 : public QMainWindow {
     Q_OBJECT
 
@@ -17,8 +22,8 @@ private:
     Ui::Lab10Class ui;
 
     ServiceOferta srv;  // Service.
-    ListView* list_view = new ListView{ srv };
-    QHBoxLayout* main_layout = new QHBoxLayout{this};
+    ListView* list_view;
 
+    /** Initializeaza layout-ul aplicatiei */
     void init();
 };

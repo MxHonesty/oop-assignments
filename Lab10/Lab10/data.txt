@@ -8,4 +8,4 @@
 9|B|Romania|Vacanta|200|
 10|A|Franta|Cazare|400|
 1|J|Grecia|Vacanta|300|
-11|jos|jos|amogus|10000|
+11|Amog jos|jos|amogus|10000|
