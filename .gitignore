@@ -13,3 +13,7 @@ Debug
 *.log
 
 .opencppcov
+
+*.tlog
+temp
+x64/

@@ -1,0 +1,11 @@
+2|I|Bhutan|Expeditie|500|
+3|H|Nepal|Expeditie|500|
+4|G|Korea|Vacanta|900|
+5|F|Japonia|Cazare|1200|
+6|E|SUA|Vacanta|1000|
+7|D|UK|Vacanta|500|
+8|C|Franta|Vacanta|400|
+9|B|Romania|Vacanta|200|
+10|A|Franta|Cazare|400|
+1|J|Grecia|Vacanta|300|
+11|jos|jos|amogus|10000|
