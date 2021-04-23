@@ -3,8 +3,11 @@
 #include <QtWidgets/QMainWindow>
 #include "ui_Lab10.h"
 
-class Lab10 : public QMainWindow
-{
+#include "service/ServiceOferta.h"
+#include "ui/ListView.h"
+#include <QtWidgets/qboxlayout.h>
+
+class Lab10 : public QMainWindow {
     Q_OBJECT
 
 public:
@@ -12,4 +15,10 @@ public:
 
 private:
     Ui::Lab10Class ui;
+
+    ServiceOferta srv;  // Service.
+    ListView* list_view = new ListView{ srv };
+    QHBoxLayout* main_layout = new QHBoxLayout{this};
+
+    void init();
 };
