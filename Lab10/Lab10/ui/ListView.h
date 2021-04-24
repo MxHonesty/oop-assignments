@@ -5,6 +5,9 @@
 #include <QtWidgets/qboxlayout.h>
 #include <QtWidgets/qmessagebox.h>
 
+#include "AddDialog.h"
+#include "InfoDialog.h"
+
 #include "../service/ServiceOferta.h"
 
 /**
@@ -18,8 +21,15 @@ private:
 	ServiceOferta& srv;
 
 	QVBoxLayout* layout = new QVBoxLayout(this);  // The Box layout
-	QPushButton* btn_remove = new QPushButton("&Remove", this);  // Buton de remove
 	QListWidget* list = new QListWidget(this);  // Lista
+
+	QPushButton* btn_remove = new QPushButton("&Remove", this);  // Buton de Stergere
+	QPushButton* btn_add = new QPushButton("&Add", this);  // Buton de Adaugare
+	QPushButton* btn_modify = new QPushButton("&Modify", this);  // Buton de Modificare
+	QPushButton* btn_info = new QPushButton("&Info", this);  // Buton de informatii
+	QPushButton* btn_undo = new QPushButton("&Undo", this);  // Buton de undo
+
+	QHBoxLayout* button_layout = new QHBoxLayout(this);  // Layout pentru butoane.
 
 	/** Initializeaza layout ListView */
 	void init_ListView();
@@ -30,13 +40,26 @@ private:
 	/** Reincarca elementele in lista. */
 	void reload_list(const std::vector<Oferta>& oferte);
 
-	/** Adauga oferta. */
-	void add_oferta();
-
 	/** Elimina oferta selectata actual.
 		Daca nicio oferta nu este selectata, arata un warning.
 	*/
 	void remove_oferta_selectata();
+
+	/** Functia introduce Dialogul de adaugare
+		pentru datele de add.
+	*/
+	void start_add_menu();
+
+	/** Porneste Dialogul de modificare pentru
+		Oferta selectata.
+	*/
+	void start_modify_menu();
+
+	/** Dialogul de informatii despre oferta curenta. */
+	void start_info_menu();
+
+	/** Executa functionalitatea de undo asupra listei. */
+	void undo();
 
 public:
 
