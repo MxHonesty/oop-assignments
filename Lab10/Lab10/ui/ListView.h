@@ -33,6 +33,11 @@ private:
 	/** Adauga oferta. */
 	void add_oferta();
 
+	/** Elimina oferta selectata actual.
+		Daca nicio oferta nu este selectata, arata un warning.
+	*/
+	void remove_oferta_selectata();
+
 public:
 
 	/** Constructor */
