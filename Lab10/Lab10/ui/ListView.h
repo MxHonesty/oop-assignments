@@ -7,6 +7,8 @@
 
 #include "AddDialog.h"
 #include "InfoDialog.h"
+#include "ModifyDialog.h"
+#include "SortingSection.h"
 
 #include "../service/ServiceOferta.h"
 
@@ -20,7 +22,9 @@ class ListView : public QWidget {
 private:
 	ServiceOferta& srv;
 
-	QVBoxLayout* layout = new QVBoxLayout(this);  // The Box layout
+	QHBoxLayout* main_layout = new QHBoxLayout(this);  // Main layout
+
+	QVBoxLayout* list_layout = new QVBoxLayout(this);  // Layout of the list-proper
 	QListWidget* list = new QListWidget(this);  // Lista
 
 	QPushButton* btn_remove = new QPushButton("&Remove", this);  // Buton de Stergere
@@ -31,11 +35,16 @@ private:
 
 	QHBoxLayout* button_layout = new QHBoxLayout(this);  // Layout pentru butoane.
 
+	SortingSection* sorting = new SortingSection{ this };
+
 	/** Initializeaza layout ListView */
 	void init_ListView();
 
 	/** Conecteaza signals pentru componente. */
 	void connect_signals();
+
+	/** Conecteazs semnalele de la seciunea de sortare. */
+	void connect_sorting_signals();
 
 	/** Reincarca elementele in lista. */
 	void reload_list(const std::vector<Oferta>& oferte);
@@ -67,6 +76,7 @@ public:
 	ListView(ServiceOferta& service) : srv{ service } {
 		init_ListView();
 		connect_signals();
+		connect_sorting_signals();  // Semnale pentru sortare.
 		reload_list(srv.get_ref_all());
 	};
 
