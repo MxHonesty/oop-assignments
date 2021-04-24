@@ -1,8 +1,8 @@
-2|I|Bhutan|Expeditie|500|
 4|G|Korea|Vacanta|900|
-5|F|Japonia|Cazare|1200|
-6|E|SUA|Vacanta|1000|
-7|D|UK|Vacanta|500|
 3|H|Nepal|Expeditie|500|
-9|B|Romania|Vacanta|200|
 11|Amog jos|jos|amogus|10000|
+2|I|Bhutan|Expeditie|500|
+5|F|Japonia|Cazare|1200|
+7|D|UK|Vacanta|500|
+6|E|SUA|Vacanta|1000|
+9|B|Romania|Vacanta|200|

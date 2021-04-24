@@ -36,6 +36,10 @@ void ListView::connect_signals() {
 	QObject::connect(btn_info, &QPushButton::clicked, this, [this]() {
 		start_info_menu();
 	});
+
+	QObject::connect(list, &QListWidget::itemDoubleClicked, this, [this]() {
+		start_info_menu();
+	});
 }
 
 void ListView::connect_sorting_signals() {
