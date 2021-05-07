@@ -4,11 +4,13 @@
 #include <QtWidgets/qpushbutton.h>
 #include <QtWidgets/qboxlayout.h>
 #include <QtWidgets/qmessagebox.h>
+#include <QtWidgets/qtablewidget.h>
 
 #include "AddDialog.h"
 #include "InfoDialog.h"
 #include "ModifyDialog.h"
 #include "SortingSection.h"
+#include "FilterSection.h"
 
 #include "../service/ServiceOferta.h"
 
@@ -26,16 +28,21 @@ private:
 
 	QVBoxLayout* list_layout = new QVBoxLayout(this);  // Layout of the list-proper
 	QListWidget* list = new QListWidget(this);  // Lista
+	QTableWidget* table = new QTableWidget{ this };  // Tabel
 
 	QPushButton* btn_remove = new QPushButton("&Remove", this);  // Buton de Stergere
 	QPushButton* btn_add = new QPushButton("&Add", this);  // Buton de Adaugare
 	QPushButton* btn_modify = new QPushButton("&Modify", this);  // Buton de Modificare
 	QPushButton* btn_info = new QPushButton("&Info", this);  // Buton de informatii
 	QPushButton* btn_undo = new QPushButton("&Undo", this);  // Buton de undo
+	QPushButton* btn_refresh = new QPushButton("Refresh", this);  // Buton de refresh
 
 	QHBoxLayout* button_layout = new QHBoxLayout(this);  // Layout pentru butoane.
 
 	SortingSection* sorting = new SortingSection{ this };
+	FilterSection* filtering = new FilterSection{ this };
+
+
 
 	/** Initializeaza layout ListView */
 	void init_ListView();
@@ -46,8 +53,17 @@ private:
 	/** Conecteazs semnalele de la seciunea de sortare. */
 	void connect_sorting_signals();
 
+	/** Conecteaza semnalele de la seciunea de filtrare */
+	void connect_filtering_signals();
+
 	/** Reincarca elementele in lista. */
 	void reload_list(const std::vector<Oferta>& oferte);
+
+	/** Reincarca elementele in tabel. */
+	void reload_table(const std::vector<Oferta>& oferte);
+
+	/** Reincarca tabelul si lista. */
+	void reload(const std::vector<Oferta>& oferte);
 
 	/** Elimina oferta selectata actual.
 		Daca nicio oferta nu este selectata, arata un warning.
@@ -77,7 +93,8 @@ public:
 		init_ListView();
 		connect_signals();
 		connect_sorting_signals();  // Semnale pentru sortare.
-		reload_list(srv.get_ref_all());
+		connect_filtering_signals();
+		reload(srv.get_ref_all());
 	};
 
 };

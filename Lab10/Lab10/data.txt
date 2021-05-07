@@ -3,6 +3,10 @@
 11|Amog jos|jos|amogus|10000|
 2|I|Bhutan|Expeditie|500|
 5|F|Japonia|Cazare|1200|
-7|D|UK|Vacanta|500|
 6|E|SUA|Vacanta|1000|
-9|B|Romania|Vacanta|200|
+13|Aceste|este|TEST|2000|
+15|Ea|Franta|Vacanta|1000|
+14|Super|Franta|Vacanta|500|
+16|La mare|Constanta|Vacanta|20000|
+17|Paris|Paris|Vacanta|1000|
+12|Among us|Burundi|Oriunde|2000|
