@@ -5,9 +5,11 @@ void ListView::init_ListView() {
 	setLayout(main_layout);
 	main_layout->addWidget(table);
 	main_layout->addLayout(list_layout);
-	main_layout->addWidget(sorting);
-	main_layout->addWidget(filtering);
-	main_layout->addWidget(cosing);
+	main_layout->addLayout(sections_layout);
+
+	sections_layout->addWidget(sorting);
+	sections_layout->addWidget(filtering);
+	sections_layout->addWidget(cosing);
 
 	list_layout->addWidget(list);
 	list_layout->addLayout(button_layout);

@@ -17,7 +17,7 @@ private:
 	QLineEdit* destinatie = new QLineEdit{ this };
 	QPushButton* btn_filtrare_destinatie = new QPushButton{ "Filtrare Destinatie", this };
 
-	QVBoxLayout* pret_layout_input = new QVBoxLayout{ this };
+	QHBoxLayout* pret_layout_input = new QHBoxLayout{ this };
 	QFormLayout* pret_min_layout = new QFormLayout{ this };  // form layout min
 	QFormLayout* pret_max_layout = new QFormLayout{ this };  // form layout max
 	QLineEdit* pret_min = new QLineEdit{ this };

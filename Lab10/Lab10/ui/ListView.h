@@ -44,6 +44,8 @@ private:
 	QPushButton* btn_cos_adauga = new QPushButton{ "Adauga in Cos", this };
 	QPushButton* btn_cos_elimina = new QPushButton{ "Elimina din Cos", this };
 
+
+	QHBoxLayout* sections_layout = new QHBoxLayout{ this };
 	SortingSection* sorting = new SortingSection{ this };
 	FilterSection* filtering = new FilterSection{ this };
 	CosSection* cosing = new CosSection{ srv, this };
