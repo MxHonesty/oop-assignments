@@ -13,6 +13,7 @@
 #include "FilterSection.h"
 
 #include "../service/ServiceOferta.h"
+#include "CosSection.h"
 
 /**
 	Componenta ListView:
@@ -39,9 +40,13 @@ private:
 
 	QHBoxLayout* button_layout = new QHBoxLayout(this);  // Layout pentru butoane.
 
+	QHBoxLayout* cos_button_layout = new QHBoxLayout{ this };
+	QPushButton* btn_cos_adauga = new QPushButton{ "Adauga in Cos", this };
+	QPushButton* btn_cos_elimina = new QPushButton{ "Elimina din Cos", this };
+
 	SortingSection* sorting = new SortingSection{ this };
 	FilterSection* filtering = new FilterSection{ this };
-
+	CosSection* cosing = new CosSection{ srv, this };
 
 
 	/** Initializeaza layout ListView */

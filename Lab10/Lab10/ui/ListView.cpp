@@ -7,9 +7,11 @@ void ListView::init_ListView() {
 	main_layout->addLayout(list_layout);
 	main_layout->addWidget(sorting);
 	main_layout->addWidget(filtering);
+	main_layout->addWidget(cosing);
 
 	list_layout->addWidget(list);
 	list_layout->addLayout(button_layout);
+	list_layout->addLayout(cos_button_layout);
 	
 	button_layout->addWidget(btn_add);
 	button_layout->addWidget(btn_modify);
@@ -17,6 +19,9 @@ void ListView::init_ListView() {
 	button_layout->addWidget(btn_info);
 	button_layout->addWidget(btn_undo);
 	button_layout->addWidget(btn_refresh);
+
+	cos_button_layout->addWidget(btn_cos_adauga);
+	cos_button_layout->addWidget(btn_cos_elimina);
 }
 
 void ListView::connect_signals() {
@@ -46,6 +51,30 @@ void ListView::connect_signals() {
 
 	QObject::connect(btn_refresh, &QPushButton::clicked, this, [this]() {
 		reload(srv.get_all());
+	});
+
+	QObject::connect(btn_cos_adauga, &QPushButton::clicked, this, [this]() {
+		auto selected = list->selectedItems();
+		if (selected.isEmpty()) {
+			QMessageBox::warning(this, "Warning", "No selection made");
+		}
+		else {
+			int id = selected.at(0)->data(Qt::UserRole).toInt();
+			const auto& oferta = srv.cautare(id);
+			srv.adauga_cos(oferta.get_denumire());
+		}
+	});
+
+	QObject::connect(btn_cos_elimina, &QPushButton::clicked, this, [this]() {
+		auto selected = list->selectedItems();
+		if (selected.isEmpty()) {
+			QMessageBox::warning(this, "Warning", "No selection made");
+		}
+		else {
+			int id = selected.at(0)->data(Qt::UserRole).toInt();
+			const auto& oferta = srv.cautare(id);
+			srv.sterge_din_cos(oferta.get_denumire());
+		}
 	});
 }
 
