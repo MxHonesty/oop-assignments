@@ -25,6 +25,8 @@ class ListView : public QWidget {
 private:
 	ServiceOferta& srv;
 
+	int selected_row;
+
 	QHBoxLayout* main_layout = new QHBoxLayout(this);  // Main layout
 
 	QVBoxLayout* list_layout = new QVBoxLayout(this);  // Layout of the list-proper
@@ -96,7 +98,7 @@ private:
 public:
 
 	/** Constructor */
-	ListView(ServiceOferta& service) : srv{ service } {
+	ListView(ServiceOferta& service) : srv{ service }, selected_row{-1} {
 		init_ListView();
 		connect_signals();
 		connect_sorting_signals();  // Semnale pentru sortare.

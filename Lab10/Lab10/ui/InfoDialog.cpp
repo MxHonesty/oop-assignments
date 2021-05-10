@@ -1,7 +1,6 @@
 #include "InfoDialog.h"
 
 void InfoDialog::init() {
-	setModal(true);
 	setLayout(main_layout);
 
 	main_layout->addLayout(denumire_layout);

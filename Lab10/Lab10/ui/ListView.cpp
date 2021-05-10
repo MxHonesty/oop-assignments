@@ -1,6 +1,7 @@
 #include "ListView.h"
 #include "../errors/RepoError.h"
 
+
 void ListView::init_ListView() {
 	setLayout(main_layout);
 	main_layout->addWidget(table);
@@ -48,6 +49,16 @@ void ListView::connect_signals() {
 	});
 
 	QObject::connect(list, &QListWidget::itemDoubleClicked, this, [this]() {
+		start_info_menu();
+	});
+
+	QObject::connect(list, &QListWidget::itemClicked, this, [this]() {
+		if (selected_row != -1) {
+			list->item(selected_row)->setBackground(Qt::transparent);
+		}
+
+		selected_row = list->currentRow();
+		list->item(selected_row)->setBackground(Qt::green);
 		start_info_menu();
 	});
 
@@ -162,6 +173,7 @@ void ListView::reload_table(const std::vector<Oferta>& oferte) {
 }
 
 void ListView::reload(const std::vector<Oferta>& oferte) {
+	selected_row = -1;
 	reload_list(oferte);
 	reload_table(oferte);
 }
@@ -216,7 +228,7 @@ void ListView::start_info_menu() {
 		int id = selected.at(0)->data(Qt::UserRole).toInt();
 		try {
 			const auto& oferta = srv.cautare(id);
-			InfoDialog dialog{ oferta, this };
+			InfoDialog dialog{ oferta, true, this };
 			dialog.exec();
 		}
 		catch (const RepoError& e) {

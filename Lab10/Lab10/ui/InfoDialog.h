@@ -45,8 +45,9 @@ private:
 public:
 
 	/** Constructor */
-	InfoDialog(const Oferta& of, QWidget* parent = (QWidget*)nullptr) :
+	InfoDialog(const Oferta& of, const bool modal = true, QWidget* parent = (QWidget*)nullptr) :
 		QDialog{ parent }, oferta{ of } {
+		setModal(modal);
 		init();
 		connect_signals();
 		setup_initial_state();
