@@ -1,0 +1,28 @@
+<UI version="4.0" >
+ <class>test_for_simClass</class>
+ <widget class="QMainWindow" name="test_for_simClass" >
+  <property name="objectName" >
+   <string notr="true">test_for_simClass</string>
+  </property>
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>600</width>
+    <height>400</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>test_for_sim</string>
+  </property>  <widget class="QMenuBar" name="menuBar" />
+  <widget class="QToolBar" name="mainToolBar" />
+  <widget class="QWidget" name="centralWidget" />
+  <widget class="QStatusBar" name="statusBar" />
+ </widget>
+ <layoutDefault spacing="6" margin="11" />
+ <pixmapfunction></pixmapfunction>
+ <resources>
+   <include location="test_for_sim.qrc"/>
+ </resources>
+ <connections/>
+</UI>
