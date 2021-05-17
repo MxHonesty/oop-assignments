@@ -37,6 +37,7 @@ public:
 		connect_signals();
 		init_state();
 		srv.add_observer_to_cos(this);
+		QWidget::setAttribute(Qt::WA_DeleteOnClose, true);
 	};
 
 	/** Apelata cand se modifica lista de cosuri. */
