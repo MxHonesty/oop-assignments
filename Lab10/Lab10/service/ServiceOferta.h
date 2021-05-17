@@ -33,6 +33,12 @@ public:
 		id = repo->get_max_index() + 1;
 	}
 
+	/** Adauga un observer la cos. */
+	void add_observer_to_cos(Observer* ob);
+
+	/** Elimina un observer din cos */
+	void remove_observer_from_cos(Observer* ob);
+
 	/** Functie de adaugare de service. Adauga un element in registru.
 	* @param denumire - denumirea elementului adaugat.
 	* @param destinatie - destinatia elementului adaugat.

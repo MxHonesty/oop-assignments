@@ -2,10 +2,25 @@
 #include <fstream>
 #include "../errors/FileError.h"
 
+void Cos::notify() const {
+	const auto values{ subscribed };
+	for (const auto& el : values)
+		el->update();
+}
+
+void Cos::addObserver(Observer* ob) {
+	subscribed.push_back(ob);
+}
+
+void Cos::removeObserver(Observer* ob) {
+	subscribed.erase(std::remove(subscribed.begin(), subscribed.end(), ob));
+}
+
 bool Cos::adauga(const Oferta& of) {
 	const auto& gasit = std::find(elems.begin(), elems.end(), of);
 	if (gasit == elems.end()) {
 		elems.push_back(of);
+		notify();
 		return true;
 	}
 	return false;
@@ -16,6 +31,7 @@ bool Cos::sterge(const Oferta& of) {
 		[of](const Oferta& el) noexcept {return el == of; });
 	if (gasit != elems.end()) {
 		elems.erase(gasit, elems.end());
+		notify();
 		return true;
 	}
 	return false;
@@ -23,6 +39,7 @@ bool Cos::sterge(const Oferta& of) {
 
 void Cos::golire() noexcept {
 	elems.clear();
+	notify();
 }
 
 bool Cos::modifica(const Oferta& of, const Oferta& new_of) {
@@ -31,6 +48,7 @@ bool Cos::modifica(const Oferta& of, const Oferta& new_of) {
 		return false;
 	}
 	*gasit = new_of;
+	notify();
 	return true;
 }
 

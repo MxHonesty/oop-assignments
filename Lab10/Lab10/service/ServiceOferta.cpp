@@ -5,6 +5,14 @@
 #include <random>
 #include <chrono>
 
+void ServiceOferta::add_observer_to_cos(Observer* ob) {
+	cos.addObserver(ob);
+}
+
+void ServiceOferta::remove_observer_from_cos(Observer* ob) {
+	cos.removeObserver(ob);
+}
+
 void ServiceOferta::adaugare(const string& denumire, const string& destinatie, const string& tip, int pret){
 	Oferta noua_oferta{ this->id, denumire, destinatie, tip, pret };
 	if (valid.validare(noua_oferta)) {

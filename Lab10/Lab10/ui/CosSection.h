@@ -7,6 +7,8 @@
 #include <QtWidgets/qboxlayout.h>
 #include <QtWidgets/qformlayout.h>
 
+#include "CosCRUDGUI.h"
+
 /** Clasa pentru sectiunea de Cos. 
 	Momentan contine doar Golire cos si Export
 */
@@ -31,6 +33,8 @@ private:
 
 	// Sectiunea de cos random.
 	QPushButton* btn_random_cos = new QPushButton{ " Seed Cos Data ", this };
+
+	QPushButton* btn_meniu_cos_lista = new QPushButton{"Lista Cos", this};
 
 	/** Metoda de initializare a layout-urilor */
 	void init();

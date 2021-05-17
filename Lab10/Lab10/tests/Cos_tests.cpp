@@ -1,5 +1,6 @@
 #include "Cos_tests.h"
 #include "../cos/Cos.h"
+#include "../observer/observer.h"
 #include <cassert>
 
 /** Functie de testare pentru functionalitatea de adaugare din cos. */
@@ -83,9 +84,54 @@ void test_cos_returns() {
 	assert(cos.modifica({ 2, "B", "A", "A", 100 }, {1, "A", "A", "A", 100}) == false);
 }
 
+void test_cos_observer() {
+	class TestObserver : public Observer {
+	private:
+		Cos& cos;
+
+	public:
+		std::vector<Oferta> elems;
+		TestObserver(Cos& cos) : cos{ cos }, elems{} {
+			cos.addObserver(this);
+		};
+
+		virtual ~TestObserver() {};
+
+		void update() override {
+			elems = cos.lista_cos();
+		}
+	};
+
+	Cos cos;
+	TestObserver obs1{ cos }, obs2{ cos }, obs3{ cos };
+	Oferta a{ 1, "a", "a", "a", 100 };
+	Oferta b{ 2, "a", "a", "a", 100 };
+	Oferta c{ 3, "a", "a", "a", 100 };
+	cos.adauga(a);
+
+	assert(obs1.elems.size() == 1);
+	assert(obs2.elems.size() == 1);
+	assert(obs3.elems.size() == 1);
+
+	cos.adauga(b);
+	assert(obs1.elems.size() == 2);
+	assert(obs2.elems.size() == 2);
+	assert(obs3.elems.size() == 2);
+
+	cos.removeObserver(&obs3);
+	cos.removeObserver(&obs2);
+	
+	cos.adauga(c);
+	assert(obs1.elems.size() == 3);
+	assert(obs2.elems.size() == 2);
+	assert(obs3.elems.size() == 2);
+
+}
+
 void Testing::run_all_cos_tests() {
 	test_cos_adaugare();
 	test_cos_stergere();
 	test_cos_modificare();
 	test_cos_returns();
+	test_cos_observer();
 }

@@ -23,6 +23,11 @@ void CosSection::connect_signals() {
 		const int numar = rand() % nr_elemente + 1;  // luam un int intre 1 si nr elemente.
 		srv.adauga_random_cos(numar);
 	});
+
+	QObject::connect(btn_meniu_cos_lista, &QPushButton::clicked, this, [this]() {
+		CosCRUDGUI* lista_cos = new CosCRUDGUI{ srv };
+		lista_cos->showNormal();
+	});
 }
 
 void CosSection::init() {
@@ -35,4 +40,5 @@ void CosSection::init() {
 	export_layout->addWidget(btn_export);
 
 	layout->addWidget(btn_random_cos);
+	layout->addWidget(btn_meniu_cos_lista);
 }
