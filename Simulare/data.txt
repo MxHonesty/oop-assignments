@@ -1,0 +1,10 @@
+1,test1,2b,120,10
+2,test2,ba,220,15
+3,test3,cda,320,25
+4,test4,sd,20,2
+5,test5,zaa,20,10
+6,test6,xasd,520,23
+7,denumire7,tab,21,42
+8,denumire8,ktaips,1,100
+9,denumire9,htidp,202,1020
+10,denumire10,vtip,20,102
