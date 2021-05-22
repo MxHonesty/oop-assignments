@@ -42,5 +42,10 @@ public:
 
 	/** Apelata cand se modifica lista de cosuri. */
 	void update() override;
+
+	/** Dezabonam de la Observable */
+	~CosCRUDGUI() {
+		srv.remove_observer_from_cos(this);
+	}
 	
 };
