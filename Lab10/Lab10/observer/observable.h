@@ -1,11 +1,23 @@
 #pragma once
 #include "observer.h"
+#include <vector>
 
 class Observable {
-private:
-	virtual void notify() const = 0;
+protected:
+	std::vector<Observer*> subscribed;
+
+	void notify() const {
+		const auto values{ subscribed };
+		for (const auto& el : values)
+			el->update();
+	}
 
 public:
-	virtual void addObserver(Observer* ob) = 0;
-	virtual void removeObserver(Observer* ob) = 0;
+	void addObserver(Observer* ob) {
+		subscribed.push_back(ob);
+	}
+
+	void removeObserver(Observer* ob) {
+		subscribed.erase(std::remove(subscribed.begin(), subscribed.end(), ob));
+	}
 };

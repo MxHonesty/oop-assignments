@@ -9,18 +9,8 @@ using std::vector;
 class Cos : public Observable {
 private:
 	vector<Oferta> elems;
-	vector<Observer*> subscribed;
-
-	/** Updateaza toate obiectele abonate. */
-	void notify() const override;
 
 public:
-
-	/** Aboneaza un observer la lista. */
-	void addObserver(Observer* ob) override;
-
-	/** Dezaboneaza observerul. */
-	void removeObserver(Observer* ob) override;
 
 	/** Adauga oferta data in cos.
 	* @param of - oferta pe care dorim sa o adaugam.

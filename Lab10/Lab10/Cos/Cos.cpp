@@ -2,19 +2,6 @@
 #include <fstream>
 #include "../errors/FileError.h"
 
-void Cos::notify() const {
-	const auto values{ subscribed };
-	for (const auto& el : values)
-		el->update();
-}
-
-void Cos::addObserver(Observer* ob) {
-	subscribed.push_back(ob);
-}
-
-void Cos::removeObserver(Observer* ob) {
-	subscribed.erase(std::remove(subscribed.begin(), subscribed.end(), ob));
-}
 
 bool Cos::adauga(const Oferta& of) {
 	const auto& gasit = std::find(elems.begin(), elems.end(), of);
