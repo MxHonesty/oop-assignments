@@ -32,6 +32,11 @@ void CosSection::connect_signals() {
 	QObject::connect(btn_read_only_cos, &QPushButton::clicked, this, [this]() {
 		auto lista_cos = new CosReadOnlyGUI{ srv };
 		lista_cos->showNormal();
+	});	
+	
+	QObject::connect(btn_meniu_cos_table, &QPushButton::clicked, this, [this]() {
+		auto lista_cos = new CosV2CrudGUI{ srv };
+		lista_cos->showNormal();
 	});
 }
 
@@ -46,5 +51,6 @@ void CosSection::init() {
 
 	layout->addWidget(btn_random_cos);
 	layout->addWidget(btn_meniu_cos_lista);
+	layout->addWidget(btn_meniu_cos_table);
 	layout->addWidget(btn_read_only_cos);
 }
