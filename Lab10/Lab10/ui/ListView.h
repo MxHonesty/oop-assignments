@@ -14,6 +14,7 @@
 
 #include "../service/ServiceOferta.h"
 #include "CosSection.h"
+#include "../models/OfertaListModel.h"
 
 /**
 	Componenta ListView:
@@ -30,6 +31,11 @@ private:
 	QHBoxLayout* main_layout = new QHBoxLayout(this);  // Main layout
 
 	QVBoxLayout* list_layout = new QVBoxLayout(this);  // Layout of the list-proper
+
+	QListView* list_view;
+	QTableView* table_view;
+	OfertaListModel* oferte_model;
+
 	QListWidget* list = new QListWidget(this);  // Lista
 	QTableWidget* table = new QTableWidget{ this };  // Tabel
 
@@ -52,6 +58,8 @@ private:
 	FilterSection* filtering = new FilterSection{ this };
 	CosSection* cosing = new CosSection{ srv, this };
 
+	/** Initializeaza view-ul */
+	void init_model_view();
 
 	/** Initializeaza layout ListView */
 	void init_ListView();
@@ -99,6 +107,7 @@ public:
 
 	/** Constructor */
 	ListView(ServiceOferta& service) : srv{ service }, selected_row{-1} {
+		init_model_view();
 		init_ListView();
 		connect_signals();
 		connect_sorting_signals();  // Semnale pentru sortare.

@@ -2,9 +2,19 @@
 #include "../errors/RepoError.h"
 
 
+void ListView::init_model_view() {
+	this->list_view = new QListView{ this };
+	this->table_view = new QTableView{ this };
+	this->oferte_model = new OfertaListModel{ srv.get_all(), this };
+	
+	table_view->setModel(oferte_model);
+	list_view->setModel(oferte_model);
+}
+
 void ListView::init_ListView() {
 	setLayout(main_layout);
 	main_layout->addWidget(table);
+	main_layout->addWidget(table_view);
 	main_layout->addLayout(list_layout);
 	main_layout->addLayout(sections_layout);
 
@@ -13,6 +23,7 @@ void ListView::init_ListView() {
 	sections_layout->addWidget(cosing);
 
 	list_layout->addWidget(list);
+	list_layout->addWidget(list_view);
 	list_layout->addLayout(button_layout);
 	list_layout->addLayout(cos_button_layout);
 	
@@ -176,6 +187,7 @@ void ListView::reload(const std::vector<Oferta>& oferte) {
 	selected_row = -1;
 	reload_list(oferte);
 	reload_table(oferte);
+	oferte_model->set_oferte(oferte);
 }
 
 void ListView::remove_oferta_selectata() {

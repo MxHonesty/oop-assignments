@@ -1,12 +1,11 @@
 4|G|Korea|Vacanta|900|
 3|H|Nepal|Expeditie|500|
-11|Amurgul|jos|amurg|10000|
 2|I|Bhutan|Expeditie|500|
 5|F|Japonia|Cazare|1200|
 6|E|SUA|Vacanta|1000|
 13|Aceste|este|TEST|2000|
-15|Ea|Franta|Vacanta|1000|
 14|Super|Franta|Vacanta|500|
 16|La mare|Constanta|Vacanta|20000|
-17|Paris|Paris|Vacanta|1000|
 12|Un exemplu|Burundi|Oriunde|2000|
+15|Ea|Franta|Vacanta|1000|
+17|Paris|Paris|Vacanta|1000|
