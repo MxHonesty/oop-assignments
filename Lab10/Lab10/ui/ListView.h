@@ -26,8 +26,6 @@ class ListView : public QWidget {
 private:
 	ServiceOferta& srv;
 
-	int selected_row;
-
 	QHBoxLayout* main_layout = new QHBoxLayout(this);  // Main layout
 
 	QVBoxLayout* list_layout = new QVBoxLayout(this);  // Layout of the list-proper
@@ -36,8 +34,6 @@ private:
 	QTableView* table_view;
 	OfertaListModel* oferte_model;
 
-	QListWidget* list = new QListWidget(this);  // Lista
-	QTableWidget* table = new QTableWidget{ this };  // Tabel
 
 	QPushButton* btn_remove = new QPushButton("&Remove", this);  // Buton de Stergere
 	QPushButton* btn_add = new QPushButton("&Add", this);  // Buton de Adaugare
@@ -73,12 +69,6 @@ private:
 	/** Conecteaza semnalele de la seciunea de filtrare */
 	void connect_filtering_signals();
 
-	/** Reincarca elementele in lista. */
-	void reload_list(const std::vector<Oferta>& oferte);
-
-	/** Reincarca elementele in tabel. */
-	void reload_table(const std::vector<Oferta>& oferte);
-
 	/** Reincarca tabelul si lista. */
 	void reload(const std::vector<Oferta>& oferte);
 
@@ -103,10 +93,20 @@ private:
 	/** Executa functionalitatea de undo asupra listei. */
 	void undo();
 
+	/** Returneaza id-ul elementului selectat in lista
+		panic - daca e setat pe true, arata un warning cand
+		nu este nimic selectat
+		Returneaza o pereche de int si bool.
+		Valoarea bool este true daca exista un element selectat
+		Daca valoarea este true, atunci primul int este id-ul elementului
+		selectat.
+	*/
+	std::pair<int, bool> get_selected_id(const bool panic = false);
+
 public:
 
 	/** Constructor */
-	ListView(ServiceOferta& service) : srv{ service }, selected_row{-1} {
+	ListView(ServiceOferta& service) : srv{ service } {
 		init_model_view();
 		init_ListView();
 		connect_signals();

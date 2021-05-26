@@ -13,7 +13,6 @@ void ListView::init_model_view() {
 
 void ListView::init_ListView() {
 	setLayout(main_layout);
-	main_layout->addWidget(table);
 	main_layout->addWidget(table_view);
 	main_layout->addLayout(list_layout);
 	main_layout->addLayout(sections_layout);
@@ -22,7 +21,6 @@ void ListView::init_ListView() {
 	sections_layout->addWidget(filtering);
 	sections_layout->addWidget(cosing);
 
-	list_layout->addWidget(list);
 	list_layout->addWidget(list_view);
 	list_layout->addLayout(button_layout);
 	list_layout->addLayout(cos_button_layout);
@@ -59,43 +57,27 @@ void ListView::connect_signals() {
 		start_info_menu();
 	});
 
-	QObject::connect(list, &QListWidget::itemDoubleClicked, this, [this]() {
-		start_info_menu();
-	});
-
-	QObject::connect(list, &QListWidget::itemClicked, this, [this]() {
-		if (selected_row != -1) {
-			list->item(selected_row)->setBackground(Qt::transparent);
-		}
-
-		selected_row = list->currentRow();
-		list->item(selected_row)->setBackground(Qt::green);
-		start_info_menu();
-	});
-
 	QObject::connect(btn_refresh, &QPushButton::clicked, this, [this]() {
 		reload(srv.get_all());
 	});
 
+	QObject::connect(list_view->selectionModel(), &QItemSelectionModel::selectionChanged, this, [this]() {
+
+	});
+
 	QObject::connect(btn_cos_adauga, &QPushButton::clicked, this, [this]() {
-		auto selected = list->selectedItems();
-		if (selected.isEmpty()) {
-			QMessageBox::warning(this, "Warning", "No selection made");
-		}
-		else {
-			int id = selected.at(0)->data(Qt::UserRole).toInt();
-			const auto& oferta = srv.cautare(id);
+		auto rez = get_selected_id(true);
+		int selected_id = rez.first;
+		if (rez.second) {
+			const auto& oferta = srv.cautare(selected_id);
 			srv.adauga_cos(oferta.get_denumire());
 		}
 	});
 
 	QObject::connect(btn_cos_elimina, &QPushButton::clicked, this, [this]() {
-		auto selected = list->selectedItems();
-		if (selected.isEmpty()) {
-			QMessageBox::warning(this, "Warning", "No selection made");
-		}
-		else {
-			int id = selected.at(0)->data(Qt::UserRole).toInt();
+		auto selected = get_selected_id(true);
+		if (selected.second) {
+			int id = selected.first;
 			const auto& oferta = srv.cautare(id);
 			srv.sterge_din_cos(oferta.get_denumire());
 		}
@@ -153,50 +135,15 @@ void ListView::connect_filtering_signals() {
 	});
 }
 
-void ListView::reload_list(const std::vector<Oferta>& oferte) {
-	list->clear();
-	for (const auto& el : oferte) {
-		auto text = el.get_denumire();
-		auto item = new QListWidgetItem{QString::fromStdString(text)};
-		item->setData(Qt::UserRole, QString::number(el.get_id()));  // Pastram id-ul ca data.
-		list->addItem(item);
-	}
-}
-
-void ListView::reload_table(const std::vector<Oferta>& oferte) {
-	table->clear();
-	int marime_rows = static_cast<int>(oferte.size());
-	table->setRowCount(marime_rows);
-	table->setColumnCount(4);
-	int index = 0;
-	for (const auto& el : oferte) {
-		auto item_denumire = new QTableWidgetItem{QString::fromStdString(el.get_denumire())};
-		auto item_destinatie = new QTableWidgetItem(QString::fromStdString(el.get_destinatie()));
-		auto item_tip = new QTableWidgetItem(QString::fromStdString(el.get_tip()));
-		auto item_pret = new QTableWidgetItem(QString::fromStdString(std::to_string(el.get_pret())));
-
-		table->setItem(index, 0, item_denumire);
-		table->setItem(index, 1, item_destinatie);
-		table->setItem(index, 2, item_tip);
-		table->setItem(index, 3, item_pret);
-		index++;
-	}
-}
-
 void ListView::reload(const std::vector<Oferta>& oferte) {
-	selected_row = -1;
-	reload_list(oferte);
-	reload_table(oferte);
 	oferte_model->set_oferte(oferte);
 }
 
 void ListView::remove_oferta_selectata() {
-	auto selected = list->selectedItems();
-	if (selected.isEmpty()) {
-		QMessageBox::warning(this, "Warning", "No selection made");
-	}
-	else {
-		int id = selected.at(0)->data(Qt::UserRole).toInt();
+	auto selected = get_selected_id(true);
+
+	if (selected.second) {
+		int id = selected.first;
 		srv.stergere(id);
 		reload(srv.get_ref_all());
 	}
@@ -206,17 +153,15 @@ void ListView::start_add_menu() {
 	AddDialog dialog(srv, this);
 	const auto return_value = dialog.exec();
 	if (return_value == QDialog::Accepted) {
-		reload(srv.get_ref_all());
+		reload(srv.get_all());
 	}
 }
 
 void ListView::start_modify_menu() {
-	auto selected = list->selectedItems();
-	if (selected.isEmpty()) {
-		QMessageBox::warning(this, "Warning", "No selection made");
-	}
-	else {
-		int id = selected.at(0)->data(Qt::UserRole).toInt();
+	auto selected = get_selected_id(true);
+
+	if (selected.second) {
+		int id = selected.first;
 		try {
 			const auto& oferta = srv.cautare(id);
 			ModifyDialog dialog{ srv, oferta, this };
@@ -232,12 +177,10 @@ void ListView::start_modify_menu() {
 }
 
 void ListView::start_info_menu() {
-	auto selected = list->selectedItems();
-	if (selected.isEmpty()) {
-		QMessageBox::warning(this, "Warning", "No selection made");
-	}
-	else {
-		int id = selected.at(0)->data(Qt::UserRole).toInt();
+	auto selected = get_selected_id(true);
+	
+	if (selected.second) {
+		int id = selected.first;
 		try {
 			const auto& oferta = srv.cautare(id);
 			InfoDialog dialog{ oferta, true, this };
@@ -252,4 +195,18 @@ void ListView::start_info_menu() {
 void ListView::undo() {
 	srv.undo();
 	reload(srv.get_ref_all());
+}
+
+std::pair<int, bool> ListView::get_selected_id(const bool panic) {
+	if (list_view->selectionModel()->selectedIndexes().isEmpty()) {
+		if (panic) {
+			QMessageBox::warning(this, "Warning", "No selection made");
+		}
+		return { 0, false };
+	}
+	else {
+		const auto selected_index = list_view->selectionModel()->selectedIndexes().at(0);
+		int id = selected_index.data(Qt::UserRole).toInt();
+		return { id, true };
+	}
 }

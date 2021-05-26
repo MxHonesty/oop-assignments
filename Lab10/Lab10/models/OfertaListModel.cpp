@@ -1,5 +1,6 @@
 #include "OfertaListModel.h"
 #include <iostream>
+#include <QBrush>
 
 
 int OfertaListModel::rowCount(const QModelIndex& parent) const {
@@ -32,6 +33,9 @@ QVariant OfertaListModel::data(const QModelIndex& index, int role) const {
 		}
 	}
 
+	if (role == Qt::UserRole) {
+		return QString::number(elems.at(row).get_id());
+	}
 
 	return QVariant();
 }
@@ -41,4 +45,5 @@ void OfertaListModel::set_oferte(const std::vector<Oferta>& oferte) {
 	QModelIndex topLeft = createIndex(0, 0);
 	QModelIndex bottomRight = createIndex(rowCount(), columnCount()); 
 	emit dataChanged(topLeft, bottomRight);
+	emit layoutChanged();
 }
