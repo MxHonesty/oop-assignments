@@ -62,8 +62,13 @@ void ListView::connect_signals() {
 	});
 
 	QObject::connect(list_view->selectionModel(), &QItemSelectionModel::selectionChanged, this, [this]() {
+		// Activam Dialog cu infomatii cand se schimba selectia.
+		auto rez = get_selected_row(false);
+		oferte_model->set_selected(rez.first);
 
+		start_info_menu();
 	});
+
 
 	QObject::connect(btn_cos_adauga, &QPushButton::clicked, this, [this]() {
 		auto rez = get_selected_id(true);
@@ -208,5 +213,19 @@ std::pair<int, bool> ListView::get_selected_id(const bool panic) {
 		const auto selected_index = list_view->selectionModel()->selectedIndexes().at(0);
 		int id = selected_index.data(Qt::UserRole).toInt();
 		return { id, true };
+	}
+}
+
+std::pair<int, bool> ListView::get_selected_row(const bool panic) {
+	if (list_view->selectionModel()->selectedIndexes().isEmpty()) {
+		if (panic) {
+			QMessageBox::warning(this, "Warning", "No selection made");
+		}
+		return { -1, false };
+	}
+	else {
+		const auto selected_index = list_view->selectionModel()->selectedIndexes().at(0);
+		int row = selected_index.row();
+		return { row, true };
 	}
 }

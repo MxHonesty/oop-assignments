@@ -103,6 +103,9 @@ private:
 	*/
 	std::pair<int, bool> get_selected_id(const bool panic = false);
 
+	// Returneaza row-ul elementului selectat.
+	std::pair<int, bool> get_selected_row(const bool panic = false);
+
 public:
 
 	/** Constructor */
