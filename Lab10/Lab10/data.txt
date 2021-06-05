@@ -1,14 +1,7 @@
-4|G|Korea|Vacanta|900|
-3|H|Nepal|Expeditie|500|
-2|I|Bhutan|Expeditie|500|
-5|F|Japonia|Cazare|1200|
 6|E|SUA|Vacanta|1000|
 13|Aceste|este|TEST|2000|
 14|Super|Franta|Vacanta|500|
-12|Un exemplu|Burundi|Oriunde|2000|
-18|test|test|test|1000|
-20|testbug|testbug|testbug|416|
-19|afaf|afaf|afaf|222|
-17|Paris|Paris|Vacanta|1000|
-15|Ea|Franta|Vacanta|1000|
-16|La mare|Constanta|Vacanta|20000|
+5|F|Japonia|Cazare|1200|
+2|I|Bhutan|Expeditie|500|
+3|H|Nepal|Expeditie|500|
+4|G|Korea|Vacanta|900|
