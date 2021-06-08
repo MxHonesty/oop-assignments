@@ -1,0 +1,6 @@
+0|DescA|open|Alex|Salut|#|
+1|DescB|open|#|
+2|DescC|closed|Salut|#|
+3|DescD|closed|Alex|Salut|#|
+4|DescE|inprogress|#|
+6|SALUT|inprogress|A|B|#|
