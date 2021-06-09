@@ -1,0 +1,10 @@
+0|DescA|closed|A|B|C|#|
+1|DescB|open|#|
+2|DescC|open|C|#|
+3|DescD|closed|A|B|C|#|
+4|DescE|closed|#|
+5|DescF|closed|A|B|C|#|
+6|DescG|inprogress|#|
+7|DescH|inprogress|A|B|#|
+8|DescI|inprogress|C|#|
+9|DescJ|open|#|
